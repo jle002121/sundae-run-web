@@ -555,15 +555,21 @@ function renderEntryList(entries) {
       : '';
     const meta = [entry.shop, formatDate(entry.date)].filter(Boolean).join(' · ');
     return `
-      <div class="entry-card">
+      <div class="entry-card" data-id="${escapeHtml(entry.id)}" style="cursor:pointer">
         <div class="entry-chip" style="background:${chipColor(entry.flavor)}">🍦</div>
         <div class="entry-info">
           <div class="entry-flavor">${escapeHtml(entry.flavor)}</div>
           <div class="entry-meta">${escapeHtml(meta)}</div>
           ${ratingHtml}
         </div>
+        <span style="font-size:16px;color:var(--muted);opacity:0.4">›</span>
       </div>`;
   }).join('');
+
+  // Wire click handlers after rendering
+  list.querySelectorAll('.entry-card').forEach(card => {
+    card.addEventListener('click', () => openEditView(card.dataset.id));
+  });
 }
 
 function renderHome() {
@@ -736,7 +742,16 @@ function showView(name) {
   document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
   document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
   document.getElementById('view-' + name).classList.add('active');
-  document.querySelector(`.tab-btn[data-view="${name}"]`).classList.add('active');
+
+  // Edit view has no tab — only update tab highlight for home/log
+  if (name !== 'edit') {
+    const tab = document.querySelector(`.tab-btn[data-view="${name}"]`);
+    if (tab) tab.classList.add('active');
+  }
+
+  // Hide tab bar while editing
+  document.getElementById('app').classList.toggle('editing', name === 'edit');
+
   if (name === 'home') renderHome();
   document.getElementById('view-' + name).scrollTop = 0;
 }
