@@ -653,9 +653,11 @@ document.getElementById('log-form').addEventListener('submit', e => {
   }
   const shop  = document.getElementById('input-shop').value;
   const notes = document.getElementById('input-notes').value;
-  addEntry({ flavor, shop, rating: selectedRating, notes });
+  const date  = document.getElementById('input-date').value;
+  addEntry({ flavor, shop, rating: selectedRating, notes, date });
   document.getElementById('log-form').reset();
   setRating(0);
+  initDateField();
   showView('home');
 });
 
@@ -691,7 +693,13 @@ if ('serviceWorker' in navigator) {
 // INIT
 // ════════════════════════════════════════
 
+function initDateField() {
+  const today = new Date().toISOString().split('T')[0];
+  document.getElementById('input-date').value = today;
+}
+
 renderHome();
+initDateField();
 </script>
 </body>
 </html>
