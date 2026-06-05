@@ -357,9 +357,14 @@
             placeholder="e.g. Chocolate Chip Cookie Dough" autocomplete="off">
         </div>
         <div class="form-group">
+          <label class="form-label" for="input-date">Date</label>
+          <input class="form-input" type="date" id="input-date">
+        </div>
+        <div class="form-group suggestions-wrap">
           <label class="form-label" for="input-shop">Shop</label>
           <input class="form-input" type="text" id="input-shop"
             placeholder="e.g. Cold Stone Creamery" autocomplete="off">
+          <div class="suggestions" id="shop-suggestions"></div>
         </div>
         <div class="form-group">
           <label class="form-label">Rating</label>
@@ -377,6 +382,47 @@
         </div>
         <button type="submit" class="btn-submit">Log It 🍦</button>
       </form>
+    </div>
+  </div>
+
+  <!-- ── Edit view ── -->
+  <div id="view-edit" class="view">
+    <div class="header">
+      <div class="header-row">
+        <button class="back-btn" id="edit-back-btn">← Back</button>
+        <h1>Edit Scoop ✏️</h1>
+      </div>
+    </div>
+    <div class="view-content">
+      <div class="form-group">
+        <label class="form-label" for="input-edit-flavor">Flavor *</label>
+        <input class="form-input" type="text" id="input-edit-flavor" autocomplete="off">
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="input-edit-date">Date</label>
+        <input class="form-input" type="date" id="input-edit-date">
+      </div>
+      <div class="form-group suggestions-wrap">
+        <label class="form-label" for="input-edit-shop">Shop</label>
+        <input class="form-input" type="text" id="input-edit-shop" autocomplete="off">
+        <div class="suggestions" id="edit-shop-suggestions"></div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Rating</label>
+        <div class="rating-row" id="edit-rating-row">
+          <button type="button" class="rating-btn edit-rating-btn" data-value="1">🍨</button>
+          <button type="button" class="rating-btn edit-rating-btn" data-value="2">🍨</button>
+          <button type="button" class="rating-btn edit-rating-btn" data-value="3">🍨</button>
+          <button type="button" class="rating-btn edit-rating-btn" data-value="4">🍨</button>
+          <button type="button" class="rating-btn edit-rating-btn" data-value="5">🍨</button>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="input-edit-notes">Notes</label>
+        <textarea class="form-input" id="input-edit-notes" placeholder="Any thoughts?"></textarea>
+      </div>
+      <button class="btn-submit" id="edit-save-btn">Save Changes</button>
+      <button class="btn-delete" id="edit-delete-btn">Delete Entry</button>
     </div>
   </div>
 
