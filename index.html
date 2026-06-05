@@ -243,6 +243,77 @@
       color: var(--muted);
     }
     .tab-btn.active .tab-label { color: var(--primary); }
+
+    /* ── Edit view header ── */
+    .header-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .back-btn {
+      background: none;
+      border: none;
+      color: var(--primary);
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      font-family: inherit;
+      padding: 0;
+      flex-shrink: 0;
+    }
+
+    /* ── Date input ── */
+    input[type="date"].form-input {
+      color: var(--primary);
+      font-weight: 600;
+    }
+
+    /* ── Shop autocomplete ── */
+    .suggestions-wrap { position: relative; }
+    .suggestions {
+      display: none;
+      position: absolute;
+      top: calc(100% + 4px);
+      left: 0; right: 0;
+      background: var(--card);
+      border-radius: var(--r-btn);
+      box-shadow: 0 4px 20px rgba(91,63,166,0.15);
+      z-index: 10;
+      overflow: hidden;
+    }
+    .suggestions.open { display: block; }
+    .suggestion-item {
+      padding: 12px 16px;
+      font-size: 14px;
+      color: var(--text);
+      cursor: pointer;
+      border-bottom: 1px solid var(--divider);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .suggestion-item:last-child { border-bottom: none; }
+    .suggestion-item:active { background: var(--bg); }
+    .suggestion-icon { color: var(--muted); font-size: 13px; }
+
+    /* ── Delete button ── */
+    .btn-delete {
+      width: 100%;
+      background: none;
+      border: 1.5px solid #FFCCC9;
+      border-radius: var(--r-btn);
+      padding: 14px;
+      font-size: 14px;
+      font-weight: 700;
+      color: #FF453A;
+      cursor: pointer;
+      font-family: inherit;
+      margin-top: 8px;
+    }
+    .btn-delete:active { opacity: 0.7; }
+
+    /* ── Hide tab bar in edit view ── */
+    #app.editing #tab-bar { display: none; }
   </style>
 </head>
 <body>
