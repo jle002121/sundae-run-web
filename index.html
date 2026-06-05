@@ -662,6 +662,73 @@ document.getElementById('log-form').addEventListener('submit', e => {
 });
 
 // ════════════════════════════════════════
+// EDIT VIEW
+// ════════════════════════════════════════
+
+let editingId = null;
+let selectedEditRating = 0;
+
+function setEditRating(value) {
+  selectedEditRating = value;
+  document.querySelectorAll('.edit-rating-btn').forEach(btn => {
+    btn.classList.toggle('active', Number(btn.dataset.value) <= value);
+  });
+}
+
+document.querySelectorAll('.edit-rating-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const v = Number(btn.dataset.value);
+    setEditRating(v === selectedEditRating ? 0 : v);
+  });
+});
+
+function openEditView(id) {
+  const entry = loadEntries().find(e => e.id === id);
+  if (!entry) return;
+  editingId = id;
+
+  document.getElementById('input-edit-flavor').value = entry.flavor;
+  document.getElementById('input-edit-shop').value   = entry.shop ?? '';
+  document.getElementById('input-edit-notes').value  = entry.notes ?? '';
+
+  // Convert ISO date back to YYYY-MM-DD for the date input
+  const dateStr = new Date(entry.date).toLocaleDateString('en-CA');
+  document.getElementById('input-edit-date').value = dateStr;
+
+  setEditRating(entry.rating ?? 0);
+  showView('edit');
+}
+
+document.getElementById('edit-back-btn').addEventListener('click', () => {
+  showView('home');
+});
+
+document.getElementById('edit-save-btn').addEventListener('click', () => {
+  const flavor = document.getElementById('input-edit-flavor').value.trim();
+  if (!flavor) {
+    alert('Flavor is required!');
+    document.getElementById('input-edit-flavor').focus();
+    return;
+  }
+  updateEntry(editingId, {
+    flavor,
+    shop:   document.getElementById('input-edit-shop').value,
+    rating: selectedEditRating,
+    notes:  document.getElementById('input-edit-notes').value,
+    date:   document.getElementById('input-edit-date').value,
+  });
+  editingId = null;
+  showView('home');
+});
+
+document.getElementById('edit-delete-btn').addEventListener('click', () => {
+  if (!confirm('Delete this scoop?')) return;
+  deleteEntry(editingId);
+  editingId = null;
+  showView('home');
+});
+
+// ════════════════════════════════════════
 // VIEW SWITCHING
 // ════════════════════════════════════════
 
