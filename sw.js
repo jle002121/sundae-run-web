@@ -1,4 +1,4 @@
-const CACHE = 'sundae-v1';
+const CACHE = 'sundae-v2';
 const ASSETS = [
   '/sundae-run-web/',
   '/sundae-run-web/index.html',
