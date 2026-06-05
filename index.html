@@ -341,19 +341,51 @@ function saveEntries(entries) {
   localStorage.setItem(STORAGE_KEY, JSON.stringify(entries));
 }
 
-function addEntry({ flavor, shop, rating, notes }) {
+function addEntry({ flavor, shop, rating, notes, date }) {
   const entries = loadEntries();
   const entry = {
     id: crypto.randomUUID(),
     flavor: flavor.trim(),
     shop: shop.trim(),
-    rating,          // integer 1–5, or 0 for no rating
+    rating,
     notes: notes.trim(),
-    date: new Date().toISOString(),
+    date: new Date(date + 'T12:00:00').toISOString(),
   };
-  entries.unshift(entry); // newest first
+  entries.unshift(entry);
   saveEntries(entries);
   return entry;
+}
+
+function updateEntry(id, fields) {
+  const entries = loadEntries();
+  const idx = entries.findIndex(e => e.id === id);
+  if (idx === -1) return;
+  entries[idx] = {
+    ...entries[idx],
+    flavor: fields.flavor.trim(),
+    shop:   fields.shop.trim(),
+    rating: fields.rating,
+    notes:  fields.notes.trim(),
+    date:   new Date(fields.date + 'T12:00:00').toISOString(),
+  };
+  saveEntries(entries);
+}
+
+function deleteEntry(id) {
+  saveEntries(loadEntries().filter(e => e.id !== id));
+}
+
+function getRecentShops() {
+  const seen  = new Set();
+  const shops = [];
+  for (const e of loadEntries()) {
+    const name = e.shop?.trim();
+    if (name && !seen.has(name.toLowerCase())) {
+      seen.add(name.toLowerCase());
+      shops.push(name);
+    }
+  }
+  return shops; // newest-first (entries stored newest-first)
 }
 
 // ════════════════════════════════════════
