@@ -593,6 +593,53 @@ document.querySelectorAll('.rating-btn').forEach(btn => {
 });
 
 // ════════════════════════════════════════
+// SHOP AUTOCOMPLETE
+// ════════════════════════════════════════
+
+function wireShopAutocomplete(inputId, suggestionsId) {
+  const input = document.getElementById(inputId);
+  const box   = document.getElementById(suggestionsId);
+
+  function showSuggestions(query) {
+    const all = getRecentShops();
+    const q   = query.toLowerCase().trim();
+    const matches = q
+      ? all.filter(s => s.toLowerCase().includes(q))
+      : all.slice(0, 5);
+
+    if (matches.length === 0) {
+      box.innerHTML = '';
+      box.classList.remove('open');
+      return;
+    }
+
+    box.innerHTML = matches.map(s =>
+      `<div class="suggestion-item" data-name="${escapeHtml(s)}">
+        <span class="suggestion-icon">🕐</span>${escapeHtml(s)}
+      </div>`
+    ).join('');
+    box.classList.add('open');
+
+    box.querySelectorAll('.suggestion-item').forEach(item => {
+      item.addEventListener('mousedown', e => {
+        e.preventDefault(); // prevent input blur before click fires
+        input.value = item.dataset.name;
+        box.classList.remove('open');
+      });
+    });
+  }
+
+  input.addEventListener('focus', () => showSuggestions(input.value));
+  input.addEventListener('input', () => showSuggestions(input.value));
+  input.addEventListener('blur',  () => {
+    setTimeout(() => box.classList.remove('open'), 150);
+  });
+}
+
+wireShopAutocomplete('input-shop', 'shop-suggestions');
+wireShopAutocomplete('input-edit-shop', 'edit-shop-suggestions');
+
+// ════════════════════════════════════════
 // LOG FORM SUBMIT
 // ════════════════════════════════════════
 
