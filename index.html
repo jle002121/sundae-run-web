@@ -73,7 +73,7 @@
     .stats-row {
       display: flex;
       gap: 10px;
-      margin-bottom: 20px;
+      margin-bottom: 14px;
     }
     .stat-card {
       flex: 1;
@@ -98,6 +98,52 @@
       display: block;
     }
 
+    /* ── Streak row ── */
+    .streak-row {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+    .streak-card {
+      flex: 1;
+      background: var(--gradient);
+      border-radius: var(--r-stat);
+      padding: 12px 8px;
+      text-align: center;
+    }
+    .streak-flame { font-size: 16px; display: block; line-height: 1; }
+    .streak-value {
+      font-size: 20px;
+      font-weight: 800;
+      color: var(--primary);
+      display: block;
+      margin-top: 2px;
+    }
+    .streak-label {
+      font-size: 9px;
+      font-weight: 700;
+      color: var(--primary);
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      margin-top: 2px;
+      display: block;
+      opacity: 0.75;
+    }
+
+    /* ── Top Flavors ── */
+    #top-flavors-section { margin-bottom: 20px; }
+    .flavor-bar-row {
+      background: var(--card);
+      border-radius: var(--r-stat);
+      padding: 10px 14px;
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .flavor-bar-name { flex: 1; font-size: 13px; font-weight: 600; color: var(--text); }
+    .flavor-bar-count { font-size: 12px; font-weight: 700; color: var(--muted); }
+
     /* ── Section label ── */
     .section-label {
       font-size: 10px;
@@ -119,8 +165,7 @@
       gap: 12px;
     }
     .entry-chip {
-      width: 38px;
-      height: 38px;
+      width: 38px; height: 38px;
       border-radius: 10px;
       flex-shrink: 0;
       display: flex;
@@ -130,190 +175,163 @@
     }
     .entry-info { flex: 1; min-width: 0; }
     .entry-flavor {
-      font-size: 14px;
-      font-weight: 700;
-      color: var(--text);
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
+      font-size: 14px; font-weight: 700; color: var(--text);
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
     }
-    .entry-meta {
-      font-size: 11px;
-      color: var(--muted);
-      margin-top: 2px;
-    }
+    .entry-meta { font-size: 11px; color: var(--muted); margin-top: 2px; }
     .entry-rating { font-size: 10px; margin-top: 3px; }
 
     /* ── Empty state ── */
     .empty-state {
-      text-align: center;
-      padding: 48px 24px;
-      color: var(--muted);
-      font-size: 14px;
-      line-height: 1.6;
+      text-align: center; padding: 48px 24px;
+      color: var(--muted); font-size: 14px; line-height: 1.6;
     }
 
-    /* ── Log form ── */
+    /* ── Forms ── */
     .form-group { margin-bottom: 14px; }
     .form-label {
-      font-size: 11px;
-      font-weight: 700;
-      color: var(--muted);
-      letter-spacing: 0.5px;
-      text-transform: uppercase;
-      display: block;
-      margin-bottom: 6px;
+      font-size: 11px; font-weight: 700; color: var(--muted);
+      letter-spacing: 0.5px; text-transform: uppercase;
+      display: block; margin-bottom: 6px;
     }
     .form-input {
-      width: 100%;
-      background: var(--card);
-      border: none;
-      border-radius: var(--r-btn);
-      padding: 14px 16px;
-      font-size: 15px;
-      color: var(--text);
-      font-family: inherit;
-      outline: none;
-      -webkit-appearance: none;
+      width: 100%; background: var(--card); border: none;
+      border-radius: var(--r-btn); padding: 14px 16px;
+      font-size: 15px; color: var(--text); font-family: inherit;
+      outline: none; -webkit-appearance: none;
     }
     .form-input::placeholder { color: var(--muted); }
-    textarea.form-input {
-      resize: none;
-      height: 80px;
-    }
+    textarea.form-input { resize: none; height: 80px; }
 
     /* ── Rating picker ── */
-    .rating-row {
-      display: flex;
-      gap: 8px;
-    }
+    .rating-row { display: flex; gap: 8px; }
     .rating-btn {
-      font-size: 28px;
-      background: none;
-      border: none;
-      cursor: pointer;
-      opacity: 0.25;
-      transition: opacity 0.15s;
-      padding: 0;
-      line-height: 1;
+      font-size: 28px; background: none; border: none;
+      cursor: pointer; opacity: 0.25; transition: opacity 0.15s;
+      padding: 0; line-height: 1;
     }
     .rating-btn.active { opacity: 1; }
 
-    /* ── Submit button ── */
+    /* ── Buttons ── */
     .btn-submit {
-      width: 100%;
-      background: var(--gradient);
-      border: none;
-      border-radius: var(--r-btn);
-      padding: 16px;
-      font-size: 16px;
-      font-weight: 700;
-      color: white;
-      cursor: pointer;
-      font-family: inherit;
-      margin-top: 8px;
+      width: 100%; background: var(--gradient); border: none;
+      border-radius: var(--r-btn); padding: 16px;
+      font-size: 16px; font-weight: 700; color: white;
+      cursor: pointer; font-family: inherit; margin-top: 8px;
       -webkit-appearance: none;
     }
     .btn-submit:active { opacity: 0.85; }
+    .btn-delete {
+      width: 100%; background: none; border: 1.5px solid #FFCCC9;
+      border-radius: var(--r-btn); padding: 14px;
+      font-size: 14px; font-weight: 700; color: #FF453A;
+      cursor: pointer; font-family: inherit; margin-top: 8px;
+    }
+    .btn-delete:active { opacity: 0.7; }
 
     /* ── Tab bar ── */
     #tab-bar {
-      display: flex;
-      background: var(--card);
+      display: flex; background: var(--card);
       border-top: 1px solid var(--divider);
       padding-bottom: env(safe-area-inset-bottom);
       flex-shrink: 0;
     }
     .tab-btn {
-      flex: 1;
-      background: none;
-      border: none;
-      padding: 10px 0 8px;
-      cursor: pointer;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 3px;
-      font-family: inherit;
+      flex: 1; background: none; border: none;
+      padding: 10px 0 8px; cursor: pointer;
+      display: flex; flex-direction: column;
+      align-items: center; gap: 3px; font-family: inherit;
     }
     .tab-icon { font-size: 22px; line-height: 1; }
-    .tab-label {
-      font-size: 10px;
-      font-weight: 600;
-      color: var(--muted);
-    }
+    .tab-label { font-size: 10px; font-weight: 600; color: var(--muted); }
     .tab-btn.active .tab-label { color: var(--primary); }
 
-    /* ── Edit view header ── */
-    .header-row {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
+    /* ── Edit view ── */
+    .header-row { display: flex; align-items: center; gap: 10px; }
     .back-btn {
-      background: none;
-      border: none;
-      color: var(--primary);
-      font-size: 14px;
-      font-weight: 700;
-      cursor: pointer;
-      font-family: inherit;
-      padding: 0;
-      flex-shrink: 0;
+      background: none; border: none; color: var(--primary);
+      font-size: 14px; font-weight: 700; cursor: pointer;
+      font-family: inherit; padding: 0; flex-shrink: 0;
     }
+    input[type="date"].form-input { color: var(--primary); font-weight: 600; }
+    #app.editing #tab-bar { display: none; }
 
-    /* ── Date input ── */
-    input[type="date"].form-input {
-      color: var(--primary);
-      font-weight: 600;
-    }
-
-    /* ── Shop autocomplete ── */
+    /* ── Autocomplete suggestions ── */
     .suggestions-wrap { position: relative; }
     .suggestions {
       display: none;
-      position: absolute;
-      top: calc(100% + 4px);
-      left: 0; right: 0;
-      background: var(--card);
-      border-radius: var(--r-btn);
+      position: absolute; top: calc(100% + 4px); left: 0; right: 0;
+      background: var(--card); border-radius: var(--r-btn);
       box-shadow: 0 4px 20px rgba(91,63,166,0.15);
-      z-index: 10;
-      overflow: hidden;
+      z-index: 10; overflow: hidden;
     }
     .suggestions.open { display: block; }
     .suggestion-item {
-      padding: 12px 16px;
-      font-size: 14px;
-      color: var(--text);
-      cursor: pointer;
-      border-bottom: 1px solid var(--divider);
-      display: flex;
-      align-items: center;
-      gap: 8px;
+      padding: 12px 16px; font-size: 14px; color: var(--text);
+      cursor: pointer; border-bottom: 1px solid var(--divider);
+      display: flex; align-items: center; gap: 8px;
     }
     .suggestion-item:last-child { border-bottom: none; }
     .suggestion-item:active { background: var(--bg); }
     .suggestion-icon { color: var(--muted); font-size: 13px; }
 
-    /* ── Delete button ── */
-    .btn-delete {
-      width: 100%;
-      background: none;
-      border: 1.5px solid #FFCCC9;
-      border-radius: var(--r-btn);
-      padding: 14px;
-      font-size: 14px;
-      font-weight: 700;
-      color: #FF453A;
-      cursor: pointer;
-      font-family: inherit;
-      margin-top: 8px;
+    /* ── My Shops view ── */
+    .add-shop-row { display: flex; gap: 10px; }
+    .add-shop-row .form-input { flex: 1; }
+    .btn-add-shop {
+      background: var(--gradient); border: none;
+      border-radius: var(--r-btn); padding: 14px 18px;
+      font-size: 14px; font-weight: 700; color: white;
+      cursor: pointer; font-family: inherit;
+      white-space: nowrap; flex-shrink: 0;
     }
-    .btn-delete:active { opacity: 0.7; }
+    .btn-add-shop:active { opacity: 0.85; }
+    .shop-card {
+      background: var(--card); border-radius: var(--r-card);
+      padding: 14px 16px; margin-bottom: 8px;
+      display: flex; align-items: center; gap: 12px;
+    }
+    .shop-card-icon { font-size: 20px; flex-shrink: 0; }
+    .shop-card-name { flex: 1; font-size: 14px; font-weight: 700; color: var(--text); }
+    .shop-card-count { font-size: 12px; color: var(--muted); font-weight: 600; }
+    .btn-remove-shop {
+      background: none; border: none; color: var(--muted);
+      font-size: 18px; cursor: pointer; padding: 0 0 0 8px;
+      line-height: 1; flex-shrink: 0;
+    }
+    .btn-remove-shop:active { color: #FF453A; }
+    .shops-section-label {
+      font-size: 10px; font-weight: 700; color: var(--muted);
+      letter-spacing: 0.5px; text-transform: uppercase;
+      margin: 16px 0 8px;
+    }
 
-    /* ── Hide tab bar in edit view ── */
-    #app.editing #tab-bar { display: none; }
+    /* ── Wrapped view ── */
+    .wrapped-header {
+      font-size: 22px; font-weight: 800; color: var(--primary);
+      margin-bottom: 4px;
+    }
+    .wrapped-year {
+      font-size: 13px; color: var(--muted); font-weight: 600;
+      margin-bottom: 20px;
+    }
+    .wrapped-card {
+      background: var(--gradient);
+      border-radius: var(--r-card);
+      padding: 20px 18px;
+      margin-bottom: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .wrapped-card-emoji { font-size: 28px; line-height: 1; margin-bottom: 6px; }
+    .wrapped-card-value {
+      font-size: 20px; font-weight: 800; color: var(--primary); line-height: 1.2;
+    }
+    .wrapped-card-label {
+      font-size: 11px; font-weight: 700; color: var(--primary);
+      text-transform: uppercase; letter-spacing: 0.5px; opacity: 0.7;
+    }
   </style>
 </head>
 <body>
@@ -321,9 +339,7 @@
 
   <!-- ── Home view ── -->
   <div id="view-home" class="view active">
-    <div class="header">
-      <h1>Sundae Run 🍨</h1>
-    </div>
+    <div class="header"><h1>Sundae Run 🍨</h1></div>
     <div class="view-content">
       <div class="stats-row">
         <div class="stat-card">
@@ -339,6 +355,27 @@
           <span class="stat-label">shops</span>
         </div>
       </div>
+      <div class="streak-row">
+        <div class="streak-card">
+          <span class="streak-flame">🔥</span>
+          <span class="streak-value" id="streak-daily">0</span>
+          <span class="streak-label">day streak</span>
+        </div>
+        <div class="streak-card">
+          <span class="streak-flame">🔥</span>
+          <span class="streak-value" id="streak-weekly">0</span>
+          <span class="streak-label">week streak</span>
+        </div>
+        <div class="streak-card">
+          <span class="streak-flame">🔥</span>
+          <span class="streak-value" id="streak-monthly">0</span>
+          <span class="streak-label">month streak</span>
+        </div>
+      </div>
+      <div id="top-flavors-section" style="display:none">
+        <div class="section-label">Top Flavors</div>
+        <div id="top-flavors-list"></div>
+      </div>
       <div class="section-label">Recent Scoops</div>
       <div id="entry-list"></div>
     </div>
@@ -346,15 +383,16 @@
 
   <!-- ── Log view ── -->
   <div id="view-log" class="view">
-    <div class="header">
-      <h1>New Scoop 🍦</h1>
-    </div>
+    <div class="header"><h1>New Scoop 🍦</h1></div>
     <div class="view-content">
       <form id="log-form">
         <div class="form-group">
           <label class="form-label" for="input-flavor">Flavor *</label>
-          <input class="form-input" type="text" id="input-flavor"
-            placeholder="e.g. Chocolate Chip Cookie Dough" autocomplete="off">
+          <div class="suggestions-wrap">
+            <input class="form-input" type="text" id="input-flavor"
+              placeholder="e.g. Chocolate Chip Cookie Dough" autocomplete="off">
+            <div class="suggestions" id="flavor-suggestions"></div>
+          </div>
         </div>
         <div class="form-group">
           <label class="form-label" for="input-date">Date</label>
@@ -365,6 +403,11 @@
           <input class="form-input" type="text" id="input-shop"
             placeholder="e.g. Cold Stone Creamery" autocomplete="off">
           <div class="suggestions" id="shop-suggestions"></div>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="input-price">Price</label>
+          <input class="form-input" type="number" id="input-price"
+            placeholder="e.g. 4.50" min="0" step="0.01">
         </div>
         <div class="form-group">
           <label class="form-label">Rating</label>
@@ -396,7 +439,10 @@
     <div class="view-content">
       <div class="form-group">
         <label class="form-label" for="input-edit-flavor">Flavor *</label>
-        <input class="form-input" type="text" id="input-edit-flavor" autocomplete="off">
+        <div class="suggestions-wrap">
+          <input class="form-input" type="text" id="input-edit-flavor" autocomplete="off">
+          <div class="suggestions" id="edit-flavor-suggestions"></div>
+        </div>
       </div>
       <div class="form-group">
         <label class="form-label" for="input-edit-date">Date</label>
@@ -406,6 +452,11 @@
         <label class="form-label" for="input-edit-shop">Shop</label>
         <input class="form-input" type="text" id="input-edit-shop" autocomplete="off">
         <div class="suggestions" id="edit-shop-suggestions"></div>
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="input-edit-price">Price</label>
+        <input class="form-input" type="number" id="input-edit-price"
+          placeholder="e.g. 4.50" min="0" step="0.01">
       </div>
       <div class="form-group">
         <label class="form-label">Rating</label>
@@ -426,6 +477,32 @@
     </div>
   </div>
 
+  <!-- ── Shops view ── -->
+  <div id="view-shops" class="view">
+    <div class="header"><h1>My Shops 🏪</h1></div>
+    <div class="view-content">
+      <div class="form-group">
+        <div class="add-shop-row">
+          <input class="form-input" type="text" id="input-new-shop"
+            placeholder="Add a favorite shop..." autocomplete="off">
+          <button class="btn-add-shop" id="btn-add-shop">Add</button>
+        </div>
+      </div>
+      <div id="shops-content"></div>
+      <div class="empty-state" id="shops-empty" style="display:none">
+        No shops yet — log a scoop or add a favorite! 🍦
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Wrapped view ── -->
+  <div id="view-wrapped" class="view">
+    <div class="header"><h1 id="wrapped-title">Your Wrapped 🎁</h1></div>
+    <div class="view-content">
+      <div id="wrapped-content"></div>
+    </div>
+  </div>
+
   <!-- ── Tab bar ── -->
   <nav id="tab-bar">
     <button class="tab-btn active" data-view="home">
@@ -436,29 +513,52 @@
       <span class="tab-icon">➕</span>
       <span class="tab-label">Log</span>
     </button>
+    <button class="tab-btn" data-view="shops">
+      <span class="tab-icon">🏪</span>
+      <span class="tab-label">Shops</span>
+    </button>
   </nav>
 
 </div>
 <script>
 // ════════════════════════════════════════
-// DATA LAYER
+// CONFIG
+// Get a Places API key: console.cloud.google.com → enable Places API → paste below.
+// Leave as 'YOUR_KEY_HERE' to use local suggestions only (graceful degradation).
+// ════════════════════════════════════════
+
+const PLACES_KEY = 'YOUR_KEY_HERE';
+
+// ════════════════════════════════════════
+// BUILT-IN FLAVORS
+// ════════════════════════════════════════
+
+const BUILTIN_FLAVORS = [
+  'Vanilla', 'Chocolate', 'Strawberry', 'Mint Chip', 'Cookies & Cream',
+  'Rocky Road', 'Butter Pecan', 'Cookie Dough', 'Neapolitan', 'Pistachio',
+  'Coffee', 'Caramel', 'Lemon', 'Mango', 'Peach', 'Black Raspberry',
+  'Moose Tracks', 'Birthday Cake', 'Salted Caramel', 'Peanut Butter Cup'
+];
+
+const BUILTIN_FLAVOR_MAP = {}; // lowercase → canonical
+for (const f of BUILTIN_FLAVORS) BUILTIN_FLAVOR_MAP[f.toLowerCase()] = f;
+
+// ════════════════════════════════════════
+// DATA LAYER — Entries
 // ════════════════════════════════════════
 
 const STORAGE_KEY = 'sundae_entries';
 
 function loadEntries() {
-  try {
-    return JSON.parse(localStorage.getItem(STORAGE_KEY) ?? '[]');
-  } catch {
-    return [];
-  }
+  try { return JSON.parse(localStorage.getItem(STORAGE_KEY) ?? '[]'); }
+  catch { return []; }
 }
 
 function saveEntries(entries) {
   localStorage.setItem(STORAGE_KEY, JSON.stringify(entries));
 }
 
-function addEntry({ flavor, shop, rating, notes, date }) {
+function addEntry({ flavor, shop, rating, notes, date, price }) {
   const entries = loadEntries();
   const entry = {
     id: crypto.randomUUID(),
@@ -467,6 +567,7 @@ function addEntry({ flavor, shop, rating, notes, date }) {
     rating,
     notes: notes.trim(),
     date: new Date(date + 'T12:00:00').toISOString(),
+    price: price ?? null,
   };
   entries.unshift(entry);
   saveEntries(entries);
@@ -484,6 +585,7 @@ function updateEntry(id, fields) {
     rating: fields.rating,
     notes:  fields.notes.trim(),
     date:   new Date(fields.date + 'T12:00:00').toISOString(),
+    price:  fields.price ?? null,
   };
   saveEntries(entries);
 }
@@ -493,7 +595,7 @@ function deleteEntry(id) {
 }
 
 function getRecentShops() {
-  const seen  = new Set();
+  const seen = new Set();
   const shops = [];
   for (const e of loadEntries()) {
     const name = e.shop?.trim();
@@ -502,11 +604,312 @@ function getRecentShops() {
       shops.push(name);
     }
   }
-  return shops; // newest-first (entries stored newest-first)
+  return shops;
 }
 
 // ════════════════════════════════════════
-// RENDERING
+// DATA LAYER — Favorites (sundae_shops)
+// ════════════════════════════════════════
+
+const SHOPS_KEY = 'sundae_shops';
+
+function loadFavorites() {
+  try { return JSON.parse(localStorage.getItem(SHOPS_KEY) ?? '[]'); }
+  catch { return []; }
+}
+
+function saveFavorites(list) {
+  localStorage.setItem(SHOPS_KEY, JSON.stringify(list));
+}
+
+function addFavorite(name) {
+  const list = loadFavorites();
+  const trimmed = name.trim();
+  if (!trimmed) return false;
+  if (list.some(f => f.toLowerCase() === trimmed.toLowerCase())) return false;
+  list.push(trimmed);
+  saveFavorites(list);
+  return true;
+}
+
+function removeFavorite(name) {
+  saveFavorites(loadFavorites().filter(f => f.toLowerCase() !== name.toLowerCase()));
+}
+
+function getVisitedShops() {
+  const counts = {};
+  for (const e of loadEntries()) {
+    const name = e.shop?.trim();
+    if (!name) continue;
+    const key = name.toLowerCase();
+    if (!counts[key]) counts[key] = { name, count: 0 };
+    counts[key].count++;
+  }
+  return Object.values(counts).sort((a, b) => a.name.localeCompare(b.name));
+}
+
+// ════════════════════════════════════════
+// STREAK LOGIC (all local timezone)
+// ════════════════════════════════════════
+
+function localDateStr(d) {
+  return new Date(d).toLocaleDateString('en-CA'); // YYYY-MM-DD
+}
+
+function getWeekStart(d) {
+  const dt = new Date(d);
+  const day = dt.getDay(); // 0 = Sun
+  dt.setDate(dt.getDate() + (day === 0 ? -6 : 1 - day)); // shift to Monday
+  return dt.toLocaleDateString('en-CA');
+}
+
+function getMonthKey(iso) {
+  const d = new Date(iso);
+  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}`;
+}
+
+function computeDailyStreak(entries) {
+  if (!entries.length) return 0;
+  const days = new Set(entries.map(e => localDateStr(e.date)));
+  const cur = new Date();
+  if (!days.has(localDateStr(cur))) cur.setDate(cur.getDate() - 1);
+  let streak = 0;
+  while (days.has(localDateStr(cur))) {
+    streak++;
+    cur.setDate(cur.getDate() - 1);
+  }
+  return streak;
+}
+
+function computeWeeklyStreak(entries) {
+  if (!entries.length) return 0;
+  const weeks = new Set(entries.map(e => getWeekStart(new Date(e.date))));
+  const cur = new Date();
+  if (!weeks.has(getWeekStart(cur))) cur.setDate(cur.getDate() - 7);
+  let streak = 0;
+  while (weeks.has(getWeekStart(cur))) {
+    streak++;
+    cur.setDate(cur.getDate() - 7);
+  }
+  return streak;
+}
+
+function computeMonthlyStreak(entries) {
+  if (!entries.length) return 0;
+  const months = new Set(entries.map(e => getMonthKey(e.date)));
+  let year = new Date().getFullYear();
+  let month = new Date().getMonth();
+  if (!months.has(`${year}-${String(month + 1).padStart(2, '0')}`)) {
+    month--; if (month < 0) { month = 11; year--; }
+  }
+  let streak = 0;
+  while (months.has(`${year}-${String(month + 1).padStart(2, '0')}`)) {
+    streak++;
+    month--; if (month < 0) { month = 11; year--; }
+  }
+  return streak;
+}
+
+// ════════════════════════════════════════
+// FLAVOR HELPERS
+// ════════════════════════════════════════
+
+function getFlavorSuggestions(query) {
+  const pastCounts = {};
+  for (const e of loadEntries()) {
+    const f = e.flavor?.trim();
+    if (!f) continue;
+    const key = f.toLowerCase();
+    if (!pastCounts[key]) pastCounts[key] = { display: f, count: 0 };
+    pastCounts[key].count++;
+  }
+
+  const pastSorted = Object.values(pastCounts)
+    .sort((a, b) => b.count - a.count)
+    .map(p => BUILTIN_FLAVOR_MAP[p.display.toLowerCase()] || p.display);
+
+  const seen = new Set();
+  const merged = [];
+  for (const name of pastSorted) {
+    if (!seen.has(name.toLowerCase())) { seen.add(name.toLowerCase()); merged.push(name); }
+  }
+  for (const name of BUILTIN_FLAVORS) {
+    if (!seen.has(name.toLowerCase())) { seen.add(name.toLowerCase()); merged.push(name); }
+  }
+
+  if (!query) return merged.slice(0, 8);
+  const q = query.toLowerCase();
+  return merged.filter(f => f.toLowerCase().includes(q));
+}
+
+function getTopFlavors() {
+  const counts = {};
+  for (const e of loadEntries()) {
+    const f = e.flavor?.trim();
+    if (!f) continue;
+    const canonical = BUILTIN_FLAVOR_MAP[f.toLowerCase()] || f;
+    counts[canonical] = (counts[canonical] ?? 0) + 1;
+  }
+  return Object.entries(counts).sort((a, b) => b[1] - a[1]).slice(0, 5);
+}
+
+// ════════════════════════════════════════
+// WRAPPED STATS
+// ════════════════════════════════════════
+
+const MONTH_NAMES = ['January','February','March','April','May','June',
+                     'July','August','September','October','November','December'];
+
+function getYearEntries(year) {
+  return loadEntries().filter(e => new Date(e.date).getFullYear() === year);
+}
+
+function getWrappedTopFlavor(yearEntries) {
+  const counts = {};
+  for (const e of yearEntries) {
+    const f = e.flavor?.trim();
+    if (!f) continue;
+    const canonical = BUILTIN_FLAVOR_MAP[f.toLowerCase()] || f;
+    counts[canonical] = (counts[canonical] ?? 0) + 1;
+  }
+  const sorted = Object.entries(counts).sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]));
+  return sorted.length ? { name: sorted[0][0], count: sorted[0][1] } : null;
+}
+
+function getWrappedTotalSpent(yearEntries) {
+  const priced = yearEntries.filter(e => e.price != null);
+  if (!priced.length) return null;
+  return priced.reduce((sum, e) => sum + e.price, 0);
+}
+
+function getWrappedLongestStreak(yearEntries) {
+  if (!yearEntries.length) return 0;
+  const days = [...new Set(yearEntries.map(e => localDateStr(e.date)))].sort();
+  let longest = 1, current = 1;
+  for (let i = 1; i < days.length; i++) {
+    const prev = new Date(days[i - 1] + 'T12:00:00');
+    const curr = new Date(days[i] + 'T12:00:00');
+    const diff = Math.round((curr - prev) / 86400000);
+    if (diff === 1) { current++; longest = Math.max(longest, current); }
+    else { current = 1; }
+  }
+  return longest;
+}
+
+function getWrappedBusiestMonth(yearEntries) {
+  const counts = {};
+  for (const e of yearEntries) counts[new Date(e.date).getMonth()] = (counts[new Date(e.date).getMonth()] ?? 0) + 1;
+  let best = null, bestCount = 0;
+  for (let m = 0; m <= 11; m++) {
+    if ((counts[m] ?? 0) > bestCount) { bestCount = counts[m]; best = m; }
+  }
+  return best !== null ? { name: MONTH_NAMES[best], count: bestCount } : null;
+}
+
+function getWrappedFavoriteShop(yearEntries) {
+  const counts = {};
+  for (const e of yearEntries) {
+    const s = e.shop?.trim();
+    if (!s) continue;
+    const key = s.toLowerCase();
+    if (!counts[key]) counts[key] = { name: s, count: 0 };
+    counts[key].count++;
+  }
+  const sorted = Object.values(counts).sort((a, b) => b.count - a.count);
+  return sorted.length ? sorted[0] : null;
+}
+
+function renderWrappedView() {
+  const year = new Date().getFullYear();
+  document.getElementById('wrapped-title').textContent = `Your ${year} Wrapped 🎁`;
+  const yearEntries = getYearEntries(year);
+  const content = document.getElementById('wrapped-content');
+
+  if (!yearEntries.length) {
+    content.innerHTML = '<div class="empty-state">No scoops logged yet this year —<br>get out there! 🍦</div>';
+    return;
+  }
+
+  const topFlavor    = getWrappedTopFlavor(yearEntries);
+  const totalSpent   = getWrappedTotalSpent(yearEntries);
+  const longestStreak = getWrappedLongestStreak(yearEntries);
+  const busiestMonth = getWrappedBusiestMonth(yearEntries);
+  const favShop      = getWrappedFavoriteShop(yearEntries);
+
+  content.innerHTML = `
+    <div class="wrapped-card">
+      <span class="wrapped-card-emoji">🍦</span>
+      <span class="wrapped-card-value">${topFlavor ? escapeHtml(topFlavor.name) : '—'}</span>
+      <span class="wrapped-card-label">Top Flavor · ${topFlavor ? topFlavor.count + ' times' : '—'}</span>
+    </div>
+    <div class="wrapped-card">
+      <span class="wrapped-card-emoji">💸</span>
+      <span class="wrapped-card-value">${totalSpent != null ? '$' + totalSpent.toFixed(2) : '—'}</span>
+      <span class="wrapped-card-label">Total Spent</span>
+    </div>
+    <div class="wrapped-card">
+      <span class="wrapped-card-emoji">🔥</span>
+      <span class="wrapped-card-value">${longestStreak} day${longestStreak !== 1 ? 's' : ''}</span>
+      <span class="wrapped-card-label">Longest Streak</span>
+    </div>
+    <div class="wrapped-card">
+      <span class="wrapped-card-emoji">📅</span>
+      <span class="wrapped-card-value">${busiestMonth ? escapeHtml(busiestMonth.name) : '—'}</span>
+      <span class="wrapped-card-label">Busiest Month · ${busiestMonth ? busiestMonth.count + ' scoops' : '—'}</span>
+    </div>
+    <div class="wrapped-card">
+      <span class="wrapped-card-emoji">🏪</span>
+      <span class="wrapped-card-value">${favShop ? escapeHtml(favShop.name) : '—'}</span>
+      <span class="wrapped-card-label">Favorite Shop · ${favShop ? favShop.count + ' visits' : '—'}</span>
+    </div>
+  `;
+}
+
+// ════════════════════════════════════════
+// GOOGLE PLACES — lazy load only if key is set
+// ════════════════════════════════════════
+
+let placesService = null;
+let userLocation  = null;
+
+if (navigator.geolocation) {
+  navigator.geolocation.getCurrentPosition(
+    pos => { userLocation = { lat: pos.coords.latitude, lng: pos.coords.longitude }; },
+    () => {}
+  );
+}
+
+if (PLACES_KEY && PLACES_KEY !== 'YOUR_KEY_HERE') {
+  window.__initPlaces = function() {
+    placesService = new google.maps.places.AutocompleteService();
+  };
+  const s = document.createElement('script');
+  s.src = `https://maps.googleapis.com/maps/api/js?key=${PLACES_KEY}&libraries=places&callback=__initPlaces`;
+  s.async = true;
+  document.head.appendChild(s);
+}
+
+function fetchPlacesSuggestions(query, callback) {
+  if (!placesService || !query || query.length < 2) { callback([]); return; }
+  const req = {
+    input: query,
+    types: ['establishment'],
+    sessionToken: new google.maps.places.AutocompleteSessionToken(),
+  };
+  if (userLocation) {
+    req.location = new google.maps.LatLng(userLocation.lat, userLocation.lng);
+    req.radius = 50000;
+  }
+  try {
+    placesService.getPlacePredictions(req, (predictions, status) => {
+      if (status !== google.maps.places.PlacesServiceStatus.OK || !predictions) { callback([]); return; }
+      callback(predictions.slice(0, 5).map(p => p.structured_formatting?.main_text || p.description));
+    });
+  } catch { callback([]); }
+}
+
+// ════════════════════════════════════════
+// RENDERING HELPERS
 // ════════════════════════════════════════
 
 const CHIP_COLORS = ['#FFB3C6', '#C9B8FF', '#B8F0E6', '#FFE4A0', '#FFD6B3'];
@@ -528,12 +931,14 @@ function formatDate(iso) {
 }
 
 function escapeHtml(str) {
-  return str
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;');
+  return String(str)
+    .replace(/&/g, '&amp;').replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 }
+
+// ════════════════════════════════════════
+// HOME RENDER
+// ════════════════════════════════════════
 
 function renderStats(entries) {
   document.getElementById('stat-scoops').textContent = entries.length;
@@ -541,6 +946,26 @@ function renderStats(entries) {
   document.getElementById('stat-flavors').textContent = flavors.size;
   const shops = new Set(entries.filter(e => e.shop).map(e => e.shop.toLowerCase().trim()));
   document.getElementById('stat-shops').textContent = shops.size;
+}
+
+function renderStreaks(entries) {
+  document.getElementById('streak-daily').textContent   = computeDailyStreak(entries);
+  document.getElementById('streak-weekly').textContent  = computeWeeklyStreak(entries);
+  document.getElementById('streak-monthly').textContent = computeMonthlyStreak(entries);
+}
+
+function renderTopFlavors() {
+  const top = getTopFlavors();
+  const section = document.getElementById('top-flavors-section');
+  const list = document.getElementById('top-flavors-list');
+  if (top.length === 0) { section.style.display = 'none'; return; }
+  section.style.display = 'block';
+  list.innerHTML = top.map(([name, count]) =>
+    `<div class="flavor-bar-row">
+      <span class="flavor-bar-name">🍦 ${escapeHtml(name)}</span>
+      <span class="flavor-bar-count">${count}×</span>
+    </div>`
+  ).join('');
 }
 
 function renderEntryList(entries) {
@@ -551,8 +976,7 @@ function renderEntryList(entries) {
   }
   list.innerHTML = entries.map(entry => {
     const ratingHtml = entry.rating > 0
-      ? `<div class="entry-rating">${'🍨'.repeat(entry.rating)}</div>`
-      : '';
+      ? `<div class="entry-rating">${'🍨'.repeat(entry.rating)}</div>` : '';
     const meta = [entry.shop, formatDate(entry.date)].filter(Boolean).join(' · ');
     return `
       <div class="entry-card" data-id="${escapeHtml(entry.id)}" style="cursor:pointer">
@@ -565,8 +989,6 @@ function renderEntryList(entries) {
         <span style="font-size:16px;color:var(--muted);opacity:0.4">›</span>
       </div>`;
   }).join('');
-
-  // Wire click handlers after rendering
   list.querySelectorAll('.entry-card').forEach(card => {
     card.addEventListener('click', () => openEditView(card.dataset.id));
   });
@@ -575,7 +997,60 @@ function renderEntryList(entries) {
 function renderHome() {
   const entries = loadEntries();
   renderStats(entries);
+  renderStreaks(entries);
+  renderTopFlavors();
   renderEntryList(entries);
+}
+
+// ════════════════════════════════════════
+// SHOPS VIEW RENDER
+// ════════════════════════════════════════
+
+function renderShopsView() {
+  const favorites = loadFavorites().slice().sort((a, b) => a.localeCompare(b));
+  const visited   = getVisitedShops();
+  const favSet    = new Set(favorites.map(f => f.toLowerCase()));
+  const content   = document.getElementById('shops-content');
+  const empty     = document.getElementById('shops-empty');
+
+  if (favorites.length === 0 && visited.length === 0) {
+    content.innerHTML = '';
+    empty.style.display = 'block';
+    return;
+  }
+  empty.style.display = 'none';
+
+  let html = '<div class="shops-section-label">⭐ Favorites</div>';
+  if (favorites.length === 0) {
+    html += '<div style="color:var(--muted);font-size:13px;margin-bottom:12px">No favorites yet — add one above.</div>';
+  } else {
+    html += favorites.map(name =>
+      `<div class="shop-card">
+        <span class="shop-card-icon">⭐</span>
+        <span class="shop-card-name">${escapeHtml(name)}</span>
+        <button class="btn-remove-shop" data-name="${escapeHtml(name)}">✕</button>
+      </div>`
+    ).join('');
+  }
+
+  const nonFavVisited = visited.filter(s => !favSet.has(s.name.toLowerCase()));
+  html += '<div class="shops-section-label" style="margin-top:20px">📍 Visited</div>';
+  if (nonFavVisited.length === 0) {
+    html += '<div style="color:var(--muted);font-size:13px">Shops you\'ve logged will appear here.</div>';
+  } else {
+    html += nonFavVisited.map(s =>
+      `<div class="shop-card">
+        <span class="shop-card-icon">🏪</span>
+        <span class="shop-card-name">${escapeHtml(s.name)}</span>
+        <span class="shop-card-count">${s.count}×</span>
+      </div>`
+    ).join('');
+  }
+
+  content.innerHTML = html;
+  content.querySelectorAll('.btn-remove-shop').forEach(btn => {
+    btn.addEventListener('click', () => { removeFavorite(btn.dataset.name); renderShopsView(); });
+  });
 }
 
 // ════════════════════════════════════════
@@ -586,60 +1061,124 @@ let selectedRating = 0;
 
 function setRating(value) {
   selectedRating = value;
-  document.querySelectorAll('.rating-btn').forEach(btn => {
+  document.querySelectorAll('#rating-row .rating-btn').forEach(btn => {
     btn.classList.toggle('active', Number(btn.dataset.value) <= value);
   });
 }
 
-document.querySelectorAll('.rating-btn').forEach(btn => {
+document.querySelectorAll('#rating-row .rating-btn').forEach(btn => {
   btn.addEventListener('click', () => {
     const v = Number(btn.dataset.value);
-    setRating(v === selectedRating ? 0 : v); // tap same star = clear
+    setRating(v === selectedRating ? 0 : v);
   });
 });
 
 // ════════════════════════════════════════
-// SHOP AUTOCOMPLETE
+// FLAVOR AUTOCOMPLETE
 // ════════════════════════════════════════
 
-function wireShopAutocomplete(inputId, suggestionsId) {
+function wireFlavorAutocomplete(inputId, suggestionsId) {
   const input = document.getElementById(inputId);
   const box   = document.getElementById(suggestionsId);
 
-  function showSuggestions(query) {
-    const all = getRecentShops();
-    const q   = query.toLowerCase().trim();
-    const matches = q
-      ? all.filter(s => s.toLowerCase().includes(q))
-      : all.slice(0, 5);
-
-    if (matches.length === 0) {
-      box.innerHTML = '';
-      box.classList.remove('open');
-      return;
-    }
-
-    box.innerHTML = matches.map(s =>
-      `<div class="suggestion-item" data-name="${escapeHtml(s)}">
-        <span class="suggestion-icon">🕐</span>${escapeHtml(s)}
+  function show(query) {
+    const matches = getFlavorSuggestions(query);
+    if (!matches.length) { box.innerHTML = ''; box.classList.remove('open'); return; }
+    box.innerHTML = matches.map(name =>
+      `<div class="suggestion-item" data-name="${escapeHtml(name)}">
+        <span class="suggestion-icon">🍦</span>${escapeHtml(name)}
       </div>`
     ).join('');
     box.classList.add('open');
-
     box.querySelectorAll('.suggestion-item').forEach(item => {
       item.addEventListener('mousedown', e => {
-        e.preventDefault(); // prevent input blur before click fires
+        e.preventDefault();
         input.value = item.dataset.name;
         box.classList.remove('open');
       });
     });
   }
 
+  input.addEventListener('focus', () => show(input.value));
+  input.addEventListener('input', () => show(input.value));
+  input.addEventListener('blur',  () => setTimeout(() => box.classList.remove('open'), 150));
+}
+
+wireFlavorAutocomplete('input-flavor', 'flavor-suggestions');
+wireFlavorAutocomplete('input-edit-flavor', 'edit-flavor-suggestions');
+
+// ════════════════════════════════════════
+// SHOP AUTOCOMPLETE (Favorites + Past + Places)
+// ════════════════════════════════════════
+
+function wireShopAutocomplete(inputId, suggestionsId) {
+  const input = document.getElementById(inputId);
+  const box   = document.getElementById(suggestionsId);
+  let currentQuery = '';
+
+  function renderItems(items) {
+    if (!items.length) { box.innerHTML = ''; box.classList.remove('open'); return; }
+    box.innerHTML = items.map(s =>
+      `<div class="suggestion-item" data-name="${escapeHtml(s.name)}">
+        <span class="suggestion-icon">${s.icon}</span>${escapeHtml(s.name)}
+      </div>`
+    ).join('');
+    box.classList.add('open');
+    box.querySelectorAll('.suggestion-item').forEach(item => {
+      item.addEventListener('mousedown', e => {
+        e.preventDefault();
+        input.value = item.dataset.name;
+        box.classList.remove('open');
+      });
+    });
+  }
+
+  function getLocalItems(query) {
+    const favorites = loadFavorites().slice().sort((a, b) => a.localeCompare(b));
+    const past      = getRecentShops();
+    const favSet    = new Set(favorites.map(f => f.toLowerCase()));
+    const items     = [];
+
+    if (!query) {
+      for (const f of favorites) items.push({ name: f, icon: '⭐' });
+      for (const s of past.slice(0, 5)) {
+        if (!favSet.has(s.toLowerCase())) items.push({ name: s, icon: '🕐' });
+      }
+      return items.slice(0, 7);
+    }
+
+    const q = query.toLowerCase();
+    for (const f of favorites) {
+      if (f.toLowerCase().includes(q)) items.push({ name: f, icon: '⭐' });
+    }
+    for (const s of past) {
+      if (!favSet.has(s.toLowerCase()) && s.toLowerCase().includes(q))
+        items.push({ name: s, icon: '🕐' });
+    }
+    return items;
+  }
+
+  function showSuggestions(query) {
+    currentQuery = query;
+    const local = getLocalItems(query);
+
+    if (query.length >= 2 && placesService) {
+      fetchPlacesSuggestions(query, places => {
+        if (currentQuery !== query) return;
+        const localNames = new Set(local.map(s => s.name.toLowerCase()));
+        const placeItems = places
+          .filter(name => !localNames.has(name.toLowerCase()))
+          .map(name => ({ name, icon: '📍' }));
+        renderItems([...local, ...placeItems]);
+      });
+    } else {
+      renderItems(local);
+    }
+  }
+
   input.addEventListener('focus', () => showSuggestions(input.value));
   input.addEventListener('input', () => showSuggestions(input.value));
-  input.addEventListener('blur',  () => {
-    setTimeout(() => box.classList.remove('open'), 150);
-  });
+  input.addEventListener('blur',  () => setTimeout(() => box.classList.remove('open'), 150));
 }
 
 wireShopAutocomplete('input-shop', 'shop-suggestions');
@@ -652,19 +1191,34 @@ wireShopAutocomplete('input-edit-shop', 'edit-shop-suggestions');
 document.getElementById('log-form').addEventListener('submit', e => {
   e.preventDefault();
   const flavor = document.getElementById('input-flavor').value.trim();
-  if (!flavor) {
-    alert('Add a flavor first!');
-    document.getElementById('input-flavor').focus();
-    return;
-  }
-  const shop  = document.getElementById('input-shop').value;
-  const notes = document.getElementById('input-notes').value;
-  const date  = document.getElementById('input-date').value;
-  addEntry({ flavor, shop, rating: selectedRating, notes, date });
+  if (!flavor) { alert('Add a flavor first!'); document.getElementById('input-flavor').focus(); return; }
+  const shop     = document.getElementById('input-shop').value;
+  const notes    = document.getElementById('input-notes').value;
+  const date     = document.getElementById('input-date').value;
+  const priceVal = document.getElementById('input-price').value;
+  const price    = priceVal === '' ? null : parseFloat(priceVal);
+  addEntry({ flavor, shop, rating: selectedRating, notes, date, price });
   document.getElementById('log-form').reset();
   setRating(0);
   initDateField();
   showView('home');
+});
+
+// ════════════════════════════════════════
+// MY SHOPS — Add
+// ════════════════════════════════════════
+
+document.getElementById('btn-add-shop').addEventListener('click', () => {
+  const input = document.getElementById('input-new-shop');
+  const name = input.value.trim();
+  if (!name) return;
+  if (!addFavorite(name)) { alert(`"${name}" is already in your favorites.`); return; }
+  input.value = '';
+  renderShopsView();
+});
+
+document.getElementById('input-new-shop').addEventListener('keydown', e => {
+  if (e.key === 'Enter') { e.preventDefault(); document.getElementById('btn-add-shop').click(); }
 });
 
 // ════════════════════════════════════════
@@ -692,36 +1246,28 @@ function openEditView(id) {
   const entry = loadEntries().find(e => e.id === id);
   if (!entry) return;
   editingId = id;
-
   document.getElementById('input-edit-flavor').value = entry.flavor;
   document.getElementById('input-edit-shop').value   = entry.shop ?? '';
   document.getElementById('input-edit-notes').value  = entry.notes ?? '';
-
-  // Convert ISO date back to YYYY-MM-DD for the date input
-  const dateStr = new Date(entry.date).toLocaleDateString('en-CA');
-  document.getElementById('input-edit-date').value = dateStr;
-
+  document.getElementById('input-edit-date').value   = new Date(entry.date).toLocaleDateString('en-CA');
+  document.getElementById('input-edit-price').value  = entry.price != null ? entry.price : '';
   setEditRating(entry.rating ?? 0);
   showView('edit');
 }
 
-document.getElementById('edit-back-btn').addEventListener('click', () => {
-  showView('home');
-});
+document.getElementById('edit-back-btn').addEventListener('click', () => showView('home'));
 
 document.getElementById('edit-save-btn').addEventListener('click', () => {
   const flavor = document.getElementById('input-edit-flavor').value.trim();
-  if (!flavor) {
-    alert('Flavor is required!');
-    document.getElementById('input-edit-flavor').focus();
-    return;
-  }
+  if (!flavor) { alert('Flavor is required!'); document.getElementById('input-edit-flavor').focus(); return; }
+  const editPriceVal = document.getElementById('input-edit-price').value;
   updateEntry(editingId, {
     flavor,
     shop:   document.getElementById('input-edit-shop').value,
     rating: selectedEditRating,
     notes:  document.getElementById('input-edit-notes').value,
     date:   document.getElementById('input-edit-date').value,
+    price:  editPriceVal === '' ? null : parseFloat(editPriceVal),
   });
   editingId = null;
   showView('home');
@@ -742,17 +1288,14 @@ function showView(name) {
   document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
   document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
   document.getElementById('view-' + name).classList.add('active');
-
-  // Edit view has no tab — only update tab highlight for home/log
   if (name !== 'edit') {
     const tab = document.querySelector(`.tab-btn[data-view="${name}"]`);
     if (tab) tab.classList.add('active');
   }
-
-  // Hide tab bar while editing
   document.getElementById('app').classList.toggle('editing', name === 'edit');
-
-  if (name === 'home') renderHome();
+  if (name === 'home')    renderHome();
+  if (name === 'shops')   renderShopsView();
+  if (name === 'wrapped') renderWrappedView();
   document.getElementById('view-' + name).scrollTop = 0;
 }
 
@@ -761,7 +1304,7 @@ document.querySelectorAll('.tab-btn').forEach(btn => {
 });
 
 // ════════════════════════════════════════
-// SERVICE WORKER REGISTRATION
+// SERVICE WORKER
 // ════════════════════════════════════════
 
 if ('serviceWorker' in navigator) {
@@ -776,8 +1319,17 @@ if ('serviceWorker' in navigator) {
 // ════════════════════════════════════════
 
 function initDateField() {
-  const today = new Date().toISOString().split('T')[0];
-  document.getElementById('input-date').value = today;
+  document.getElementById('input-date').value = new Date().toISOString().split('T')[0];
+}
+
+// Inject Wrapped tab only in December (month index 11)
+if (new Date().getMonth() === 11) {
+  const wrappedTab = document.createElement('button');
+  wrappedTab.className = 'tab-btn';
+  wrappedTab.dataset.view = 'wrapped';
+  wrappedTab.innerHTML = '<span class="tab-icon">🎁</span><span class="tab-label">Wrapped</span>';
+  wrappedTab.addEventListener('click', () => showView('wrapped'));
+  document.getElementById('tab-bar').appendChild(wrappedTab);
 }
 
 renderHome();
