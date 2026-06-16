@@ -481,12 +481,13 @@
   <div id="view-shops" class="view">
     <div class="header"><h1>My Shops 🏪</h1></div>
     <div class="view-content">
-      <div class="form-group">
+      <div class="form-group suggestions-wrap">
         <div class="add-shop-row">
           <input class="form-input" type="text" id="input-new-shop"
-            placeholder="Add a favorite shop..." autocomplete="off">
+            placeholder="Search or type a shop..." autocomplete="off">
           <button class="btn-add-shop" id="btn-add-shop">Add</button>
         </div>
+        <div class="suggestions" id="new-shop-suggestions"></div>
       </div>
       <div id="shops-content"></div>
       <div class="empty-state" id="shops-empty" style="display:none">
@@ -1180,6 +1181,7 @@ function wireShopAutocomplete(inputId, suggestionsId) {
 
 wireShopAutocomplete('input-shop', 'shop-suggestions');
 wireShopAutocomplete('input-edit-shop', 'edit-shop-suggestions');
+wireShopAutocomplete('input-new-shop', 'new-shop-suggestions');
 
 // ════════════════════════════════════════
 // LOG FORM SUBMIT
