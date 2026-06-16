@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sundae Run — Form Mockups</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: system-ui, -apple-system, sans-serif;
+    background: #f0f0f8;
+    padding: 24px 16px;
+    color: #1C1C1E;
+  }
+  h2 {
+    font-size: 18px;
+    font-weight: 800;
+    color: #5B3FA6;
+    margin-bottom: 6px;
+  }
+  .subtitle {
+    font-size: 13px;
+    color: #9B7ED4;
+    margin-bottom: 28px;
+  }
+
+  :root {
+    --primary:  #5B3FA6;
+    --accent1:  #C9B8FF;
+    --accent2:  #FFB3C6;
+    --bg:       #F7F0FF;
+    --card:     #FFFFFF;
+    --text:     #1C1C1E;
+    --muted:    #9B7ED4;
+    --divider:  #EEE8FF;
+    --gradient: linear-gradient(135deg, #C9B8FF, #FFB3C6);
+  }
+
+  .screens {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .phone {
+    width: 280px;
+    background: var(--bg);
+    border-radius: 28px;
+    overflow: hidden;
+    box-shadow: 0 8px 32px rgba(91,63,166,0.18);
+    border: 2px solid #E8DEFF;
+  }
+
+  .phone-header {
+    padding: 20px 16px 10px;
+    background: var(--bg);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .back-btn {
+    font-size: 13px;
+    color: var(--primary);
+    font-weight: 600;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+  }
+  .phone-title {
+    font-size: 16px;
+    font-weight: 800;
+    color: var(--primary);
+    flex: 1;
+  }
+
+  .phone-body {
+    padding: 8px 14px 16px;
+    overflow-y: auto;
+    max-height: 580px;
+  }
+
+  .form-group { margin-bottom: 12px; }
+  .form-label {
+    font-size: 9px;
+    font-weight: 700;
+    color: var(--muted);
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 5px;
+  }
+  .form-input {
+    width: 100%;
+    background: var(--card);
+    border: none;
+    border-radius: 12px;
+    padding: 11px 14px;
+    font-size: 13px;
+    color: var(--text);
+    font-family: inherit;
+  }
+  .form-input.placeholder-style { color: var(--muted); }
+  textarea.form-input {
+    height: 60px;
+    resize: none;
+  }
+
+  .rating-row { display: flex; gap: 6px; }
+  .scoops { font-size: 22px; opacity: 0.25; }
+  .scoops.lit { opacity: 1; }
+
+  .btn {
+    width: 100%;
+    border: none;
+    border-radius: 12px;
+    padding: 13px;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    font-family: inherit;
+    margin-bottom: 8px;
+  }
+  .btn-save { background: var(--gradient); color: white; }
+  .btn-delete {
+    background: none;
+    color: #FF453A;
+    border: 1.5px solid #FFCCC9;
+    font-size: 13px;
+  }
+  .btn-submit { background: var(--gradient); color: white; }
+
+  /* Autocomplete dropdown */
+  .autocomplete-wrap { position: relative; }
+  .autocomplete-dropdown {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 16px rgba(91,63,166,0.15);
+    margin-top: 4px;
+    overflow: hidden;
+  }
+  .autocomplete-item {
+    padding: 10px 14px;
+    font-size: 13px;
+    color: var(--text);
+    border-bottom: 1px solid var(--divider);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .autocomplete-item:last-child { border-bottom: none; }
+  .ac-icon { font-size: 14px; color: var(--muted); }
+
+  /* Date field highlight */
+  .form-input.date-field {
+    color: var(--primary);
+    font-weight: 600;
+  }
+
+  .screen-label {
+    font-size: 11px;
+    font-weight: 700;
+    color: #9B7ED4;
+    text-align: center;
+    padding: 10px 0 4px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+  }
+
+  .phone-tab-bar {
+    display: flex;
+    background: white;
+    border-top: 1px solid var(--divider);
+    padding: 8px 0 10px;
+  }
+  .tab { flex: 1; text-align: center; font-size: 18px; }
+</style>
+</head>
+<body>
+
+<h2>Sundae Run — New Features Preview</h2>
+<p class="subtitle">Log form with date picker · Edit view · Location autocomplete</p>
+
+<div class="screens">
+
+  <!-- ── Log form with backdate ── -->
+  <div>
+    <div class="screen-label">Log Form (with Date)</div>
+    <div class="phone">
+      <div class="phone-header">
+        <div class="phone-title">New Scoop 🍦</div>
+      </div>
+      <div class="phone-body">
+        <div class="form-group">
+          <label class="form-label">Flavor *</label>
+          <input class="form-input placeholder-style" value="e.g. Mint Chip" readonly>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Date</label>
+          <input class="form-input date-field" value="Jun 3, 2026" readonly>
+        </div>
+        <div class="form-group autocomplete-wrap">
+          <label class="form-label">Shop</label>
+          <input class="form-input" value="Cold S" readonly>
+          <div class="autocomplete-dropdown">
+            <div class="autocomplete-item"><span class="ac-icon">🕐</span> Cold Stone Creamery</div>
+            <div class="autocomplete-item"><span class="ac-icon">🕐</span> Cold Comfort</div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Rating</label>
+          <div class="rating-row">
+            <span class="scoops lit">🍨</span>
+            <span class="scoops lit">🍨</span>
+            <span class="scoops lit">🍨</span>
+            <span class="scoops">🍨</span>
+            <span class="scoops">🍨</span>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Notes</label>
+          <textarea class="form-input placeholder-style" readonly>Any thoughts?</textarea>
+        </div>
+        <button class="btn btn-submit">Log It 🍦</button>
+      </div>
+      <div class="phone-tab-bar">
+        <div class="tab">🏠</div>
+        <div class="tab">➕</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Edit view ── -->
+  <div>
+    <div class="screen-label">Edit Entry</div>
+    <div class="phone">
+      <div class="phone-header">
+        <button class="back-btn">← Back</button>
+        <div class="phone-title">Edit Scoop ✏️</div>
+      </div>
+      <div class="phone-body">
+        <div class="form-group">
+          <label class="form-label">Flavor *</label>
+          <input class="form-input" value="Chocolate Chip Cookie Dough" readonly>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Date</label>
+          <input class="form-input date-field" value="Jun 3, 2026" readonly>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Shop</label>
+          <input class="form-input" value="Cold Stone Creamery" readonly>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Rating</label>
+          <div class="rating-row">
+            <span class="scoops lit">🍨</span>
+            <span class="scoops lit">🍨</span>
+            <span class="scoops lit">🍨</span>
+            <span class="scoops lit">🍨</span>
+            <span class="scoops">🍨</span>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Notes</label>
+          <textarea class="form-input" readonly>Got the waffle cone, was totally worth it. The cookie dough chunks were huge.</textarea>
+        </div>
+        <button class="btn btn-save">Save Changes</button>
+        <button class="btn btn-delete">Delete Entry</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Location dropdown focused empty ── -->
+  <div>
+    <div class="screen-label">Shop Autocomplete</div>
+    <div class="phone">
+      <div class="phone-header">
+        <div class="phone-title">New Scoop 🍦</div>
+      </div>
+      <div class="phone-body">
+        <div class="form-group">
+          <label class="form-label">Flavor *</label>
+          <input class="form-input" value="Strawberry" readonly>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Date</label>
+          <input class="form-input date-field" value="Jun 4, 2026" readonly>
+        </div>
+        <div class="form-group autocomplete-wrap">
+          <label class="form-label">Shop</label>
+          <input class="form-input placeholder-style" value="Tap to see recent shops…" readonly>
+          <div class="autocomplete-dropdown">
+            <div class="autocomplete-item"><span class="ac-icon">🕐</span> Cold Stone Creamery</div>
+            <div class="autocomplete-item"><span class="ac-icon">🕐</span> Baskin Robbins</div>
+            <div class="autocomplete-item"><span class="ac-icon">🕐</span> Salt & Straw</div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Rating</label>
+          <div class="rating-row">
+            <span class="scoops">🍨</span>
+            <span class="scoops">🍨</span>
+            <span class="scoops">🍨</span>
+            <span class="scoops">🍨</span>
+            <span class="scoops">🍨</span>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Notes</label>
+          <textarea class="form-input placeholder-style" readonly>Any thoughts?</textarea>
+        </div>
+        <button class="btn btn-submit">Log It 🍦</button>
+      </div>
+      <div class="phone-tab-bar">
+        <div class="tab">🏠</div>
+        <div class="tab">➕</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
