@@ -522,12 +522,8 @@
 </div>
 <script>
 // ════════════════════════════════════════
-// CONFIG
-// Get a Places API key: console.cloud.google.com → enable Places API → paste below.
-// Leave as 'YOUR_KEY_HERE' to use local suggestions only (graceful degradation).
+// CONFIG — no API key needed (uses OpenStreetMap Nominatim)
 // ════════════════════════════════════════
-
-const PLACES_KEY = 'YOUR_KEY_HERE';
 
 // ════════════════════════════════════════
 // BUILT-IN FLAVORS
@@ -866,11 +862,11 @@ function renderWrappedView() {
 }
 
 // ════════════════════════════════════════
-// GOOGLE PLACES — lazy load only if key is set
+// SHOP SEARCH — OpenStreetMap Nominatim (free, no key needed)
 // ════════════════════════════════════════
 
-let placesService = null;
-let userLocation  = null;
+let userLocation = null;
+let nominatimTimer = null;
 
 if (navigator.geolocation) {
   navigator.geolocation.getCurrentPosition(
@@ -879,33 +875,34 @@ if (navigator.geolocation) {
   );
 }
 
-if (PLACES_KEY && PLACES_KEY !== 'YOUR_KEY_HERE') {
-  window.__initPlaces = function() {
-    placesService = new google.maps.places.AutocompleteService();
-  };
-  const s = document.createElement('script');
-  s.src = `https://maps.googleapis.com/maps/api/js?key=${PLACES_KEY}&libraries=places&callback=__initPlaces`;
-  s.async = true;
-  document.head.appendChild(s);
-}
-
 function fetchPlacesSuggestions(query, callback) {
-  if (!placesService || !query || query.length < 2) { callback([]); return; }
-  const req = {
-    input: query,
-    types: ['establishment'],
-    sessionToken: new google.maps.places.AutocompleteSessionToken(),
-  };
-  if (userLocation) {
-    req.location = new google.maps.LatLng(userLocation.lat, userLocation.lng);
-    req.radius = 50000;
-  }
-  try {
-    placesService.getPlacePredictions(req, (predictions, status) => {
-      if (status !== google.maps.places.PlacesServiceStatus.OK || !predictions) { callback([]); return; }
-      callback(predictions.slice(0, 5).map(p => p.structured_formatting?.main_text || p.description));
-    });
-  } catch { callback([]); }
+  if (!query || query.length < 2) { callback([]); return; }
+  clearTimeout(nominatimTimer);
+  nominatimTimer = setTimeout(async () => {
+    try {
+      const params = new URLSearchParams({
+        q: query,
+        format: 'json',
+        limit: '5',
+        addressdetails: '0',
+        dedupe: '1',
+      });
+      if (userLocation) {
+        const d = 0.45; // ~50km bounding box
+        params.append('viewbox', `${userLocation.lng - d},${userLocation.lat + d},${userLocation.lng + d},${userLocation.lat - d}`);
+        params.append('bounded', '0');
+      }
+      const res = await fetch(`https://nominatim.openstreetmap.org/search?${params}`, {
+        headers: { 'Accept-Language': 'en-US,en' }
+      });
+      if (!res.ok) { callback([]); return; }
+      const data = await res.json();
+      const names = data
+        .map(p => p.name || p.display_name.split(',')[0].trim())
+        .filter(n => n && n.length > 1);
+      callback([...new Set(names)].slice(0, 5));
+    } catch { callback([]); }
+  }, 300); // 300ms debounce — Nominatim rate limit is 1 req/sec
 }
 
 // ════════════════════════════════════════
@@ -1162,7 +1159,7 @@ function wireShopAutocomplete(inputId, suggestionsId) {
     currentQuery = query;
     const local = getLocalItems(query);
 
-    if (query.length >= 2 && placesService) {
+    if (query.length >= 2) {
       fetchPlacesSuggestions(query, places => {
         if (currentQuery !== query) return;
         const localNames = new Set(local.map(s => s.name.toLowerCase()));
