@@ -10,6 +10,7 @@
   <link rel="manifest" href="manifest.json">
   <link rel="apple-touch-icon" href="icon.png">
   <title>Sundae Run</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="">
   <style>
     /* ── Reset ── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -306,6 +307,51 @@
       margin: 16px 0 8px;
     }
 
+    /* ── Photo buttons (log form) ── */
+    .photo-btn-row { display: flex; gap: 10px; margin-bottom: 0; }
+    .photo-btn-label {
+      flex: 1; display: flex; align-items: center; justify-content: center;
+      gap: 7px; background: var(--card); border-radius: var(--r-btn);
+      padding: 13px 10px; font-size: 14px; font-weight: 600; color: var(--primary);
+      cursor: pointer; border: 1.5px solid var(--divider); user-select: none;
+    }
+    .photo-btn-label:active { opacity: 0.75; }
+    .photo-btn-label input[type="file"] { display: none; }
+    .photo-preview-wrap {
+      position: relative; width: 100%; border-radius: var(--r-btn);
+      overflow: hidden; background: var(--card);
+    }
+    .photo-preview-wrap img {
+      width: 100%; max-height: 200px; object-fit: cover; display: block;
+    }
+    .photo-remove-btn {
+      position: absolute; top: 8px; right: 8px;
+      width: 28px; height: 28px; border-radius: 50%;
+      background: rgba(0,0,0,0.55); border: none;
+      color: white; font-size: 13px; font-weight: 700;
+      cursor: pointer; display: flex; align-items: center; justify-content: center;
+    }
+    .entry-photo-thumb {
+      width: 38px; height: 38px; border-radius: 10px;
+      object-fit: cover; flex-shrink: 0;
+    }
+
+    /* ── Map (shops view) ── */
+    #shops-map {
+      width: 100%; height: 240px; border-radius: var(--r-card);
+      margin-bottom: 16px; overflow: hidden;
+      border: 1px solid var(--divider);
+    }
+    .map-empty {
+      height: 240px; border-radius: var(--r-card);
+      background: var(--card); border: 1.5px dashed var(--divider);
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      margin-bottom: 16px; color: var(--muted); gap: 6px;
+    }
+    .map-empty-emoji { font-size: 32px; }
+    .map-empty-text { font-size: 13px; font-weight: 600; }
+
     /* ── Wrapped view ── */
     .wrapped-header {
       font-size: 22px; font-weight: 800; color: var(--primary);
@@ -423,6 +469,21 @@
           <label class="form-label" for="input-notes">Notes</label>
           <textarea class="form-input" id="input-notes" placeholder="Any thoughts?"></textarea>
         </div>
+        <div class="form-group">
+          <label class="form-label">Photo</label>
+          <div id="log-photo-area">
+            <div class="photo-btn-row">
+              <label class="photo-btn-label">
+                📷 Camera
+                <input type="file" id="input-photo-camera" accept="image/*" capture="environment">
+              </label>
+              <label class="photo-btn-label">
+                🖼️ Library
+                <input type="file" id="input-photo-library" accept="image/*">
+              </label>
+            </div>
+          </div>
+        </div>
         <button type="submit" class="btn-submit">Log It 🍦</button>
       </form>
     </div>
@@ -479,8 +540,9 @@
 
   <!-- ── Shops view ── -->
   <div id="view-shops" class="view">
-    <div class="header"><h1>My Shops 🏪</h1></div>
+    <div class="header"><h1>My Shops 🗺️</h1></div>
     <div class="view-content">
+      <div id="shops-map-wrap"></div>
       <div class="form-group suggestions-wrap">
         <div class="add-shop-row">
           <input class="form-input" type="text" id="input-new-shop"
@@ -521,10 +583,15 @@
   </nav>
 
 </div>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
 <script>
 // ════════════════════════════════════════
-// CONFIG — no API key needed (uses OpenStreetMap Nominatim)
+// CONFIG
 // ════════════════════════════════════════
+
+// Google Places API key — get one at console.cloud.google.com → enable Places API
+// Leave empty to use OpenStreetMap Nominatim as a free fallback (no key required)
+const PLACES_KEY = '';
 
 // ════════════════════════════════════════
 // BUILT-IN FLAVORS
@@ -555,7 +622,7 @@ function saveEntries(entries) {
   localStorage.setItem(STORAGE_KEY, JSON.stringify(entries));
 }
 
-function addEntry({ flavor, shop, rating, notes, date, price }) {
+function addEntry({ flavor, shop, rating, notes, date, price, photo_data }) {
   const entries = loadEntries();
   const entry = {
     id: crypto.randomUUID(),
@@ -565,6 +632,7 @@ function addEntry({ flavor, shop, rating, notes, date, price }) {
     notes: notes.trim(),
     date: new Date(date + 'T12:00:00').toISOString(),
     price: price ?? null,
+    photo_data: photo_data ?? null,
   };
   entries.unshift(entry);
   saveEntries(entries);
@@ -880,17 +948,41 @@ function fetchPlacesSuggestions(query, callback) {
   if (!query || query.length < 2) { callback([]); return; }
   clearTimeout(nominatimTimer);
   nominatimTimer = setTimeout(async () => {
+    // ── Google Places Autocomplete (used when PLACES_KEY is set) ──
+    if (PLACES_KEY) {
+      try {
+        const params = new URLSearchParams({
+          input: query,
+          types: 'establishment',
+          key: PLACES_KEY,
+        });
+        if (userLocation) {
+          params.append('location', `${userLocation.lat},${userLocation.lng}`);
+          params.append('radius', '50000');
+        }
+        const res = await fetch(
+          `https://maps.googleapis.com/maps/api/place/autocomplete/json?${params}`
+        );
+        if (res.ok) {
+          const data = await res.json();
+          const names = (data.predictions ?? [])
+            .map(p => p.structured_formatting?.main_text || p.description.split(',')[0].trim())
+            .filter(Boolean);
+          callback([...new Set(names)].slice(0, 5));
+          return;
+        }
+      } catch {}
+      // Fall through to Nominatim if Places fails
+    }
+
+    // ── OpenStreetMap Nominatim fallback (free, no key needed) ──
     try {
       const params = new URLSearchParams({
-        q: query,
-        format: 'json',
-        limit: '5',
-        addressdetails: '0',
-        dedupe: '1',
+        q: query, format: 'json', limit: '5', addressdetails: '0', dedupe: '1',
       });
       if (userLocation) {
-        const d = 0.45; // ~50km bounding box
-        params.append('viewbox', `${userLocation.lng - d},${userLocation.lat + d},${userLocation.lng + d},${userLocation.lat - d}`);
+        const d = 0.45;
+        params.append('viewbox', `${userLocation.lng-d},${userLocation.lat+d},${userLocation.lng+d},${userLocation.lat-d}`);
         params.append('bounded', '0');
       }
       const res = await fetch(`https://nominatim.openstreetmap.org/search?${params}`, {
@@ -903,7 +995,7 @@ function fetchPlacesSuggestions(query, callback) {
         .filter(n => n && n.length > 1);
       callback([...new Set(names)].slice(0, 5));
     } catch { callback([]); }
-  }, 300); // 300ms debounce — Nominatim rate limit is 1 req/sec
+  }, 300);
 }
 
 // ════════════════════════════════════════
@@ -976,9 +1068,12 @@ function renderEntryList(entries) {
     const ratingHtml = entry.rating > 0
       ? `<div class="entry-rating">${'🍨'.repeat(entry.rating)}</div>` : '';
     const meta = [entry.shop, formatDate(entry.date)].filter(Boolean).join(' · ');
+    const thumbHtml = entry.photo_data
+      ? `<img class="entry-photo-thumb" src="${entry.photo_data}" alt="">`
+      : `<div class="entry-chip" style="background:${chipColor(entry.flavor)}">🍦</div>`;
     return `
       <div class="entry-card" data-id="${escapeHtml(entry.id)}" style="cursor:pointer">
-        <div class="entry-chip" style="background:${chipColor(entry.flavor)}">🍦</div>
+        ${thumbHtml}
         <div class="entry-info">
           <div class="entry-flavor">${escapeHtml(entry.flavor)}</div>
           <div class="entry-meta">${escapeHtml(meta)}</div>
@@ -1008,6 +1103,9 @@ function renderShopsView() {
   const favorites = loadFavorites().slice().sort((a, b) => a.localeCompare(b));
   const visited   = getVisitedShops();
   const favSet    = new Set(favorites.map(f => f.toLowerCase()));
+
+  // Render map with all visited shops
+  renderShopsMap(visited);
   const content   = document.getElementById('shops-content');
   const empty     = document.getElementById('shops-empty');
 
@@ -1196,10 +1294,11 @@ document.getElementById('log-form').addEventListener('submit', e => {
   const date     = document.getElementById('input-date').value;
   const priceVal = document.getElementById('input-price').value;
   const price    = priceVal === '' ? null : parseFloat(priceVal);
-  addEntry({ flavor, shop, rating: selectedRating, notes, date, price });
+  addEntry({ flavor, shop, rating: selectedRating, notes, date, price, photo_data: currentLogPhoto });
   document.getElementById('log-form').reset();
   setRating(0);
   initDateField();
+  clearLogPhoto();
   showView('home');
 });
 
@@ -1303,6 +1402,229 @@ document.querySelectorAll('.tab-btn').forEach(btn => {
 });
 
 // ════════════════════════════════════════
+// PHOTO CAPTURE & COMPRESSION
+// ════════════════════════════════════════
+
+let currentLogPhoto = null;
+
+function compressImage(file, maxSide, quality, callback) {
+  const reader = new FileReader();
+  reader.onload = evt => {
+    const img = new Image();
+    img.onload = () => {
+      const scale = Math.min(1, maxSide / Math.max(img.width, img.height));
+      const w = Math.round(img.width * scale);
+      const h = Math.round(img.height * scale);
+      const canvas = document.createElement('canvas');
+      canvas.width = w; canvas.height = h;
+      canvas.getContext('2d').drawImage(img, 0, 0, w, h);
+      callback(canvas.toDataURL('image/jpeg', quality));
+    };
+    img.src = evt.target.result;
+  };
+  reader.readAsDataURL(file);
+}
+
+function setLogPhoto(dataUrl) {
+  currentLogPhoto = dataUrl;
+  const area = document.getElementById('log-photo-area');
+  area.innerHTML = `
+    <div class="photo-preview-wrap">
+      <img src="${dataUrl}" alt="Photo preview">
+      <button class="photo-remove-btn" id="log-photo-remove-btn" type="button">✕</button>
+    </div>`;
+  document.getElementById('log-photo-remove-btn').addEventListener('click', clearLogPhoto);
+}
+
+function clearLogPhoto() {
+  currentLogPhoto = null;
+  const area = document.getElementById('log-photo-area');
+  area.innerHTML = `
+    <div class="photo-btn-row">
+      <label class="photo-btn-label">
+        📷 Camera
+        <input type="file" id="input-photo-camera" accept="image/*" capture="environment">
+      </label>
+      <label class="photo-btn-label">
+        🖼️ Library
+        <input type="file" id="input-photo-library" accept="image/*">
+      </label>
+    </div>`;
+  wirePhotoInputs();
+}
+
+function wirePhotoInputs() {
+  const cameraInput  = document.getElementById('input-photo-camera');
+  const libraryInput = document.getElementById('input-photo-library');
+  if (cameraInput)  cameraInput.addEventListener('change',  e => handlePhotoInput(e.target.files[0]));
+  if (libraryInput) libraryInput.addEventListener('change', e => handlePhotoInput(e.target.files[0]));
+}
+
+function handlePhotoInput(file) {
+  if (!file) return;
+  compressImage(file, 1000, 0.65, dataUrl => setLogPhoto(dataUrl));
+}
+
+// ════════════════════════════════════════
+// MAP — Leaflet + Nominatim geocoding
+// ════════════════════════════════════════
+
+const GEOCACHE_KEY = 'sundae_geocache';
+let shopsMap = null;
+let geocodeQueue = [];
+let geocodeTimer = null;
+
+function loadGeoCache() {
+  try { return JSON.parse(localStorage.getItem(GEOCACHE_KEY) ?? '{}'); }
+  catch { return {}; }
+}
+
+function saveGeoCache(cache) {
+  try { localStorage.setItem(GEOCACHE_KEY, JSON.stringify(cache)); } catch {}
+}
+
+// Geocode one shop name via Nominatim; calls callback with {lat, lng} or null
+function geocodeShop(name, callback) {
+  const cache = loadGeoCache();
+  const key = name.toLowerCase().trim();
+  if (cache[key]) { callback(cache[key]); return; }
+  if (cache[key] === null) { callback(null); return; }
+
+  geocodeQueue.push({ name, key, callback });
+  scheduleGeocode();
+}
+
+function scheduleGeocode() {
+  if (geocodeTimer) return;
+  geocodeTimer = setTimeout(processGeocodeQueue, 0);
+}
+
+async function processGeocodeQueue() {
+  geocodeTimer = null;
+  if (!geocodeQueue.length) return;
+  const { name, key, callback } = geocodeQueue.shift();
+  const cache = loadGeoCache();
+
+  try {
+    // Try 1: tight bounding box around user (~25km) — best for local shops
+    // Try 2: loose search if tight returns nothing
+    const trySearch = async (bounded) => {
+      const params = new URLSearchParams({ q: name, format: 'json', limit: '1', addressdetails: '0' });
+      if (userLocation) {
+        const d = bounded ? 0.25 : 1.5;
+        params.append('viewbox', `${userLocation.lng-d},${userLocation.lat+d},${userLocation.lng+d},${userLocation.lat-d}`);
+        params.append('bounded', bounded ? '1' : '0');
+      }
+      const res = await fetch(`https://nominatim.openstreetmap.org/search?${params}`, {
+        headers: { 'Accept-Language': 'en-US,en' }
+      });
+      const data = await res.json();
+      return data[0] ? { lat: parseFloat(data[0].lat), lng: parseFloat(data[0].lon) } : null;
+    };
+
+    let result = await trySearch(true);
+    // If tight search misses, try loose (waits 1.1s for rate limit)
+    if (!result && userLocation) {
+      await new Promise(r => setTimeout(r, 1100));
+      result = await trySearch(false);
+    }
+    cache[key] = result;
+    saveGeoCache(cache);
+    callback(result);
+  } catch {
+    callback(null);
+  }
+
+  // Nominatim: 1 request / second
+  if (geocodeQueue.length) geocodeTimer = setTimeout(processGeocodeQueue, 1100);
+}
+
+function renderShopsMap(visitedShops) {
+  const wrap = document.getElementById('shops-map-wrap');
+
+  // Always ensure map container exists
+  if (!document.getElementById('shops-map')) {
+    wrap.innerHTML = '<div id="shops-map"></div>';
+  }
+
+  // Default center: user location or San Diego
+  const defaultCenter = userLocation
+    ? [userLocation.lat, userLocation.lng]
+    : [32.7157, -117.1611];
+
+  // Init Leaflet once
+  if (!shopsMap) {
+    shopsMap = L.map('shops-map', { zoomControl: true, attributionControl: false });
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 19 }).addTo(shopsMap);
+    shopsMap.setView(defaultCenter, userLocation ? 13 : 11);
+
+    // User location dot
+    if (userLocation) {
+      L.circleMarker(defaultCenter, {
+        radius: 8, fillColor: '#5B3FA6', color: 'white',
+        weight: 2.5, fillOpacity: 0.9
+      }).addTo(shopsMap).bindPopup('<b style="color:#5B3FA6">You are here</b>');
+    }
+  } else {
+    // Clear old shop markers (Marker instances only — keeps circle/tile layers)
+    shopsMap.eachLayer(layer => {
+      if (layer instanceof L.Marker) shopsMap.removeLayer(layer);
+    });
+  }
+
+  // Size fix — tab may have been hidden when map was initialized
+  setTimeout(() => shopsMap && shopsMap.invalidateSize(), 150);
+
+  if (!visitedShops.length) return;
+
+  const bounds = [];
+  let pendingCount = visitedShops.length;
+
+  visitedShops.forEach(shop => {
+    geocodeShop(shop.name, coords => {
+      pendingCount--;
+      if (coords) {
+        bounds.push([coords.lat, coords.lng]);
+        const marker = L.marker([coords.lat, coords.lng], {
+          icon: L.divIcon({
+            className: '',
+            html: `<div style="background:white;border-radius:50%;border:2.5px solid #5B3FA6;
+              width:36px;height:36px;display:flex;align-items:center;justify-content:center;
+              font-size:18px;box-shadow:0 2px 8px rgba(91,63,166,0.25);position:relative;">🍦${
+              shop.count > 1
+                ? `<span style="position:absolute;top:-5px;right:-5px;background:#5B3FA6;
+                    color:white;border-radius:9px;font-size:9px;font-weight:800;
+                    min-width:16px;height:16px;display:flex;align-items:center;
+                    justify-content:center;padding:0 3px">${shop.count}</span>`
+                : ''
+            }</div>`,
+            iconSize: [36, 36],
+            iconAnchor: [18, 18],
+          })
+        });
+        marker.bindPopup(
+          `<b style="color:#5B3FA6">${escapeHtml(shop.name)}</b><br>` +
+          `${shop.count} visit${shop.count !== 1 ? 's' : ''}`
+        );
+        marker.addTo(shopsMap);
+      }
+
+      if (pendingCount === 0) {
+        if (bounds.length === 1) {
+          shopsMap.setView(bounds[0], 14);
+        } else if (bounds.length > 1) {
+          shopsMap.fitBounds(bounds, { padding: [36, 36] });
+        } else {
+          // No shops geocoded — stay on user location, zoom street-level
+          shopsMap.setView(defaultCenter, userLocation ? 14 : 11);
+        }
+        setTimeout(() => shopsMap && shopsMap.invalidateSize(), 60);
+      }
+    });
+  });
+}
+
+// ════════════════════════════════════════
 // SERVICE WORKER
 // ════════════════════════════════════════
 
@@ -1333,6 +1655,7 @@ if (new Date().getMonth() === 11) {
 
 renderHome();
 initDateField();
+wirePhotoInputs();
 </script>
 </body>
 </html>
