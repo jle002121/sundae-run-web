@@ -1,0 +1,4 @@
+exclude:
+  - mobile-src/
+  - specs/
+  - "*.sh"
