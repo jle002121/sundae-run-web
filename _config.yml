@@ -1,4 +1,5 @@
 exclude:
   - mobile-src/
   - specs/
+  - .superpowers/
   - "*.sh"
