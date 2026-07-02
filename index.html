@@ -32,246 +32,90 @@
     }
 
     /* ── App shell ── */
-    html, body {
-      height: 100%;
-      background: var(--bg);
-      font-family: system-ui, -apple-system, sans-serif;
-      color: var(--text);
-      -webkit-font-smoothing: antialiased;
-    }
-    #app {
-      display: flex;
-      flex-direction: column;
-      height: 100%;
-      max-width: 430px;
-      margin: 0 auto;
-    }
+    html, body { height: 100%; background: var(--bg); font-family: system-ui, -apple-system, sans-serif; color: var(--text); -webkit-font-smoothing: antialiased; }
+    #app { display: flex; flex-direction: column; height: 100%; max-width: 430px; margin: 0 auto; }
 
     /* ── Views ── */
-    .view {
-      display: none;
-      flex: 1;
-      flex-direction: column;
-      overflow-y: auto;
-      -webkit-overflow-scrolling: touch;
-    }
+    .view { display: none; flex: 1; flex-direction: column; overflow-y: auto; -webkit-overflow-scrolling: touch; }
     .view.active { display: flex; }
     .view-content { padding: 16px 16px 32px; }
 
     /* ── Header ── */
-    .header {
-      padding: 56px 16px 12px;
-      background: var(--bg);
-      flex-shrink: 0;
-    }
-    .header h1 {
-      font-size: 22px;
-      font-weight: 800;
-      color: var(--primary);
-    }
+    .header { padding: 56px 16px 12px; background: var(--bg); flex-shrink: 0; }
+    .header h1 { font-size: 22px; font-weight: 800; color: var(--primary); }
+    .header-row { display: flex; align-items: center; gap: 10px; }
 
     /* ── Stats row ── */
-    .stats-row {
-      display: flex;
-      gap: 10px;
-      margin-bottom: 14px;
-    }
-    .stat-card {
-      flex: 1;
-      background: var(--card);
-      border-radius: var(--r-stat);
-      padding: 14px 8px;
-      text-align: center;
-    }
-    .stat-value {
-      font-size: 22px;
-      font-weight: 800;
-      color: var(--primary);
-      display: block;
-    }
-    .stat-label {
-      font-size: 9px;
-      font-weight: 700;
-      color: var(--muted);
-      letter-spacing: 0.5px;
-      text-transform: uppercase;
-      margin-top: 2px;
-      display: block;
-    }
+    .stats-row { display: flex; gap: 10px; margin-bottom: 14px; }
+    .stat-card { flex: 1; background: var(--card); border-radius: var(--r-stat); padding: 14px 8px; text-align: center; }
+    .stat-value { font-size: 22px; font-weight: 800; color: var(--primary); display: block; }
+    .stat-label { font-size: 9px; font-weight: 700; color: var(--muted); letter-spacing: 0.5px; text-transform: uppercase; margin-top: 2px; display: block; }
 
     /* ── Streak row ── */
-    .streak-row {
-      display: flex;
-      gap: 10px;
-      margin-bottom: 20px;
-    }
-    .streak-card {
-      flex: 1;
-      background: var(--gradient);
-      border-radius: var(--r-stat);
-      padding: 12px 8px;
-      text-align: center;
-    }
+    .streak-row { display: flex; gap: 10px; margin-bottom: 20px; }
+    .streak-card { flex: 1; background: var(--gradient); border-radius: var(--r-stat); padding: 12px 8px; text-align: center; }
     .streak-flame { font-size: 16px; display: block; line-height: 1; }
-    .streak-value {
-      font-size: 20px;
-      font-weight: 800;
-      color: var(--primary);
-      display: block;
-      margin-top: 2px;
-    }
-    .streak-label {
-      font-size: 9px;
-      font-weight: 700;
-      color: var(--primary);
-      letter-spacing: 0.5px;
-      text-transform: uppercase;
-      margin-top: 2px;
-      display: block;
-      opacity: 0.75;
-    }
+    .streak-value { font-size: 20px; font-weight: 800; color: var(--primary); display: block; margin-top: 2px; }
+    .streak-label { font-size: 9px; font-weight: 700; color: var(--primary); letter-spacing: 0.5px; text-transform: uppercase; margin-top: 2px; display: block; opacity: 0.75; }
 
     /* ── Top Flavors ── */
     #top-flavors-section { margin-bottom: 20px; }
-    .flavor-bar-row {
-      background: var(--card);
-      border-radius: var(--r-stat);
-      padding: 10px 14px;
-      margin-bottom: 6px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
+    .flavor-bar-row { background: var(--card); border-radius: var(--r-stat); padding: 10px 14px; margin-bottom: 6px; display: flex; align-items: center; gap: 10px; }
     .flavor-bar-name { flex: 1; font-size: 13px; font-weight: 600; color: var(--text); }
     .flavor-bar-count { font-size: 12px; font-weight: 700; color: var(--muted); }
 
     /* ── Section label ── */
-    .section-label {
-      font-size: 10px;
-      font-weight: 700;
-      color: var(--muted);
-      letter-spacing: 0.5px;
-      text-transform: uppercase;
-      margin-bottom: 10px;
-    }
+    .section-label { font-size: 10px; font-weight: 700; color: var(--muted); letter-spacing: 0.5px; text-transform: uppercase; margin-bottom: 10px; }
 
     /* ── Entry cards ── */
-    .entry-card {
-      background: var(--card);
-      border-radius: var(--r-card);
-      padding: 14px;
-      margin-bottom: 8px;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-    .entry-chip {
-      width: 38px; height: 38px;
-      border-radius: 10px;
-      flex-shrink: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 18px;
-    }
+    .entry-card { background: var(--card); border-radius: var(--r-card); padding: 14px; margin-bottom: 8px; display: flex; align-items: center; gap: 12px; cursor: pointer; }
+    .entry-chip { width: 38px; height: 38px; border-radius: 10px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 18px; }
     .entry-info { flex: 1; min-width: 0; }
-    .entry-flavor {
-      font-size: 14px; font-weight: 700; color: var(--text);
-      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-    }
+    .entry-flavor { font-size: 14px; font-weight: 700; color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
     .entry-meta { font-size: 11px; color: var(--muted); margin-top: 2px; }
     .entry-rating { font-size: 10px; margin-top: 3px; }
+    .entry-photo-thumb { width: 38px; height: 38px; border-radius: 10px; object-fit: cover; flex-shrink: 0; }
 
     /* ── Empty state ── */
-    .empty-state {
-      text-align: center; padding: 48px 24px;
-      color: var(--muted); font-size: 14px; line-height: 1.6;
-    }
+    .empty-state { text-align: center; padding: 48px 24px; color: var(--muted); font-size: 14px; line-height: 1.6; }
 
     /* ── Forms ── */
     .form-group { margin-bottom: 14px; }
-    .form-label {
-      font-size: 11px; font-weight: 700; color: var(--muted);
-      letter-spacing: 0.5px; text-transform: uppercase;
-      display: block; margin-bottom: 6px;
-    }
-    .form-input {
-      width: 100%; background: var(--card); border: none;
-      border-radius: var(--r-btn); padding: 14px 16px;
-      font-size: 15px; color: var(--text); font-family: inherit;
-      outline: none; -webkit-appearance: none;
-    }
+    .form-label { font-size: 11px; font-weight: 700; color: var(--muted); letter-spacing: 0.5px; text-transform: uppercase; display: block; margin-bottom: 6px; }
+    .form-input { width: 100%; background: var(--card); border: none; border-radius: var(--r-btn); padding: 14px 16px; font-size: 15px; color: var(--text); font-family: inherit; outline: none; -webkit-appearance: none; }
     .form-input::placeholder { color: var(--muted); }
     textarea.form-input { resize: none; height: 80px; }
+    input[type="date"].form-input { color: var(--primary); font-weight: 600; }
 
     /* ── Rating picker ── */
     .rating-row { display: flex; gap: 8px; }
-    .rating-btn {
-      font-size: 28px; background: none; border: none;
-      cursor: pointer; opacity: 0.25; transition: opacity 0.15s;
-      padding: 0; line-height: 1;
-    }
+    .rating-btn { font-size: 28px; background: none; border: none; cursor: pointer; opacity: 0.25; transition: opacity 0.15s; padding: 0; line-height: 1; }
     .rating-btn.active { opacity: 1; }
 
     /* ── Buttons ── */
-    .btn-submit {
-      width: 100%; background: var(--gradient); border: none;
-      border-radius: var(--r-btn); padding: 16px;
-      font-size: 16px; font-weight: 700; color: white;
-      cursor: pointer; font-family: inherit; margin-top: 8px;
-      -webkit-appearance: none;
-    }
+    .btn-submit { width: 100%; background: var(--gradient); border: none; border-radius: var(--r-btn); padding: 16px; font-size: 16px; font-weight: 700; color: white; cursor: pointer; font-family: inherit; margin-top: 8px; -webkit-appearance: none; }
     .btn-submit:active { opacity: 0.85; }
-    .btn-delete {
-      width: 100%; background: none; border: 1.5px solid #FFCCC9;
-      border-radius: var(--r-btn); padding: 14px;
-      font-size: 14px; font-weight: 700; color: #FF453A;
-      cursor: pointer; font-family: inherit; margin-top: 8px;
-    }
+    .btn-submit:disabled { opacity: 0.6; cursor: not-allowed; }
+    .btn-delete { width: 100%; background: none; border: 1.5px solid #FFCCC9; border-radius: var(--r-btn); padding: 14px; font-size: 14px; font-weight: 700; color: #FF453A; cursor: pointer; font-family: inherit; margin-top: 8px; }
     .btn-delete:active { opacity: 0.7; }
+    .back-btn { background: none; border: none; color: var(--primary); font-size: 14px; font-weight: 700; cursor: pointer; font-family: inherit; padding: 0; flex-shrink: 0; }
+    .icon-btn { background: none; border: none; font-size: 20px; cursor: pointer; padding: 4px; line-height: 1; }
 
     /* ── Tab bar ── */
-    #tab-bar {
-      display: flex; background: var(--card);
-      border-top: 1px solid var(--divider);
-      padding-bottom: env(safe-area-inset-bottom);
-      flex-shrink: 0;
-    }
-    .tab-btn {
-      flex: 1; background: none; border: none;
-      padding: 10px 0 8px; cursor: pointer;
-      display: flex; flex-direction: column;
-      align-items: center; gap: 3px; font-family: inherit;
-    }
+    #tab-bar { display: flex; background: var(--card); border-top: 1px solid var(--divider); padding-bottom: env(safe-area-inset-bottom); flex-shrink: 0; }
+    .tab-btn { flex: 1; background: none; border: none; padding: 10px 0 8px; cursor: pointer; display: flex; flex-direction: column; align-items: center; gap: 3px; font-family: inherit; -webkit-tap-highlight-color: transparent; }
     .tab-icon { font-size: 22px; line-height: 1; }
     .tab-label { font-size: 10px; font-weight: 600; color: var(--muted); }
     .tab-btn.active .tab-label { color: var(--primary); }
 
     /* ── Edit view ── */
-    .header-row { display: flex; align-items: center; gap: 10px; }
-    .back-btn {
-      background: none; border: none; color: var(--primary);
-      font-size: 14px; font-weight: 700; cursor: pointer;
-      font-family: inherit; padding: 0; flex-shrink: 0;
-    }
-    input[type="date"].form-input { color: var(--primary); font-weight: 600; }
     #app.editing #tab-bar { display: none; }
 
     /* ── Autocomplete suggestions ── */
     .suggestions-wrap { position: relative; }
-    .suggestions {
-      display: none;
-      position: absolute; top: calc(100% + 4px); left: 0; right: 0;
-      background: var(--card); border-radius: var(--r-btn);
-      box-shadow: 0 4px 20px rgba(91,63,166,0.15);
-      z-index: 10; overflow: hidden;
-    }
+    .suggestions { display: none; position: absolute; top: calc(100% + 4px); left: 0; right: 0; background: var(--card); border-radius: var(--r-btn); box-shadow: 0 4px 20px rgba(91,63,166,0.15); z-index: 10; overflow: hidden; }
     .suggestions.open { display: block; }
-    .suggestion-item {
-      padding: 12px 16px; font-size: 14px; color: var(--text);
-      cursor: pointer; border-bottom: 1px solid var(--divider);
-      display: flex; align-items: center; gap: 8px;
-    }
+    .suggestion-item { padding: 12px 16px; font-size: 14px; color: var(--text); cursor: pointer; border-bottom: 1px solid var(--divider); display: flex; align-items: center; gap: 8px; }
     .suggestion-item:last-child { border-bottom: none; }
     .suggestion-item:active { background: var(--bg); }
     .suggestion-icon { color: var(--muted); font-size: 13px; }
@@ -279,144 +123,180 @@
     /* ── My Shops view ── */
     .add-shop-row { display: flex; gap: 10px; }
     .add-shop-row .form-input { flex: 1; }
-    .btn-add-shop {
-      background: var(--gradient); border: none;
-      border-radius: var(--r-btn); padding: 14px 18px;
-      font-size: 14px; font-weight: 700; color: white;
-      cursor: pointer; font-family: inherit;
-      white-space: nowrap; flex-shrink: 0;
-    }
+    .btn-add-shop { background: var(--gradient); border: none; border-radius: var(--r-btn); padding: 14px 18px; font-size: 14px; font-weight: 700; color: white; cursor: pointer; font-family: inherit; white-space: nowrap; flex-shrink: 0; }
     .btn-add-shop:active { opacity: 0.85; }
-    .shop-card {
-      background: var(--card); border-radius: var(--r-card);
-      padding: 14px 16px; margin-bottom: 8px;
-      display: flex; align-items: center; gap: 12px;
-    }
+    .shop-card { background: var(--card); border-radius: var(--r-card); padding: 14px 16px; margin-bottom: 8px; display: flex; align-items: center; gap: 12px; }
     .shop-card-icon { font-size: 20px; flex-shrink: 0; }
     .shop-card-name { flex: 1; font-size: 14px; font-weight: 700; color: var(--text); }
     .shop-card-count { font-size: 12px; color: var(--muted); font-weight: 600; }
-    .btn-remove-shop {
-      background: none; border: none; color: var(--muted);
-      font-size: 18px; cursor: pointer; padding: 0 0 0 8px;
-      line-height: 1; flex-shrink: 0;
-    }
+    .btn-remove-shop { background: none; border: none; color: var(--muted); font-size: 18px; cursor: pointer; padding: 0 0 0 8px; line-height: 1; flex-shrink: 0; }
     .btn-remove-shop:active { color: #FF453A; }
-    .shops-section-label {
-      font-size: 10px; font-weight: 700; color: var(--muted);
-      letter-spacing: 0.5px; text-transform: uppercase;
-      margin: 16px 0 8px;
-    }
+    .shops-section-label { font-size: 10px; font-weight: 700; color: var(--muted); letter-spacing: 0.5px; text-transform: uppercase; margin: 16px 0 8px; }
 
-    /* ── Photo buttons (log form) ── */
-    .photo-btn-row { display: flex; gap: 10px; margin-bottom: 0; }
-    .photo-btn-label {
-      flex: 1; display: flex; align-items: center; justify-content: center;
-      gap: 7px; background: var(--card); border-radius: var(--r-btn);
-      padding: 13px 10px; font-size: 14px; font-weight: 600; color: var(--primary);
-      cursor: pointer; border: 1.5px solid var(--divider); user-select: none;
-    }
+    /* ── Photo buttons ── */
+    .photo-btn-row { display: flex; gap: 10px; }
+    .photo-btn-label { flex: 1; display: flex; align-items: center; justify-content: center; gap: 7px; background: var(--card); border-radius: var(--r-btn); padding: 13px 10px; font-size: 14px; font-weight: 600; color: var(--primary); cursor: pointer; border: 1.5px solid var(--divider); user-select: none; }
     .photo-btn-label:active { opacity: 0.75; }
     .photo-btn-label input[type="file"] { display: none; }
-    .photo-preview-wrap {
-      position: relative; width: 100%; border-radius: var(--r-btn);
-      overflow: hidden; background: var(--card);
-    }
-    .photo-preview-wrap img {
-      width: 100%; max-height: 200px; object-fit: cover; display: block;
-    }
-    .photo-remove-btn {
-      position: absolute; top: 8px; right: 8px;
-      width: 28px; height: 28px; border-radius: 50%;
-      background: rgba(0,0,0,0.55); border: none;
-      color: white; font-size: 13px; font-weight: 700;
-      cursor: pointer; display: flex; align-items: center; justify-content: center;
-    }
-    .entry-photo-thumb {
-      width: 38px; height: 38px; border-radius: 10px;
-      object-fit: cover; flex-shrink: 0;
-    }
+    .photo-preview-wrap { position: relative; width: 100%; border-radius: var(--r-btn); overflow: hidden; background: var(--card); }
+    .photo-preview-wrap img { width: 100%; max-height: 200px; object-fit: cover; display: block; }
+    .photo-remove-btn { position: absolute; top: 8px; right: 8px; width: 28px; height: 28px; border-radius: 50%; background: rgba(0,0,0,0.55); border: none; color: white; font-size: 13px; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; }
 
-    /* ── Map (shops view) ── */
-    #shops-map {
-      width: 100%; height: 240px; border-radius: var(--r-card);
-      margin-bottom: 16px; overflow: hidden;
-      border: 1px solid var(--divider);
-    }
-    .map-empty {
-      height: 240px; border-radius: var(--r-card);
-      background: var(--card); border: 1.5px dashed var(--divider);
-      display: flex; flex-direction: column;
-      align-items: center; justify-content: center;
-      margin-bottom: 16px; color: var(--muted); gap: 6px;
-    }
+    /* ── Share toggle ── */
+    .toggle-row { display: flex; align-items: center; gap: 10px; cursor: pointer; padding: 4px 0; }
+    .toggle-track { width: 44px; height: 26px; background: var(--divider); border-radius: 13px; position: relative; transition: background 0.2s; flex-shrink: 0; }
+    .toggle-track.on { background: var(--primary); }
+    .toggle-thumb { width: 22px; height: 22px; background: white; border-radius: 50%; position: absolute; top: 2px; left: 2px; transition: transform 0.2s; box-shadow: 0 1px 4px rgba(0,0,0,0.2); }
+    .toggle-track.on .toggle-thumb { transform: translateX(18px); }
+    .toggle-text { font-size: 14px; color: var(--text); font-weight: 500; }
+
+    /* ── Map ── */
+    #shops-map { width: 100%; height: 240px; border-radius: var(--r-card); margin-bottom: 16px; overflow: hidden; border: 1px solid var(--divider); }
+    .map-empty { height: 240px; border-radius: var(--r-card); background: var(--card); border: 1.5px dashed var(--divider); display: flex; flex-direction: column; align-items: center; justify-content: center; margin-bottom: 16px; color: var(--muted); gap: 6px; }
     .map-empty-emoji { font-size: 32px; }
     .map-empty-text { font-size: 13px; font-weight: 600; }
 
     /* ── Wrapped view ── */
-    .wrapped-header {
-      font-size: 22px; font-weight: 800; color: var(--primary);
-      margin-bottom: 4px;
-    }
-    .wrapped-year {
-      font-size: 13px; color: var(--muted); font-weight: 600;
-      margin-bottom: 20px;
-    }
-    .wrapped-card {
-      background: var(--gradient);
-      border-radius: var(--r-card);
-      padding: 20px 18px;
-      margin-bottom: 12px;
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-    }
+    .wrapped-card { background: var(--gradient); border-radius: var(--r-card); padding: 20px 18px; margin-bottom: 12px; display: flex; flex-direction: column; gap: 4px; }
     .wrapped-card-emoji { font-size: 28px; line-height: 1; margin-bottom: 6px; }
-    .wrapped-card-value {
-      font-size: 20px; font-weight: 800; color: var(--primary); line-height: 1.2;
-    }
-    .wrapped-card-label {
-      font-size: 11px; font-weight: 700; color: var(--primary);
-      text-transform: uppercase; letter-spacing: 0.5px; opacity: 0.7;
-    }
+    .wrapped-card-value { font-size: 20px; font-weight: 800; color: var(--primary); line-height: 1.2; }
+    .wrapped-card-label { font-size: 11px; font-weight: 700; color: var(--primary); text-transform: uppercase; letter-spacing: 0.5px; opacity: 0.7; }
+
+    /* ── Auth screen ── */
+    #view-auth { background: var(--bg); justify-content: flex-start; }
+    .auth-logo { text-align: center; padding: 64px 24px 32px; }
+    .auth-logo-emoji { font-size: 64px; display: block; line-height: 1; margin-bottom: 12px; }
+    .auth-logo-title { font-size: 30px; font-weight: 800; color: var(--primary); }
+    .auth-logo-sub { font-size: 14px; color: var(--muted); margin-top: 6px; font-weight: 500; }
+    .auth-card { background: var(--card); border-radius: 20px; padding: 20px; margin: 0 16px; }
+    .auth-tabs { display: flex; gap: 0; margin-bottom: 20px; background: var(--bg); border-radius: var(--r-btn); padding: 4px; }
+    .auth-tab { flex: 1; background: none; border: none; padding: 10px; border-radius: 10px; font-size: 14px; font-weight: 700; color: var(--muted); cursor: pointer; font-family: inherit; transition: all 0.15s; }
+    .auth-tab.active { background: var(--primary); color: white; }
+    .auth-error { color: #FF453A; font-size: 13px; font-weight: 600; margin-bottom: 10px; display: none; }
+    .auth-guest-btn { width: 100%; background: none; border: none; color: var(--muted); font-size: 13px; font-weight: 600; padding: 20px 16px; cursor: pointer; font-family: inherit; }
+
+    /* ── Feed view ── */
+    .feed-header-row { display: flex; align-items: center; justify-content: space-between; }
+    .feed-card { background: var(--card); border-radius: var(--r-card); margin-bottom: 12px; overflow: hidden; }
+    .feed-card-header { display: flex; align-items: center; gap: 10px; padding: 12px 14px 8px; }
+    .feed-avatar { width: 36px; height: 36px; border-radius: 50%; background: var(--gradient); display: flex; align-items: center; justify-content: center; font-size: 15px; font-weight: 800; color: var(--primary); flex-shrink: 0; cursor: pointer; }
+    .feed-username { font-size: 14px; font-weight: 700; color: var(--text); cursor: pointer; }
+    .feed-time { font-size: 11px; color: var(--muted); margin-top: 1px; }
+    .feed-photo { width: 100%; max-height: 320px; object-fit: cover; display: block; }
+    .feed-body { padding: 10px 14px 14px; }
+    .feed-flavor { font-size: 16px; font-weight: 800; color: var(--text); margin-bottom: 3px; }
+    .feed-shop { font-size: 12px; color: var(--muted); margin-bottom: 6px; }
+    .feed-notes { font-size: 13px; color: var(--text); margin-bottom: 8px; line-height: 1.45; }
+    .feed-footer { display: flex; align-items: center; gap: 14px; }
+    .like-btn { display: flex; align-items: center; gap: 5px; background: none; border: none; cursor: pointer; padding: 0; font-family: inherit; color: var(--muted); font-size: 13px; font-weight: 700; -webkit-tap-highlight-color: transparent; transition: transform 0.1s; }
+    .like-btn:active { transform: scale(0.9); }
+    .like-btn.liked { color: #FF453A; }
+    .like-btn-icon { font-size: 20px; line-height: 1; }
+    .feed-rating { font-size: 12px; margin-left: auto; }
+
+    /* ── User search ── */
+    .search-bar-wrap { padding: 0 16px 10px; }
+    .search-bar-wrap .form-input { border-radius: 12px; padding: 11px 16px; font-size: 14px; }
+    .user-result { display: flex; align-items: center; gap: 10px; padding: 10px 0; border-bottom: 1px solid var(--divider); cursor: pointer; }
+    .user-result:last-child { border-bottom: none; }
+    .user-result-avatar { width: 38px; height: 38px; border-radius: 50%; background: var(--gradient); display: flex; align-items: center; justify-content: center; font-size: 15px; font-weight: 800; color: var(--primary); flex-shrink: 0; }
+    .user-result-name { font-size: 14px; font-weight: 700; color: var(--text); }
+    .user-result-username { font-size: 12px; color: var(--muted); }
+    #user-search-results { background: var(--card); border-radius: var(--r-btn); padding: 0 14px; margin-top: 6px; max-height: 220px; overflow-y: auto; }
+
+    /* ── Profile view ── */
+    .profile-header { text-align: center; padding: 20px 16px 16px; }
+    .profile-avatar-lg { width: 76px; height: 76px; border-radius: 50%; background: var(--gradient); display: flex; align-items: center; justify-content: center; font-size: 30px; font-weight: 800; color: var(--primary); margin: 0 auto 10px; }
+    .profile-name { font-size: 20px; font-weight: 800; color: var(--text); }
+    .profile-at { font-size: 13px; color: var(--muted); margin-top: 3px; }
+    .profile-stats-row { display: flex; gap: 1px; background: var(--divider); border-radius: var(--r-card); overflow: hidden; margin: 14px 0; }
+    .profile-stat { flex: 1; background: var(--card); padding: 14px 8px; text-align: center; }
+    .profile-stat-val { font-size: 20px; font-weight: 800; color: var(--primary); display: block; }
+    .profile-stat-lbl { font-size: 9px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; margin-top: 2px; display: block; }
+    .follow-btn { border: none; border-radius: var(--r-btn); padding: 10px 28px; font-size: 14px; font-weight: 700; cursor: pointer; font-family: inherit; margin-top: 10px; background: var(--primary); color: white; transition: opacity 0.15s; }
+    .follow-btn:active { opacity: 0.8; }
+    .follow-btn.following { background: none; color: var(--primary); border: 1.5px solid var(--primary); }
+    .signout-btn { border: 1.5px solid var(--divider); border-radius: var(--r-btn); padding: 10px 28px; font-size: 14px; font-weight: 700; cursor: pointer; font-family: inherit; margin-top: 10px; background: none; color: var(--muted); }
+    .profile-posts-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; margin-top: 16px; }
+    .profile-post-cell { aspect-ratio: 1; background: var(--card); overflow: hidden; display: flex; align-items: center; justify-content: center; font-size: 28px; cursor: pointer; position: relative; }
+    .profile-post-cell img { width: 100%; height: 100%; object-fit: cover; }
+    .profile-post-cell .cell-flavor { font-size: 10px; font-weight: 700; color: var(--muted); position: absolute; bottom: 4px; left: 0; right: 0; text-align: center; }
+    .profile-login-prompt { text-align: center; padding: 64px 24px; }
+    .profile-login-prompt .emoji { font-size: 48px; margin-bottom: 12px; }
+
+    /* ── Toast ── */
+    #toast { position: fixed; bottom: 90px; left: 50%; transform: translateX(-50%); background: #1C1C1E; color: white; padding: 10px 20px; border-radius: 20px; font-size: 13px; font-weight: 700; z-index: 999; opacity: 0; transition: opacity 0.2s; pointer-events: none; white-space: nowrap; max-width: 280px; text-align: center; }
+    #toast.show { opacity: 1; }
+
+    /* ── Loading ── */
+    .loading-row { text-align: center; padding: 40px 24px; color: var(--muted); font-size: 14px; }
   </style>
 </head>
 <body>
 <div id="app">
 
+  <!-- ── Auth view ── -->
+  <div id="view-auth" class="view">
+    <div class="auth-logo">
+      <span class="auth-logo-emoji">🍨</span>
+      <div class="auth-logo-title">Sundae Run</div>
+      <div class="auth-logo-sub">Strava for ice cream</div>
+    </div>
+    <div class="auth-card">
+      <div class="auth-tabs">
+        <button class="auth-tab active" id="auth-signin-tab">Sign In</button>
+        <button class="auth-tab" id="auth-signup-tab">Sign Up</button>
+      </div>
+      <div id="auth-error" class="auth-error"></div>
+
+      <div id="auth-signin-pane">
+        <div class="form-group">
+          <label class="form-label">Email</label>
+          <input class="form-input" type="email" id="auth-email" placeholder="you@example.com" autocomplete="email">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Password</label>
+          <input class="form-input" type="password" id="auth-password" placeholder="Password" autocomplete="current-password">
+        </div>
+        <button class="btn-submit" id="btn-signin">Sign In 🍦</button>
+      </div>
+
+      <div id="auth-signup-pane" style="display:none">
+        <div class="form-group">
+          <label class="form-label">Username</label>
+          <input class="form-input" type="text" id="auth-username" placeholder="sundaelover42" autocomplete="username">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Display Name</label>
+          <input class="form-input" type="text" id="auth-displayname" placeholder="Your Name">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Email</label>
+          <input class="form-input" type="email" id="auth-signup-email" placeholder="you@example.com" autocomplete="email">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Password</label>
+          <input class="form-input" type="password" id="auth-signup-password" placeholder="6+ characters" autocomplete="new-password">
+        </div>
+        <button class="btn-submit" id="btn-signup">Create Account 🍦</button>
+      </div>
+    </div>
+    <button class="auth-guest-btn" id="btn-guest">Continue without account →</button>
+  </div>
+
   <!-- ── Home view ── -->
-  <div id="view-home" class="view active">
+  <div id="view-home" class="view">
     <div class="header"><h1>Sundae Run 🍨</h1></div>
     <div class="view-content">
       <div class="stats-row">
-        <div class="stat-card">
-          <span class="stat-value" id="stat-scoops">0</span>
-          <span class="stat-label">scoops</span>
-        </div>
-        <div class="stat-card">
-          <span class="stat-value" id="stat-flavors">0</span>
-          <span class="stat-label">flavors</span>
-        </div>
-        <div class="stat-card">
-          <span class="stat-value" id="stat-shops">0</span>
-          <span class="stat-label">shops</span>
-        </div>
+        <div class="stat-card"><span class="stat-value" id="stat-scoops">0</span><span class="stat-label">scoops</span></div>
+        <div class="stat-card"><span class="stat-value" id="stat-flavors">0</span><span class="stat-label">flavors</span></div>
+        <div class="stat-card"><span class="stat-value" id="stat-shops">0</span><span class="stat-label">shops</span></div>
       </div>
       <div class="streak-row">
-        <div class="streak-card">
-          <span class="streak-flame">🔥</span>
-          <span class="streak-value" id="streak-daily">0</span>
-          <span class="streak-label">day streak</span>
-        </div>
-        <div class="streak-card">
-          <span class="streak-flame">🔥</span>
-          <span class="streak-value" id="streak-weekly">0</span>
-          <span class="streak-label">week streak</span>
-        </div>
-        <div class="streak-card">
-          <span class="streak-flame">🔥</span>
-          <span class="streak-value" id="streak-monthly">0</span>
-          <span class="streak-label">month streak</span>
-        </div>
+        <div class="streak-card"><span class="streak-flame">🔥</span><span class="streak-value" id="streak-daily">0</span><span class="streak-label">day streak</span></div>
+        <div class="streak-card"><span class="streak-flame">🔥</span><span class="streak-value" id="streak-weekly">0</span><span class="streak-label">week streak</span></div>
+        <div class="streak-card"><span class="streak-flame">🔥</span><span class="streak-value" id="streak-monthly">0</span><span class="streak-label">month streak</span></div>
       </div>
       <div id="top-flavors-section" style="display:none">
         <div class="section-label">Top Flavors</div>
@@ -424,6 +304,25 @@
       </div>
       <div class="section-label">Recent Scoops</div>
       <div id="entry-list"></div>
+    </div>
+  </div>
+
+  <!-- ── Feed view ── -->
+  <div id="view-feed" class="view">
+    <div class="header">
+      <div class="feed-header-row">
+        <h1>Feed 🌊</h1>
+        <button class="icon-btn" id="btn-search-users" title="Find friends">🔍</button>
+      </div>
+    </div>
+    <div id="user-search-wrap" style="display:none">
+      <div class="search-bar-wrap">
+        <input class="form-input" type="text" id="input-user-search" placeholder="Search by username…" autocomplete="off">
+        <div id="user-search-results"></div>
+      </div>
+    </div>
+    <div class="view-content" style="padding-top:8px">
+      <div id="feed-list"></div>
     </div>
   </div>
 
@@ -435,8 +334,7 @@
         <div class="form-group">
           <label class="form-label" for="input-flavor">Flavor *</label>
           <div class="suggestions-wrap">
-            <input class="form-input" type="text" id="input-flavor"
-              placeholder="e.g. Chocolate Chip Cookie Dough" autocomplete="off">
+            <input class="form-input" type="text" id="input-flavor" placeholder="e.g. Chocolate Chip Cookie Dough" autocomplete="off">
             <div class="suggestions" id="flavor-suggestions"></div>
           </div>
         </div>
@@ -446,14 +344,12 @@
         </div>
         <div class="form-group suggestions-wrap">
           <label class="form-label" for="input-shop">Shop</label>
-          <input class="form-input" type="text" id="input-shop"
-            placeholder="e.g. Cold Stone Creamery" autocomplete="off">
+          <input class="form-input" type="text" id="input-shop" placeholder="e.g. Cold Stone Creamery" autocomplete="off">
           <div class="suggestions" id="shop-suggestions"></div>
         </div>
         <div class="form-group">
           <label class="form-label" for="input-price">Price</label>
-          <input class="form-input" type="number" id="input-price"
-            placeholder="e.g. 4.50" min="0" step="0.01">
+          <input class="form-input" type="number" id="input-price" placeholder="e.g. 4.50" min="0" step="0.01">
         </div>
         <div class="form-group">
           <label class="form-label">Rating</label>
@@ -473,18 +369,20 @@
           <label class="form-label">Photo</label>
           <div id="log-photo-area">
             <div class="photo-btn-row">
-              <label class="photo-btn-label">
-                📷 Camera
-                <input type="file" id="input-photo-camera" accept="image/*" capture="environment">
-              </label>
-              <label class="photo-btn-label">
-                🖼️ Library
-                <input type="file" id="input-photo-library" accept="image/*">
-              </label>
+              <label class="photo-btn-label">📷 Camera<input type="file" id="input-photo-camera" accept="image/*" capture="environment"></label>
+              <label class="photo-btn-label">🖼️ Library<input type="file" id="input-photo-library" accept="image/*"></label>
             </div>
           </div>
         </div>
-        <button type="submit" class="btn-submit">Log It 🍦</button>
+        <div class="form-group" id="share-toggle-group" style="display:none">
+          <label class="form-label">Share</label>
+          <label class="toggle-row" id="share-toggle-row">
+            <input type="checkbox" id="share-toggle" style="display:none">
+            <div class="toggle-track" id="share-track"><div class="toggle-thumb"></div></div>
+            <span class="toggle-text">Post to friends' feed</span>
+          </label>
+        </div>
+        <button type="submit" class="btn-submit" id="log-submit-btn">Log It 🍦</button>
       </form>
     </div>
   </div>
@@ -516,8 +414,7 @@
       </div>
       <div class="form-group">
         <label class="form-label" for="input-edit-price">Price</label>
-        <input class="form-input" type="number" id="input-edit-price"
-          placeholder="e.g. 4.50" min="0" step="0.01">
+        <input class="form-input" type="number" id="input-edit-price" placeholder="e.g. 4.50" min="0" step="0.01">
       </div>
       <div class="form-group">
         <label class="form-label">Rating</label>
@@ -533,6 +430,14 @@
         <label class="form-label" for="input-edit-notes">Notes</label>
         <textarea class="form-input" id="input-edit-notes" placeholder="Any thoughts?"></textarea>
       </div>
+      <div class="form-group" id="edit-share-group" style="display:none">
+        <label class="form-label">Share</label>
+        <label class="toggle-row">
+          <input type="checkbox" id="edit-share-toggle" style="display:none">
+          <div class="toggle-track" id="edit-share-track"><div class="toggle-thumb"></div></div>
+          <span class="toggle-text">Post to friends' feed</span>
+        </label>
+      </div>
       <button class="btn-submit" id="edit-save-btn">Save Changes</button>
       <button class="btn-delete" id="edit-delete-btn">Delete Entry</button>
     </div>
@@ -545,867 +450,372 @@
       <div id="shops-map-wrap"></div>
       <div class="form-group suggestions-wrap">
         <div class="add-shop-row">
-          <input class="form-input" type="text" id="input-new-shop"
-            placeholder="Search or type a shop..." autocomplete="off">
+          <input class="form-input" type="text" id="input-new-shop" placeholder="Search or type a shop..." autocomplete="off">
           <button class="btn-add-shop" id="btn-add-shop">Add</button>
         </div>
         <div class="suggestions" id="new-shop-suggestions"></div>
       </div>
       <div id="shops-content"></div>
-      <div class="empty-state" id="shops-empty" style="display:none">
-        No shops yet — log a scoop or add a favorite! 🍦
-      </div>
+      <div class="empty-state" id="shops-empty" style="display:none">No shops yet — log a scoop or add a favorite! 🍦</div>
     </div>
   </div>
 
   <!-- ── Wrapped view ── -->
   <div id="view-wrapped" class="view">
     <div class="header"><h1 id="wrapped-title">Your Wrapped 🎁</h1></div>
-    <div class="view-content">
-      <div id="wrapped-content"></div>
+    <div class="view-content"><div id="wrapped-content"></div></div>
+  </div>
+
+  <!-- ── Profile view ── -->
+  <div id="view-profile" class="view">
+    <div class="header">
+      <div class="header-row">
+        <button class="back-btn" id="profile-back-btn" style="display:none">← Back</button>
+        <h1>Profile 👤</h1>
+      </div>
+    </div>
+    <div class="view-content" style="padding-top:0">
+      <div id="profile-content"></div>
     </div>
   </div>
 
   <!-- ── Tab bar ── -->
   <nav id="tab-bar">
-    <button class="tab-btn active" data-view="home">
-      <span class="tab-icon">🏠</span>
-      <span class="tab-label">Home</span>
-    </button>
-    <button class="tab-btn" data-view="log">
-      <span class="tab-icon">➕</span>
-      <span class="tab-label">Log</span>
-    </button>
-    <button class="tab-btn" data-view="shops">
-      <span class="tab-icon">🏪</span>
-      <span class="tab-label">Shops</span>
-    </button>
+    <button class="tab-btn active" data-view="home"><span class="tab-icon">🏠</span><span class="tab-label">Home</span></button>
+    <button class="tab-btn" data-view="feed"><span class="tab-icon">🌊</span><span class="tab-label">Feed</span></button>
+    <button class="tab-btn" data-view="log"><span class="tab-icon">➕</span><span class="tab-label">Log</span></button>
+    <button class="tab-btn" data-view="shops"><span class="tab-icon">🏪</span><span class="tab-label">Shops</span></button>
+    <button class="tab-btn" data-view="profile"><span class="tab-icon">👤</span><span class="tab-label">Profile</span></button>
   </nav>
 
 </div>
+
+<div id="toast"></div>
+
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 <script>
 // ════════════════════════════════════════
 // CONFIG
 // ════════════════════════════════════════
 
-// Google Places API key — get one at console.cloud.google.com → enable Places API
-// Leave empty to use OpenStreetMap Nominatim as a free fallback (no key required)
-const PLACES_KEY = '';
+const SUPABASE_URL  = 'https://wnotlrbuzfiuxzpnkiwu.supabase.co';
+const SUPABASE_KEY  = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Indub3RscmJ1emZpdXh6cG5raXd1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzU2NTg4NzMsImV4cCI6MjA5MTIzNDg3M30.iQ-tRo040ACG9fCCo4uJH7QwWABoYC30i3vBmBQFPvw';
+const PLACES_KEY    = '';
+
+// ════════════════════════════════════════
+// STATE
+// ════════════════════════════════════════
+
+let currentUser    = null;
+let currentProfile = null;
+let guestMode      = false;
+let profileViewUserId = null; // null = own profile
+let _currentEntries   = [];  // in-memory entry cache (normalized)
+
+const GUEST_KEY   = 'sundae_guest';
+const STORAGE_KEY = 'sundae_entries';
+const SHOPS_KEY   = 'sundae_shops';
+const GEOCACHE_KEY = 'sundae_geocache';
+
+// ════════════════════════════════════════
+// SUPABASE CLIENT
+// ════════════════════════════════════════
+
+const SB = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
 // ════════════════════════════════════════
 // BUILT-IN FLAVORS
 // ════════════════════════════════════════
 
 const BUILTIN_FLAVORS = [
-  'Vanilla', 'Chocolate', 'Strawberry', 'Mint Chip', 'Cookies & Cream',
-  'Rocky Road', 'Butter Pecan', 'Cookie Dough', 'Neapolitan', 'Pistachio',
-  'Coffee', 'Caramel', 'Lemon', 'Mango', 'Peach', 'Black Raspberry',
-  'Moose Tracks', 'Birthday Cake', 'Salted Caramel', 'Peanut Butter Cup'
+  'Vanilla','Chocolate','Strawberry','Mint Chip','Cookies & Cream',
+  'Rocky Road','Butter Pecan','Cookie Dough','Neapolitan','Pistachio',
+  'Coffee','Caramel','Lemon','Mango','Peach','Black Raspberry',
+  'Moose Tracks','Birthday Cake','Salted Caramel','Peanut Butter Cup'
 ];
-
-const BUILTIN_FLAVOR_MAP = {}; // lowercase → canonical
+const BUILTIN_FLAVOR_MAP = {};
 for (const f of BUILTIN_FLAVORS) BUILTIN_FLAVOR_MAP[f.toLowerCase()] = f;
 
 // ════════════════════════════════════════
-// DATA LAYER — Entries
+// LOCAL DATA LAYER (guest / offline)
 // ════════════════════════════════════════
 
-const STORAGE_KEY = 'sundae_entries';
-
-function loadEntries() {
+function loadLocalEntries() {
   try { return JSON.parse(localStorage.getItem(STORAGE_KEY) ?? '[]'); }
   catch { return []; }
 }
+function saveLocalEntries(entries) { localStorage.setItem(STORAGE_KEY, JSON.stringify(entries)); }
 
-function saveEntries(entries) {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(entries));
-}
-
-function addEntry({ flavor, shop, rating, notes, date, price, photo_data }) {
-  const entries = loadEntries();
+function addLocalEntry({ flavor, shop, rating, notes, date, price, photo_data }) {
+  const entries = loadLocalEntries();
   const entry = {
-    id: crypto.randomUUID(),
-    flavor: flavor.trim(),
-    shop: shop.trim(),
-    rating,
-    notes: notes.trim(),
+    id: crypto.randomUUID(), flavor: flavor.trim(), shop: (shop||'').trim(),
+    rating, notes: (notes||'').trim(),
     date: new Date(date + 'T12:00:00').toISOString(),
-    price: price ?? null,
-    photo_data: photo_data ?? null,
+    price: price ?? null, photo_data: photo_data ?? null,
   };
   entries.unshift(entry);
-  saveEntries(entries);
+  saveLocalEntries(entries);
   return entry;
 }
-
-function updateEntry(id, fields) {
-  const entries = loadEntries();
+function updateLocalEntry(id, fields) {
+  const entries = loadLocalEntries();
   const idx = entries.findIndex(e => e.id === id);
   if (idx === -1) return;
-  entries[idx] = {
-    ...entries[idx],
-    flavor: fields.flavor.trim(),
-    shop:   fields.shop.trim(),
-    rating: fields.rating,
-    notes:  fields.notes.trim(),
-    date:   new Date(fields.date + 'T12:00:00').toISOString(),
-    price:  fields.price ?? null,
-  };
-  saveEntries(entries);
+  entries[idx] = { ...entries[idx], flavor: fields.flavor.trim(), shop: (fields.shop||'').trim(),
+    rating: fields.rating, notes: (fields.notes||'').trim(),
+    date: new Date(fields.date + 'T12:00:00').toISOString(), price: fields.price ?? null };
+  saveLocalEntries(entries);
 }
-
-function deleteEntry(id) {
-  saveEntries(loadEntries().filter(e => e.id !== id));
-}
-
-function getRecentShops() {
-  const seen = new Set();
-  const shops = [];
-  for (const e of loadEntries()) {
-    const name = e.shop?.trim();
-    if (name && !seen.has(name.toLowerCase())) {
-      seen.add(name.toLowerCase());
-      shops.push(name);
-    }
-  }
-  return shops;
-}
-
-// ════════════════════════════════════════
-// DATA LAYER — Favorites (sundae_shops)
-// ════════════════════════════════════════
-
-const SHOPS_KEY = 'sundae_shops';
+function deleteLocalEntry(id) { saveLocalEntries(loadLocalEntries().filter(e => e.id !== id)); }
 
 function loadFavorites() {
-  try { return JSON.parse(localStorage.getItem(SHOPS_KEY) ?? '[]'); }
-  catch { return []; }
+  try { return JSON.parse(localStorage.getItem(SHOPS_KEY) ?? '[]'); } catch { return []; }
 }
-
-function saveFavorites(list) {
-  localStorage.setItem(SHOPS_KEY, JSON.stringify(list));
-}
-
+function saveFavorites(list) { localStorage.setItem(SHOPS_KEY, JSON.stringify(list)); }
 function addFavorite(name) {
   const list = loadFavorites();
   const trimmed = name.trim();
-  if (!trimmed) return false;
-  if (list.some(f => f.toLowerCase() === trimmed.toLowerCase())) return false;
-  list.push(trimmed);
-  saveFavorites(list);
-  return true;
+  if (!trimmed || list.some(f => f.toLowerCase() === trimmed.toLowerCase())) return false;
+  list.push(trimmed); saveFavorites(list); return true;
+}
+function removeFavorite(name) { saveFavorites(loadFavorites().filter(f => f.toLowerCase() !== name.toLowerCase())); }
+
+// ════════════════════════════════════════
+// SUPABASE — AUTH
+// ════════════════════════════════════════
+
+async function sbSignIn(email, password) {
+  const { data, error } = await SB.auth.signInWithPassword({ email, password });
+  if (error) throw error;
+  return data;
 }
 
-function removeFavorite(name) {
-  saveFavorites(loadFavorites().filter(f => f.toLowerCase() !== name.toLowerCase()));
-}
-
-function getVisitedShops() {
-  const counts = {};
-  for (const e of loadEntries()) {
-    const name = e.shop?.trim();
-    if (!name) continue;
-    const key = name.toLowerCase();
-    if (!counts[key]) counts[key] = { name, count: 0 };
-    counts[key].count++;
+async function sbSignUp(email, password, username, displayName) {
+  // Set before signUp so onAuthStateChange can read them even if it fires during the await
+  localStorage.setItem('pending_username', username.trim().toLowerCase());
+  localStorage.setItem('pending_displayname', (displayName || username).trim());
+  const { data, error } = await SB.auth.signUp({ email, password });
+  if (error) {
+    localStorage.removeItem('pending_username');
+    localStorage.removeItem('pending_displayname');
+    throw error;
   }
-  return Object.values(counts).sort((a, b) => a.name.localeCompare(b.name));
+  return data;
 }
 
-// ════════════════════════════════════════
-// STREAK LOGIC (all local timezone)
-// ════════════════════════════════════════
-
-function localDateStr(d) {
-  return new Date(d).toLocaleDateString('en-CA'); // YYYY-MM-DD
+async function sbSignOut() {
+  await SB.auth.signOut();
 }
 
-function getWeekStart(d) {
-  const dt = new Date(d);
-  const day = dt.getDay(); // 0 = Sun
-  dt.setDate(dt.getDate() + (day === 0 ? -6 : 1 - day)); // shift to Monday
-  return dt.toLocaleDateString('en-CA');
-}
-
-function getMonthKey(iso) {
-  const d = new Date(iso);
-  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}`;
-}
-
-function computeDailyStreak(entries) {
-  if (!entries.length) return 0;
-  const days = new Set(entries.map(e => localDateStr(e.date)));
-  const cur = new Date();
-  if (!days.has(localDateStr(cur))) cur.setDate(cur.getDate() - 1);
-  let streak = 0;
-  while (days.has(localDateStr(cur))) {
-    streak++;
-    cur.setDate(cur.getDate() - 1);
+async function ensureProfile(userId) {
+  let { data: profile } = await SB.from('profiles').select('*').eq('id', userId).single();
+  if (!profile) {
+    const uname = localStorage.getItem('pending_username') || `user_${userId.substring(0, 8)}`;
+    const dname = localStorage.getItem('pending_displayname') || uname;
+    localStorage.removeItem('pending_username');
+    localStorage.removeItem('pending_displayname');
+    const { data } = await SB.from('profiles')
+      .insert({ id: userId, username: uname, display_name: dname })
+      .select().single();
+    profile = data;
   }
-  return streak;
-}
-
-function computeWeeklyStreak(entries) {
-  if (!entries.length) return 0;
-  const weeks = new Set(entries.map(e => getWeekStart(new Date(e.date))));
-  const cur = new Date();
-  if (!weeks.has(getWeekStart(cur))) cur.setDate(cur.getDate() - 7);
-  let streak = 0;
-  while (weeks.has(getWeekStart(cur))) {
-    streak++;
-    cur.setDate(cur.getDate() - 7);
-  }
-  return streak;
-}
-
-function computeMonthlyStreak(entries) {
-  if (!entries.length) return 0;
-  const months = new Set(entries.map(e => getMonthKey(e.date)));
-  let year = new Date().getFullYear();
-  let month = new Date().getMonth();
-  if (!months.has(`${year}-${String(month + 1).padStart(2, '0')}`)) {
-    month--; if (month < 0) { month = 11; year--; }
-  }
-  let streak = 0;
-  while (months.has(`${year}-${String(month + 1).padStart(2, '0')}`)) {
-    streak++;
-    month--; if (month < 0) { month = 11; year--; }
-  }
-  return streak;
+  return profile;
 }
 
 // ════════════════════════════════════════
-// FLAVOR HELPERS
+// SUPABASE — ENTRIES
 // ════════════════════════════════════════
 
-function getFlavorSuggestions(query) {
-  const pastCounts = {};
-  for (const e of loadEntries()) {
-    const f = e.flavor?.trim();
-    if (!f) continue;
-    const key = f.toLowerCase();
-    if (!pastCounts[key]) pastCounts[key] = { display: f, count: 0 };
-    pastCounts[key].count++;
-  }
-
-  const pastSorted = Object.values(pastCounts)
-    .sort((a, b) => b.count - a.count)
-    .map(p => BUILTIN_FLAVOR_MAP[p.display.toLowerCase()] || p.display);
-
-  const seen = new Set();
-  const merged = [];
-  for (const name of pastSorted) {
-    if (!seen.has(name.toLowerCase())) { seen.add(name.toLowerCase()); merged.push(name); }
-  }
-  for (const name of BUILTIN_FLAVORS) {
-    if (!seen.has(name.toLowerCase())) { seen.add(name.toLowerCase()); merged.push(name); }
-  }
-
-  if (!query) return merged.slice(0, 8);
-  const q = query.toLowerCase();
-  return merged.filter(f => f.toLowerCase().includes(q));
+function normalizeEntry(e) {
+  return {
+    id:         e.id,
+    flavor:     e.flavor,
+    shop:       e.shop_name || e.shop || '',
+    rating:     e.rating || 0,
+    notes:      e.notes || '',
+    date:       e.logged_date ? (e.logged_date + 'T12:00:00') : (e.date || e.created_at),
+    price:      e.price ?? null,
+    photo_data: e.photo_url || e.photo_data || null,
+    photo_url:  e.photo_url || null,
+    is_public:  e.is_public ?? false,
+    user_id:    e.user_id || null,
+    created_at: e.created_at || null,
+  };
 }
 
-function getTopFlavors() {
-  const counts = {};
-  for (const e of loadEntries()) {
-    const f = e.flavor?.trim();
-    if (!f) continue;
-    const canonical = BUILTIN_FLAVOR_MAP[f.toLowerCase()] || f;
-    counts[canonical] = (counts[canonical] ?? 0) + 1;
-  }
-  return Object.entries(counts).sort((a, b) => b[1] - a[1]).slice(0, 5);
+async function fetchMyEntries() {
+  const { data, error } = await SB.from('entries')
+    .select('*')
+    .eq('user_id', currentUser.id)
+    .order('logged_date', { ascending: false, nullsFirst: false })
+    .order('created_at', { ascending: false });
+  if (error) throw error;
+  return (data ?? []).map(normalizeEntry);
 }
 
-// ════════════════════════════════════════
-// WRAPPED STATS
-// ════════════════════════════════════════
-
-const MONTH_NAMES = ['January','February','March','April','May','June',
-                     'July','August','September','October','November','December'];
-
-function getYearEntries(year) {
-  return loadEntries().filter(e => new Date(e.date).getFullYear() === year);
-}
-
-function getWrappedTopFlavor(yearEntries) {
-  const counts = {};
-  for (const e of yearEntries) {
-    const f = e.flavor?.trim();
-    if (!f) continue;
-    const canonical = BUILTIN_FLAVOR_MAP[f.toLowerCase()] || f;
-    counts[canonical] = (counts[canonical] ?? 0) + 1;
-  }
-  const sorted = Object.entries(counts).sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]));
-  return sorted.length ? { name: sorted[0][0], count: sorted[0][1] } : null;
-}
-
-function getWrappedTotalSpent(yearEntries) {
-  const priced = yearEntries.filter(e => e.price != null);
-  if (!priced.length) return null;
-  return priced.reduce((sum, e) => sum + e.price, 0);
-}
-
-function getWrappedLongestStreak(yearEntries) {
-  if (!yearEntries.length) return 0;
-  const days = [...new Set(yearEntries.map(e => localDateStr(e.date)))].sort();
-  let longest = 1, current = 1;
-  for (let i = 1; i < days.length; i++) {
-    const prev = new Date(days[i - 1] + 'T12:00:00');
-    const curr = new Date(days[i] + 'T12:00:00');
-    const diff = Math.round((curr - prev) / 86400000);
-    if (diff === 1) { current++; longest = Math.max(longest, current); }
-    else { current = 1; }
-  }
-  return longest;
-}
-
-function getWrappedBusiestMonth(yearEntries) {
-  const counts = {};
-  for (const e of yearEntries) counts[new Date(e.date).getMonth()] = (counts[new Date(e.date).getMonth()] ?? 0) + 1;
-  let best = null, bestCount = 0;
-  for (let m = 0; m <= 11; m++) {
-    if ((counts[m] ?? 0) > bestCount) { bestCount = counts[m]; best = m; }
-  }
-  return best !== null ? { name: MONTH_NAMES[best], count: bestCount } : null;
-}
-
-function getWrappedFavoriteShop(yearEntries) {
-  const counts = {};
-  for (const e of yearEntries) {
-    const s = e.shop?.trim();
-    if (!s) continue;
-    const key = s.toLowerCase();
-    if (!counts[key]) counts[key] = { name: s, count: 0 };
-    counts[key].count++;
-  }
-  const sorted = Object.values(counts).sort((a, b) => b.count - a.count);
-  return sorted.length ? sorted[0] : null;
-}
-
-function renderWrappedView() {
-  const year = new Date().getFullYear();
-  document.getElementById('wrapped-title').textContent = `Your ${year} Wrapped 🎁`;
-  const yearEntries = getYearEntries(year);
-  const content = document.getElementById('wrapped-content');
-
-  if (!yearEntries.length) {
-    content.innerHTML = '<div class="empty-state">No scoops logged yet this year —<br>get out there! 🍦</div>';
-    return;
-  }
-
-  const topFlavor    = getWrappedTopFlavor(yearEntries);
-  const totalSpent   = getWrappedTotalSpent(yearEntries);
-  const longestStreak = getWrappedLongestStreak(yearEntries);
-  const busiestMonth = getWrappedBusiestMonth(yearEntries);
-  const favShop      = getWrappedFavoriteShop(yearEntries);
-
-  content.innerHTML = `
-    <div class="wrapped-card">
-      <span class="wrapped-card-emoji">🍦</span>
-      <span class="wrapped-card-value">${topFlavor ? escapeHtml(topFlavor.name) : '—'}</span>
-      <span class="wrapped-card-label">Top Flavor · ${topFlavor ? topFlavor.count + ' times' : '—'}</span>
-    </div>
-    <div class="wrapped-card">
-      <span class="wrapped-card-emoji">💸</span>
-      <span class="wrapped-card-value">${totalSpent != null ? '$' + totalSpent.toFixed(2) : '—'}</span>
-      <span class="wrapped-card-label">Total Spent</span>
-    </div>
-    <div class="wrapped-card">
-      <span class="wrapped-card-emoji">🔥</span>
-      <span class="wrapped-card-value">${longestStreak} day${longestStreak !== 1 ? 's' : ''}</span>
-      <span class="wrapped-card-label">Longest Streak</span>
-    </div>
-    <div class="wrapped-card">
-      <span class="wrapped-card-emoji">📅</span>
-      <span class="wrapped-card-value">${busiestMonth ? escapeHtml(busiestMonth.name) : '—'}</span>
-      <span class="wrapped-card-label">Busiest Month · ${busiestMonth ? busiestMonth.count + ' scoops' : '—'}</span>
-    </div>
-    <div class="wrapped-card">
-      <span class="wrapped-card-emoji">🏪</span>
-      <span class="wrapped-card-value">${favShop ? escapeHtml(favShop.name) : '—'}</span>
-      <span class="wrapped-card-label">Favorite Shop · ${favShop ? favShop.count + ' visits' : '—'}</span>
-    </div>
-  `;
-}
-
-// ════════════════════════════════════════
-// SHOP SEARCH — OpenStreetMap Nominatim (free, no key needed)
-// ════════════════════════════════════════
-
-let userLocation = null;
-let nominatimTimer = null;
-
-if (navigator.geolocation) {
-  navigator.geolocation.getCurrentPosition(
-    pos => { userLocation = { lat: pos.coords.latitude, lng: pos.coords.longitude }; },
-    () => {}
-  );
-}
-
-function fetchPlacesSuggestions(query, callback) {
-  if (!query || query.length < 2) { callback([]); return; }
-  clearTimeout(nominatimTimer);
-  nominatimTimer = setTimeout(async () => {
-    // ── Google Places Autocomplete (used when PLACES_KEY is set) ──
-    if (PLACES_KEY) {
-      try {
-        const params = new URLSearchParams({
-          input: query,
-          types: 'establishment',
-          key: PLACES_KEY,
-        });
-        if (userLocation) {
-          params.append('location', `${userLocation.lat},${userLocation.lng}`);
-          params.append('radius', '50000');
-        }
-        const res = await fetch(
-          `https://maps.googleapis.com/maps/api/place/autocomplete/json?${params}`
-        );
-        if (res.ok) {
-          const data = await res.json();
-          const names = (data.predictions ?? [])
-            .map(p => p.structured_formatting?.main_text || p.description.split(',')[0].trim())
-            .filter(Boolean);
-          callback([...new Set(names)].slice(0, 5));
-          return;
-        }
-      } catch {}
-      // Fall through to Nominatim if Places fails
-    }
-
-    // ── OpenStreetMap Nominatim fallback (free, no key needed) ──
-    try {
-      const params = new URLSearchParams({
-        q: query, format: 'json', limit: '5', addressdetails: '0', dedupe: '1',
-      });
-      if (userLocation) {
-        const d = 0.45;
-        params.append('viewbox', `${userLocation.lng-d},${userLocation.lat+d},${userLocation.lng+d},${userLocation.lat-d}`);
-        params.append('bounded', '0');
-      }
-      const res = await fetch(`https://nominatim.openstreetmap.org/search?${params}`, {
-        headers: { 'Accept-Language': 'en-US,en' }
-      });
-      if (!res.ok) { callback([]); return; }
-      const data = await res.json();
-      const names = data
-        .map(p => p.name || p.display_name.split(',')[0].trim())
-        .filter(n => n && n.length > 1);
-      callback([...new Set(names)].slice(0, 5));
-    } catch { callback([]); }
-  }, 300);
-}
-
-// ════════════════════════════════════════
-// RENDERING HELPERS
-// ════════════════════════════════════════
-
-const CHIP_COLORS = ['#FFB3C6', '#C9B8FF', '#B8F0E6', '#FFE4A0', '#FFD6B3'];
-
-function chipColor(flavor) {
-  let n = 0;
-  for (const c of flavor) n += c.charCodeAt(0);
-  return CHIP_COLORS[n % CHIP_COLORS.length];
-}
-
-function formatDate(iso) {
-  const d = new Date(iso);
-  const today = new Date();
-  const yesterday = new Date();
-  yesterday.setDate(today.getDate() - 1);
-  if (d.toDateString() === today.toDateString()) return 'Today';
-  if (d.toDateString() === yesterday.toDateString()) return 'Yesterday';
-  return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
-}
-
-function escapeHtml(str) {
-  return String(str)
-    .replace(/&/g, '&amp;').replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;').replace(/"/g, '&quot;');
-}
-
-// ════════════════════════════════════════
-// HOME RENDER
-// ════════════════════════════════════════
-
-function renderStats(entries) {
-  document.getElementById('stat-scoops').textContent = entries.length;
-  const flavors = new Set(entries.map(e => e.flavor.toLowerCase().trim()));
-  document.getElementById('stat-flavors').textContent = flavors.size;
-  const shops = new Set(entries.filter(e => e.shop).map(e => e.shop.toLowerCase().trim()));
-  document.getElementById('stat-shops').textContent = shops.size;
-}
-
-function renderStreaks(entries) {
-  document.getElementById('streak-daily').textContent   = computeDailyStreak(entries);
-  document.getElementById('streak-weekly').textContent  = computeWeeklyStreak(entries);
-  document.getElementById('streak-monthly').textContent = computeMonthlyStreak(entries);
-}
-
-function renderTopFlavors() {
-  const top = getTopFlavors();
-  const section = document.getElementById('top-flavors-section');
-  const list = document.getElementById('top-flavors-list');
-  if (top.length === 0) { section.style.display = 'none'; return; }
-  section.style.display = 'block';
-  list.innerHTML = top.map(([name, count]) =>
-    `<div class="flavor-bar-row">
-      <span class="flavor-bar-name">🍦 ${escapeHtml(name)}</span>
-      <span class="flavor-bar-count">${count}×</span>
-    </div>`
-  ).join('');
-}
-
-function renderEntryList(entries) {
-  const list = document.getElementById('entry-list');
-  if (entries.length === 0) {
-    list.innerHTML = '<div class="empty-state">No scoops yet —<br>tap ➕ to log your first! 🍦</div>';
-    return;
-  }
-  list.innerHTML = entries.map(entry => {
-    const ratingHtml = entry.rating > 0
-      ? `<div class="entry-rating">${'🍨'.repeat(entry.rating)}</div>` : '';
-    const meta = [entry.shop, formatDate(entry.date)].filter(Boolean).join(' · ');
-    const thumbHtml = entry.photo_data
-      ? `<img class="entry-photo-thumb" src="${entry.photo_data}" alt="">`
-      : `<div class="entry-chip" style="background:${chipColor(entry.flavor)}">🍦</div>`;
-    return `
-      <div class="entry-card" data-id="${escapeHtml(entry.id)}" style="cursor:pointer">
-        ${thumbHtml}
-        <div class="entry-info">
-          <div class="entry-flavor">${escapeHtml(entry.flavor)}</div>
-          <div class="entry-meta">${escapeHtml(meta)}</div>
-          ${ratingHtml}
-        </div>
-        <span style="font-size:16px;color:var(--muted);opacity:0.4">›</span>
-      </div>`;
-  }).join('');
-  list.querySelectorAll('.entry-card').forEach(card => {
-    card.addEventListener('click', () => openEditView(card.dataset.id));
-  });
-}
-
-function renderHome() {
-  const entries = loadEntries();
-  renderStats(entries);
-  renderStreaks(entries);
-  renderTopFlavors();
-  renderEntryList(entries);
-}
-
-// ════════════════════════════════════════
-// SHOPS VIEW RENDER
-// ════════════════════════════════════════
-
-function renderShopsView() {
-  const favorites = loadFavorites().slice().sort((a, b) => a.localeCompare(b));
-  const visited   = getVisitedShops();
-  const favSet    = new Set(favorites.map(f => f.toLowerCase()));
-
-  // Render map with all visited shops
-  renderShopsMap(visited);
-  const content   = document.getElementById('shops-content');
-  const empty     = document.getElementById('shops-empty');
-
-  if (favorites.length === 0 && visited.length === 0) {
-    content.innerHTML = '';
-    empty.style.display = 'block';
-    return;
-  }
-  empty.style.display = 'none';
-
-  let html = '<div class="shops-section-label">⭐ Favorites</div>';
-  if (favorites.length === 0) {
-    html += '<div style="color:var(--muted);font-size:13px;margin-bottom:12px">No favorites yet — add one above.</div>';
-  } else {
-    html += favorites.map(name =>
-      `<div class="shop-card">
-        <span class="shop-card-icon">⭐</span>
-        <span class="shop-card-name">${escapeHtml(name)}</span>
-        <button class="btn-remove-shop" data-name="${escapeHtml(name)}">✕</button>
-      </div>`
-    ).join('');
-  }
-
-  const nonFavVisited = visited.filter(s => !favSet.has(s.name.toLowerCase()));
-  html += '<div class="shops-section-label" style="margin-top:20px">📍 Visited</div>';
-  if (nonFavVisited.length === 0) {
-    html += '<div style="color:var(--muted);font-size:13px">Shops you\'ve logged will appear here.</div>';
-  } else {
-    html += nonFavVisited.map(s =>
-      `<div class="shop-card">
-        <span class="shop-card-icon">🏪</span>
-        <span class="shop-card-name">${escapeHtml(s.name)}</span>
-        <span class="shop-card-count">${s.count}×</span>
-      </div>`
-    ).join('');
-  }
-
-  content.innerHTML = html;
-  content.querySelectorAll('.btn-remove-shop').forEach(btn => {
-    btn.addEventListener('click', () => { removeFavorite(btn.dataset.name); renderShopsView(); });
-  });
-}
-
-// ════════════════════════════════════════
-// RATING PICKER
-// ════════════════════════════════════════
-
-let selectedRating = 0;
-
-function setRating(value) {
-  selectedRating = value;
-  document.querySelectorAll('#rating-row .rating-btn').forEach(btn => {
-    btn.classList.toggle('active', Number(btn.dataset.value) <= value);
-  });
-}
-
-document.querySelectorAll('#rating-row .rating-btn').forEach(btn => {
-  btn.addEventListener('click', () => {
-    const v = Number(btn.dataset.value);
-    setRating(v === selectedRating ? 0 : v);
-  });
-});
-
-// ════════════════════════════════════════
-// FLAVOR AUTOCOMPLETE
-// ════════════════════════════════════════
-
-function wireFlavorAutocomplete(inputId, suggestionsId) {
-  const input = document.getElementById(inputId);
-  const box   = document.getElementById(suggestionsId);
-
-  function show(query) {
-    const matches = getFlavorSuggestions(query);
-    if (!matches.length) { box.innerHTML = ''; box.classList.remove('open'); return; }
-    box.innerHTML = matches.map(name =>
-      `<div class="suggestion-item" data-name="${escapeHtml(name)}">
-        <span class="suggestion-icon">🍦</span>${escapeHtml(name)}
-      </div>`
-    ).join('');
-    box.classList.add('open');
-    box.querySelectorAll('.suggestion-item').forEach(item => {
-      item.addEventListener('mousedown', e => {
-        e.preventDefault();
-        input.value = item.dataset.name;
-        box.classList.remove('open');
-      });
-    });
-  }
-
-  input.addEventListener('focus', () => show(input.value));
-  input.addEventListener('input', () => show(input.value));
-  input.addEventListener('blur',  () => setTimeout(() => box.classList.remove('open'), 150));
-}
-
-wireFlavorAutocomplete('input-flavor', 'flavor-suggestions');
-wireFlavorAutocomplete('input-edit-flavor', 'edit-flavor-suggestions');
-
-// ════════════════════════════════════════
-// SHOP AUTOCOMPLETE (Favorites + Past + Places)
-// ════════════════════════════════════════
-
-function wireShopAutocomplete(inputId, suggestionsId) {
-  const input = document.getElementById(inputId);
-  const box   = document.getElementById(suggestionsId);
-  let currentQuery = '';
-
-  function renderItems(items) {
-    if (!items.length) { box.innerHTML = ''; box.classList.remove('open'); return; }
-    box.innerHTML = items.map(s =>
-      `<div class="suggestion-item" data-name="${escapeHtml(s.name)}">
-        <span class="suggestion-icon">${s.icon}</span>${escapeHtml(s.name)}
-      </div>`
-    ).join('');
-    box.classList.add('open');
-    box.querySelectorAll('.suggestion-item').forEach(item => {
-      item.addEventListener('mousedown', e => {
-        e.preventDefault();
-        input.value = item.dataset.name;
-        box.classList.remove('open');
-      });
-    });
-  }
-
-  function getLocalItems(query) {
-    const favorites = loadFavorites().slice().sort((a, b) => a.localeCompare(b));
-    const past      = getRecentShops();
-    const favSet    = new Set(favorites.map(f => f.toLowerCase()));
-    const items     = [];
-
-    if (!query) {
-      for (const f of favorites) items.push({ name: f, icon: '⭐' });
-      for (const s of past.slice(0, 5)) {
-        if (!favSet.has(s.toLowerCase())) items.push({ name: s, icon: '🕐' });
-      }
-      return items.slice(0, 7);
-    }
-
-    const q = query.toLowerCase();
-    for (const f of favorites) {
-      if (f.toLowerCase().includes(q)) items.push({ name: f, icon: '⭐' });
-    }
-    for (const s of past) {
-      if (!favSet.has(s.toLowerCase()) && s.toLowerCase().includes(q))
-        items.push({ name: s, icon: '🕐' });
-    }
-    return items;
-  }
-
-  function showSuggestions(query) {
-    currentQuery = query;
-    const local = getLocalItems(query);
-
-    if (query.length >= 2) {
-      fetchPlacesSuggestions(query, places => {
-        if (currentQuery !== query) return;
-        const localNames = new Set(local.map(s => s.name.toLowerCase()));
-        const placeItems = places
-          .filter(name => !localNames.has(name.toLowerCase()))
-          .map(name => ({ name, icon: '📍' }));
-        renderItems([...local, ...placeItems]);
-      });
-    } else {
-      renderItems(local);
-    }
-  }
-
-  input.addEventListener('focus', () => showSuggestions(input.value));
-  input.addEventListener('input', () => showSuggestions(input.value));
-  input.addEventListener('blur',  () => setTimeout(() => box.classList.remove('open'), 150));
-}
-
-wireShopAutocomplete('input-shop', 'shop-suggestions');
-wireShopAutocomplete('input-edit-shop', 'edit-shop-suggestions');
-wireShopAutocomplete('input-new-shop', 'new-shop-suggestions');
-
-// ════════════════════════════════════════
-// LOG FORM SUBMIT
-// ════════════════════════════════════════
-
-document.getElementById('log-form').addEventListener('submit', e => {
-  e.preventDefault();
-  const flavor = document.getElementById('input-flavor').value.trim();
-  if (!flavor) { alert('Add a flavor first!'); document.getElementById('input-flavor').focus(); return; }
-  const shop     = document.getElementById('input-shop').value;
-  const notes    = document.getElementById('input-notes').value;
-  const date     = document.getElementById('input-date').value;
-  const priceVal = document.getElementById('input-price').value;
-  const price    = priceVal === '' ? null : parseFloat(priceVal);
-  addEntry({ flavor, shop, rating: selectedRating, notes, date, price, photo_data: currentLogPhoto });
-  document.getElementById('log-form').reset();
-  setRating(0);
-  initDateField();
-  clearLogPhoto();
-  showView('home');
-});
-
-// ════════════════════════════════════════
-// MY SHOPS — Add
-// ════════════════════════════════════════
-
-document.getElementById('btn-add-shop').addEventListener('click', () => {
-  const input = document.getElementById('input-new-shop');
-  const name = input.value.trim();
-  if (!name) return;
-  if (!addFavorite(name)) { alert(`"${name}" is already in your favorites.`); return; }
-  input.value = '';
-  renderShopsView();
-});
-
-document.getElementById('input-new-shop').addEventListener('keydown', e => {
-  if (e.key === 'Enter') { e.preventDefault(); document.getElementById('btn-add-shop').click(); }
-});
-
-// ════════════════════════════════════════
-// EDIT VIEW
-// ════════════════════════════════════════
-
-let editingId = null;
-let selectedEditRating = 0;
-
-function setEditRating(value) {
-  selectedEditRating = value;
-  document.querySelectorAll('.edit-rating-btn').forEach(btn => {
-    btn.classList.toggle('active', Number(btn.dataset.value) <= value);
-  });
-}
-
-document.querySelectorAll('.edit-rating-btn').forEach(btn => {
-  btn.addEventListener('click', () => {
-    const v = Number(btn.dataset.value);
-    setEditRating(v === selectedEditRating ? 0 : v);
-  });
-});
-
-function openEditView(id) {
-  const entry = loadEntries().find(e => e.id === id);
-  if (!entry) return;
-  editingId = id;
-  document.getElementById('input-edit-flavor').value = entry.flavor;
-  document.getElementById('input-edit-shop').value   = entry.shop ?? '';
-  document.getElementById('input-edit-notes').value  = entry.notes ?? '';
-  document.getElementById('input-edit-date').value   = new Date(entry.date).toLocaleDateString('en-CA');
-  document.getElementById('input-edit-price').value  = entry.price != null ? entry.price : '';
-  setEditRating(entry.rating ?? 0);
-  showView('edit');
-}
-
-document.getElementById('edit-back-btn').addEventListener('click', () => showView('home'));
-
-document.getElementById('edit-save-btn').addEventListener('click', () => {
-  const flavor = document.getElementById('input-edit-flavor').value.trim();
-  if (!flavor) { alert('Flavor is required!'); document.getElementById('input-edit-flavor').focus(); return; }
-  const editPriceVal = document.getElementById('input-edit-price').value;
-  updateEntry(editingId, {
+async function saveEntryToSupabase({ flavor, shop, rating, notes, date, price, photo_url, is_public }) {
+  const { data, error } = await SB.from('entries').insert({
+    user_id:    currentUser.id,
     flavor,
-    shop:   document.getElementById('input-edit-shop').value,
-    rating: selectedEditRating,
-    notes:  document.getElementById('input-edit-notes').value,
-    date:   document.getElementById('input-edit-date').value,
-    price:  editPriceVal === '' ? null : parseFloat(editPriceVal),
-  });
-  editingId = null;
-  showView('home');
-});
-
-document.getElementById('edit-delete-btn').addEventListener('click', () => {
-  if (!confirm('Delete this scoop?')) return;
-  deleteEntry(editingId);
-  editingId = null;
-  showView('home');
-});
-
-// ════════════════════════════════════════
-// VIEW SWITCHING
-// ════════════════════════════════════════
-
-function showView(name) {
-  document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
-  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-  document.getElementById('view-' + name).classList.add('active');
-  if (name !== 'edit') {
-    const tab = document.querySelector(`.tab-btn[data-view="${name}"]`);
-    if (tab) tab.classList.add('active');
-  }
-  document.getElementById('app').classList.toggle('editing', name === 'edit');
-  if (name === 'home')    renderHome();
-  if (name === 'shops')   renderShopsView();
-  if (name === 'wrapped') renderWrappedView();
-  document.getElementById('view-' + name).scrollTop = 0;
+    shop_name:  shop?.trim() || null,
+    rating:     rating > 0 ? rating : null,
+    notes:      notes?.trim() || null,
+    logged_date: date || new Date().toLocaleDateString('en-CA'),
+    price:      price || null,
+    photo_url:  photo_url || null,
+    is_public:  is_public ?? false,
+  }).select().single();
+  if (error) throw error;
+  return normalizeEntry(data);
 }
 
-document.querySelectorAll('.tab-btn').forEach(btn => {
-  btn.addEventListener('click', () => showView(btn.dataset.view));
-});
+async function updateEntryInSupabase(id, { flavor, shop, rating, notes, date, price, is_public }) {
+  const { error } = await SB.from('entries').update({
+    flavor,
+    shop_name:  shop?.trim() || null,
+    rating:     rating > 0 ? rating : null,
+    notes:      notes?.trim() || null,
+    logged_date: date,
+    price:      price || null,
+    is_public:  is_public ?? false,
+  }).eq('id', id).eq('user_id', currentUser.id);
+  if (error) throw error;
+  const idx = _currentEntries.findIndex(e => e.id === id);
+  if (idx !== -1) _currentEntries[idx] = { ..._currentEntries[idx], flavor, shop, rating, notes, date: date + 'T12:00:00', price, is_public };
+}
+
+async function deleteEntryFromSupabase(id) {
+  const entry = _currentEntries.find(e => e.id === id);
+  if (entry?.photo_url) {
+    const path = entry.photo_url.split('/entry-photos/')[1];
+    if (path) await SB.storage.from('entry-photos').remove([decodeURIComponent(path)]).catch(() => {});
+  }
+  const { error } = await SB.from('entries').delete().eq('id', id).eq('user_id', currentUser.id);
+  if (error) throw error;
+  _currentEntries = _currentEntries.filter(e => e.id !== id);
+}
 
 // ════════════════════════════════════════
-// PHOTO CAPTURE & COMPRESSION
+// SUPABASE — FEED
 // ════════════════════════════════════════
 
-let currentLogPhoto = null;
+async function fetchFeedEntries() {
+  // Who I follow
+  const { data: follows } = await SB.from('follows')
+    .select('following_id')
+    .eq('follower_id', currentUser.id);
+  const followingIds = (follows ?? []).map(f => f.following_id);
+  const allIds = [currentUser.id, ...followingIds];
+
+  // Entries
+  const { data: entries, error } = await SB.from('entries')
+    .select('*')
+    .in('user_id', allIds)
+    .eq('is_public', true)
+    .order('created_at', { ascending: false })
+    .limit(50);
+  if (error) throw error;
+  if (!entries?.length) return [];
+
+  // Profiles
+  const userIds = [...new Set(entries.map(e => e.user_id))];
+  const { data: profiles } = await SB.from('profiles').select('id,username,display_name').in('id', userIds);
+  const profileMap = {};
+  for (const p of profiles ?? []) profileMap[p.id] = p;
+
+  // Likes
+  const entryIds = entries.map(e => e.id);
+  const { data: likes } = await SB.from('likes').select('entry_id,user_id').in('entry_id', entryIds);
+  const likesMap = {};
+  for (const l of likes ?? []) {
+    if (!likesMap[l.entry_id]) likesMap[l.entry_id] = [];
+    likesMap[l.entry_id].push(l.user_id);
+  }
+
+  return entries.map(e => ({
+    ...normalizeEntry(e),
+    _profile:  profileMap[e.user_id] ?? null,
+    _likeCount: (likesMap[e.id] ?? []).length,
+    _iLiked:    (likesMap[e.id] ?? []).includes(currentUser.id),
+  }));
+}
+
+async function toggleLike(entryId, btn) {
+  if (!currentUser) { showToast('Sign in to like posts'); return; }
+  const wasLiked = btn.dataset.liked === 'true';
+  const iconEl  = btn.querySelector('.like-btn-icon');
+  const countEl = btn.querySelector('.like-count');
+  const count   = parseInt(countEl.textContent, 10) || 0;
+
+  if (wasLiked) {
+    btn.dataset.liked = 'false';
+    btn.classList.remove('liked');
+    iconEl.textContent = '🤍';
+    countEl.textContent = Math.max(0, count - 1);
+    await SB.from('likes').delete().eq('entry_id', entryId).eq('user_id', currentUser.id).catch(() => {});
+  } else {
+    btn.dataset.liked = 'true';
+    btn.classList.add('liked');
+    iconEl.textContent = '❤️';
+    countEl.textContent = count + 1;
+    await SB.from('likes').insert({ entry_id: entryId, user_id: currentUser.id }).catch(() => {});
+  }
+}
+
+// ════════════════════════════════════════
+// SUPABASE — PROFILES & FOLLOWS
+// ════════════════════════════════════════
+
+async function fetchProfile(userId) {
+  const { data } = await SB.from('profiles').select('*').eq('id', userId).single();
+  return data;
+}
+
+async function fetchProfileStats(userId) {
+  const [fr, fg] = await Promise.all([
+    SB.from('follows').select('*', { count: 'exact', head: true }).eq('following_id', userId),
+    SB.from('follows').select('*', { count: 'exact', head: true }).eq('follower_id', userId),
+  ]);
+  return { followers: fr.count ?? 0, following: fg.count ?? 0 };
+}
+
+async function isFollowing(targetId) {
+  if (!currentUser) return false;
+  const { data } = await SB.from('follows')
+    .select('*').eq('follower_id', currentUser.id).eq('following_id', targetId).single();
+  return !!data;
+}
+
+async function toggleFollow(targetId, btn) {
+  if (!currentUser) return;
+  const following = btn.dataset.following === 'true';
+  if (following) {
+    btn.textContent = 'Follow';
+    btn.classList.remove('following');
+    btn.dataset.following = 'false';
+    await SB.from('follows').delete().eq('follower_id', currentUser.id).eq('following_id', targetId).catch(() => {});
+  } else {
+    btn.textContent = 'Following';
+    btn.classList.add('following');
+    btn.dataset.following = 'true';
+    await SB.from('follows').insert({ follower_id: currentUser.id, following_id: targetId }).catch(() => {});
+  }
+}
+
+async function searchUsers(query) {
+  if (!query || query.length < 2) return [];
+  const { data } = await SB.from('profiles')
+    .select('id,username,display_name')
+    .ilike('username', `%${query}%`)
+    .limit(8);
+  return data ?? [];
+}
+
+// ════════════════════════════════════════
+// PHOTO — COMPRESS + UPLOAD
+// ════════════════════════════════════════
 
 function compressImage(file, maxSide, quality, callback) {
   const reader = new FileReader();
@@ -1425,10 +835,895 @@ function compressImage(file, maxSide, quality, callback) {
   reader.readAsDataURL(file);
 }
 
+function dataURLtoBlob(dataUrl) {
+  const [header, data] = dataUrl.split(',');
+  const mime = header.match(/:(.*?);/)[1];
+  const binary = atob(data);
+  const arr = new Uint8Array(binary.length);
+  for (let i = 0; i < binary.length; i++) arr[i] = binary.charCodeAt(i);
+  return new Blob([arr], { type: mime });
+}
+
+async function uploadPhotoToSupabase(dataUrl) {
+  const blob = dataURLtoBlob(dataUrl);
+  const filename = `${currentUser.id}/${Date.now()}.jpg`;
+  const { error } = await SB.storage.from('entry-photos').upload(filename, blob, { contentType: 'image/jpeg', upsert: false });
+  if (error) throw error;
+  const { data: { publicUrl } } = SB.storage.from('entry-photos').getPublicUrl(filename);
+  return publicUrl;
+}
+
+// ════════════════════════════════════════
+// MIGRATION — localStorage → Supabase
+// ════════════════════════════════════════
+
+async function offerLocalMigration() {
+  const local = loadLocalEntries();
+  if (!local.length) return;
+  const ok = confirm(`You have ${local.length} scoop${local.length !== 1 ? 's' : ''} saved before signing in. Import them to your account?`);
+  if (!ok) return;
+  let imported = 0;
+  for (const e of local) {
+    try {
+      let photo_url = null;
+      if (e.photo_data) photo_url = await uploadPhotoToSupabase(e.photo_data).catch(() => null);
+      await saveEntryToSupabase({
+        flavor: e.flavor, shop: e.shop, rating: e.rating,
+        notes: e.notes, date: new Date(e.date).toLocaleDateString('en-CA'),
+        price: e.price, photo_url, is_public: false,
+      });
+      imported++;
+    } catch {}
+  }
+  localStorage.removeItem(STORAGE_KEY);
+  _currentEntries = await fetchMyEntries();
+  showToast(`Imported ${imported} scoop${imported !== 1 ? 's' : ''}! 🍦`);
+}
+
+// ════════════════════════════════════════
+// ACTIVE ENTRIES HELPER
+// ════════════════════════════════════════
+
+function getActiveEntries() {
+  return currentUser ? _currentEntries : loadLocalEntries();
+}
+
+function getRecentShops() {
+  const seen = new Set(), shops = [];
+  for (const e of getActiveEntries()) {
+    const name = (e.shop || e.shop_name)?.trim();
+    if (name && !seen.has(name.toLowerCase())) { seen.add(name.toLowerCase()); shops.push(name); }
+  }
+  return shops;
+}
+
+// ════════════════════════════════════════
+// STREAK LOGIC
+// ════════════════════════════════════════
+
+function localDateStr(d)  { return new Date(d).toLocaleDateString('en-CA'); }
+function getWeekStart(d)  {
+  const dt = new Date(d), day = dt.getDay();
+  dt.setDate(dt.getDate() + (day === 0 ? -6 : 1 - day));
+  return dt.toLocaleDateString('en-CA');
+}
+function getMonthKey(iso) {
+  const d = new Date(iso);
+  return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}`;
+}
+
+function computeDailyStreak(entries) {
+  if (!entries.length) return 0;
+  const days = new Set(entries.map(e => localDateStr(e.date)));
+  const cur  = new Date();
+  if (!days.has(localDateStr(cur))) cur.setDate(cur.getDate() - 1);
+  let streak = 0;
+  while (days.has(localDateStr(cur))) { streak++; cur.setDate(cur.getDate() - 1); }
+  return streak;
+}
+function computeWeeklyStreak(entries) {
+  if (!entries.length) return 0;
+  const weeks = new Set(entries.map(e => getWeekStart(new Date(e.date))));
+  const cur   = new Date();
+  if (!weeks.has(getWeekStart(cur))) cur.setDate(cur.getDate() - 7);
+  let streak  = 0;
+  while (weeks.has(getWeekStart(cur))) { streak++; cur.setDate(cur.getDate() - 7); }
+  return streak;
+}
+function computeMonthlyStreak(entries) {
+  if (!entries.length) return 0;
+  const months = new Set(entries.map(e => getMonthKey(e.date)));
+  let year = new Date().getFullYear(), month = new Date().getMonth();
+  if (!months.has(`${year}-${String(month+1).padStart(2,'0')}`)) {
+    month--; if (month < 0) { month = 11; year--; }
+  }
+  let streak = 0;
+  while (months.has(`${year}-${String(month+1).padStart(2,'0')}`)) {
+    streak++; month--; if (month < 0) { month = 11; year--; }
+  }
+  return streak;
+}
+
+// ════════════════════════════════════════
+// FLAVOR HELPERS
+// ════════════════════════════════════════
+
+function getFlavorSuggestions(query) {
+  const pastCounts = {};
+  for (const e of getActiveEntries()) {
+    const f = e.flavor?.trim(); if (!f) continue;
+    const key = f.toLowerCase();
+    if (!pastCounts[key]) pastCounts[key] = { display: f, count: 0 };
+    pastCounts[key].count++;
+  }
+  const pastSorted = Object.values(pastCounts).sort((a,b) => b.count - a.count)
+    .map(p => BUILTIN_FLAVOR_MAP[p.display.toLowerCase()] || p.display);
+  const seen = new Set(), merged = [];
+  for (const n of pastSorted)   { if (!seen.has(n.toLowerCase())) { seen.add(n.toLowerCase()); merged.push(n); } }
+  for (const n of BUILTIN_FLAVORS) { if (!seen.has(n.toLowerCase())) { seen.add(n.toLowerCase()); merged.push(n); } }
+  if (!query) return merged.slice(0, 8);
+  const q = query.toLowerCase();
+  return merged.filter(f => f.toLowerCase().includes(q));
+}
+
+function getTopFlavors(entries) {
+  const counts = {};
+  for (const e of entries) {
+    const f = e.flavor?.trim(); if (!f) continue;
+    const canonical = BUILTIN_FLAVOR_MAP[f.toLowerCase()] || f;
+    counts[canonical] = (counts[canonical] ?? 0) + 1;
+  }
+  return Object.entries(counts).sort((a,b) => b[1]-a[1]).slice(0,5);
+}
+
+// ════════════════════════════════════════
+// WRAPPED STATS
+// ════════════════════════════════════════
+
+const MONTH_NAMES = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+
+function getYearEntries(year) { return getActiveEntries().filter(e => new Date(e.date).getFullYear() === year); }
+
+function getWrappedTopFlavor(ye) {
+  const counts = {};
+  for (const e of ye) { const f = e.flavor?.trim(); if (!f) continue; const c = BUILTIN_FLAVOR_MAP[f.toLowerCase()]||f; counts[c]=(counts[c]??0)+1; }
+  const sorted = Object.entries(counts).sort((a,b)=>b[1]-a[1]||a[0].localeCompare(b[0]));
+  return sorted.length ? { name: sorted[0][0], count: sorted[0][1] } : null;
+}
+function getWrappedTotalSpent(ye) {
+  const priced = ye.filter(e => e.price != null);
+  return priced.length ? priced.reduce((s,e) => s + e.price, 0) : null;
+}
+function getWrappedLongestStreak(ye) {
+  if (!ye.length) return 0;
+  const days = [...new Set(ye.map(e => localDateStr(e.date)))].sort();
+  let longest=1,current=1;
+  for (let i=1;i<days.length;i++) {
+    const diff = Math.round((new Date(days[i]+'T12:00:00')-new Date(days[i-1]+'T12:00:00'))/86400000);
+    if (diff===1){current++;longest=Math.max(longest,current);}else{current=1;}
+  }
+  return longest;
+}
+function getWrappedBusiestMonth(ye) {
+  const counts={};
+  for (const e of ye) { const m=new Date(e.date).getMonth(); counts[m]=(counts[m]??0)+1; }
+  let best=null,bestCount=0;
+  for (let m=0;m<=11;m++) if ((counts[m]??0)>bestCount){bestCount=counts[m];best=m;}
+  return best!==null ? {name:MONTH_NAMES[best],count:bestCount} : null;
+}
+function getWrappedFavoriteShop(ye) {
+  const counts={};
+  for (const e of ye) { const s=(e.shop||e.shop_name)?.trim(); if(!s)continue; const k=s.toLowerCase(); if(!counts[k])counts[k]={name:s,count:0}; counts[k].count++; }
+  const sorted=Object.values(counts).sort((a,b)=>b.count-a.count);
+  return sorted.length?sorted[0]:null;
+}
+
+function renderWrappedView() {
+  const year = new Date().getFullYear();
+  document.getElementById('wrapped-title').textContent = `Your ${year} Wrapped 🎁`;
+  const ye = getYearEntries(year);
+  const content = document.getElementById('wrapped-content');
+  if (!ye.length) { content.innerHTML='<div class="empty-state">No scoops logged yet this year —<br>get out there! 🍦</div>'; return; }
+  const topFlavor=getWrappedTopFlavor(ye),totalSpent=getWrappedTotalSpent(ye),
+        longestStreak=getWrappedLongestStreak(ye),busiestMonth=getWrappedBusiestMonth(ye),favShop=getWrappedFavoriteShop(ye);
+  content.innerHTML=`
+    <div class="wrapped-card"><span class="wrapped-card-emoji">🍦</span><span class="wrapped-card-value">${topFlavor?escapeHtml(topFlavor.name):'—'}</span><span class="wrapped-card-label">Top Flavor · ${topFlavor?topFlavor.count+' times':'—'}</span></div>
+    <div class="wrapped-card"><span class="wrapped-card-emoji">💸</span><span class="wrapped-card-value">${totalSpent!=null?'$'+totalSpent.toFixed(2):'—'}</span><span class="wrapped-card-label">Total Spent</span></div>
+    <div class="wrapped-card"><span class="wrapped-card-emoji">🔥</span><span class="wrapped-card-value">${longestStreak} day${longestStreak!==1?'s':''}</span><span class="wrapped-card-label">Longest Streak</span></div>
+    <div class="wrapped-card"><span class="wrapped-card-emoji">📅</span><span class="wrapped-card-value">${busiestMonth?escapeHtml(busiestMonth.name):'—'}</span><span class="wrapped-card-label">Busiest Month · ${busiestMonth?busiestMonth.count+' scoops':'—'}</span></div>
+    <div class="wrapped-card"><span class="wrapped-card-emoji">🏪</span><span class="wrapped-card-value">${favShop?escapeHtml(favShop.name):'—'}</span><span class="wrapped-card-label">Favorite Shop · ${favShop?favShop.count+' visits':'—'}</span></div>`;
+}
+
+// ════════════════════════════════════════
+// SHOP SEARCH — Nominatim
+// ════════════════════════════════════════
+
+let userLocation = null;
+let nominatimTimer = null;
+if (navigator.geolocation) navigator.geolocation.getCurrentPosition(p => { userLocation={lat:p.coords.latitude,lng:p.coords.longitude}; },()=>{});
+
+function fetchPlacesSuggestions(query, callback) {
+  if (!query || query.length < 2) { callback([]); return; }
+  clearTimeout(nominatimTimer);
+  nominatimTimer = setTimeout(async () => {
+    if (PLACES_KEY) {
+      try {
+        const params = new URLSearchParams({ input:query,types:'establishment',key:PLACES_KEY });
+        if (userLocation) { params.append('location',`${userLocation.lat},${userLocation.lng}`); params.append('radius','50000'); }
+        const res = await fetch(`https://maps.googleapis.com/maps/api/place/autocomplete/json?${params}`);
+        if (res.ok) { const data=await res.json(); callback([...new Set((data.predictions??[]).map(p=>p.structured_formatting?.main_text||p.description.split(',')[0].trim()).filter(Boolean))].slice(0,5)); return; }
+      } catch {}
+    }
+    try {
+      const params=new URLSearchParams({q:query,format:'json',limit:'5',addressdetails:'0',dedupe:'1'});
+      if (userLocation) { const d=0.45; params.append('viewbox',`${userLocation.lng-d},${userLocation.lat+d},${userLocation.lng+d},${userLocation.lat-d}`); params.append('bounded','0'); }
+      const res=await fetch(`https://nominatim.openstreetmap.org/search?${params}`,{headers:{'Accept-Language':'en-US,en'}});
+      if (!res.ok){callback([]);return;}
+      const data=await res.json();
+      callback([...new Set(data.map(p=>p.name||p.display_name.split(',')[0].trim()).filter(n=>n&&n.length>1))].slice(0,5));
+    } catch { callback([]); }
+  }, 300);
+}
+
+// ════════════════════════════════════════
+// RENDERING HELPERS
+// ════════════════════════════════════════
+
+const CHIP_COLORS=['#FFB3C6','#C9B8FF','#B8F0E6','#FFE4A0','#FFD6B3'];
+function chipColor(flavor) { let n=0; for(const c of flavor)n+=c.charCodeAt(0); return CHIP_COLORS[n%CHIP_COLORS.length]; }
+
+function formatDate(iso) {
+  const d=new Date(iso),today=new Date(),yesterday=new Date();
+  yesterday.setDate(today.getDate()-1);
+  if (d.toDateString()===today.toDateString()) return 'Today';
+  if (d.toDateString()===yesterday.toDateString()) return 'Yesterday';
+  return d.toLocaleDateString('en-US',{month:'short',day:'numeric'});
+}
+
+function timeAgo(iso) {
+  const diff = Date.now() - new Date(iso).getTime();
+  const m = Math.floor(diff/60000), h = Math.floor(m/60), d = Math.floor(h/24);
+  if (m < 1)  return 'just now';
+  if (m < 60) return `${m}m ago`;
+  if (h < 24) return `${h}h ago`;
+  if (d < 7)  return `${d}d ago`;
+  return new Date(iso).toLocaleDateString('en-US',{month:'short',day:'numeric'});
+}
+
+function escapeHtml(str) {
+  return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+function avatarInitial(profile) {
+  return ((profile?.display_name || profile?.username || '?')[0]).toUpperCase();
+}
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2500);
+}
+
+// ════════════════════════════════════════
+// HOME RENDER
+// ════════════════════════════════════════
+
+async function renderHome() {
+  if (currentUser) {
+    document.getElementById('entry-list').innerHTML = '<div class="loading-row">Loading scoops…</div>';
+    _currentEntries = await fetchMyEntries().catch(() => _currentEntries);
+  }
+  const entries = getActiveEntries();
+  // Stats
+  document.getElementById('stat-scoops').textContent  = entries.length;
+  document.getElementById('stat-flavors').textContent = new Set(entries.map(e=>e.flavor.toLowerCase().trim())).size;
+  document.getElementById('stat-shops').textContent   = new Set(entries.filter(e=>e.shop).map(e=>e.shop.toLowerCase().trim())).size;
+  // Streaks
+  document.getElementById('streak-daily').textContent   = computeDailyStreak(entries);
+  document.getElementById('streak-weekly').textContent  = computeWeeklyStreak(entries);
+  document.getElementById('streak-monthly').textContent = computeMonthlyStreak(entries);
+  // Top flavors
+  const top = getTopFlavors(entries);
+  const section = document.getElementById('top-flavors-section');
+  if (top.length) {
+    section.style.display='block';
+    document.getElementById('top-flavors-list').innerHTML = top.map(([name,count]) =>
+      `<div class="flavor-bar-row"><span class="flavor-bar-name">🍦 ${escapeHtml(name)}</span><span class="flavor-bar-count">${count}×</span></div>`).join('');
+  } else { section.style.display='none'; }
+  // Entry list
+  const list = document.getElementById('entry-list');
+  if (!entries.length) { list.innerHTML='<div class="empty-state">No scoops yet —<br>tap ➕ to log your first! 🍦</div>'; return; }
+  list.innerHTML = entries.map(entry => {
+    const ratingHtml = entry.rating>0 ? `<div class="entry-rating">${'🍨'.repeat(entry.rating)}</div>` : '';
+    const meta = [entry.shop, formatDate(entry.date)].filter(Boolean).join(' · ');
+    const thumbHtml = entry.photo_data
+      ? `<img class="entry-photo-thumb" src="${escapeHtml(entry.photo_data)}" alt="">`
+      : `<div class="entry-chip" style="background:${chipColor(entry.flavor)}">🍦</div>`;
+    return `<div class="entry-card" data-id="${escapeHtml(entry.id)}">${thumbHtml}<div class="entry-info"><div class="entry-flavor">${escapeHtml(entry.flavor)}</div><div class="entry-meta">${escapeHtml(meta)}</div>${ratingHtml}</div><span style="font-size:16px;color:var(--muted);opacity:0.4">›</span></div>`;
+  }).join('');
+  list.querySelectorAll('.entry-card').forEach(card => card.addEventListener('click', () => openEditView(card.dataset.id)));
+}
+
+// ════════════════════════════════════════
+// FEED RENDER
+// ════════════════════════════════════════
+
+function renderFeedCard(entry) {
+  const p = entry._profile;
+  const likeCount = entry._likeCount ?? 0;
+  const iLiked    = entry._iLiked ?? false;
+  const initial   = p ? avatarInitial(p) : '?';
+  const name      = escapeHtml(p?.display_name || p?.username || 'Someone');
+  const username  = escapeHtml(p?.username || '');
+  return `
+    <div class="feed-card">
+      <div class="feed-card-header">
+        <div class="feed-avatar" data-uid="${escapeHtml(entry.user_id || '')}">${initial}</div>
+        <div style="flex:1;min-width:0">
+          <div class="feed-username" data-uid="${escapeHtml(entry.user_id || '')}">${name}</div>
+          <div class="feed-time">${username ? '@'+username+' · ' : ''}${timeAgo(entry.created_at)}</div>
+        </div>
+        ${entry.rating>0 ? `<div class="feed-rating">${'🍨'.repeat(entry.rating)}</div>` : ''}
+      </div>
+      ${entry.photo_data ? `<img class="feed-photo" src="${escapeHtml(entry.photo_data)}" alt="" loading="lazy">` : ''}
+      <div class="feed-body">
+        <div class="feed-flavor">🍦 ${escapeHtml(entry.flavor)}</div>
+        ${entry.shop ? `<div class="feed-shop">📍 ${escapeHtml(entry.shop)}</div>` : ''}
+        ${entry.notes ? `<div class="feed-notes">${escapeHtml(entry.notes)}</div>` : ''}
+        <div class="feed-footer">
+          <button class="like-btn ${iLiked?'liked':''}" data-entry-id="${escapeHtml(entry.id)}" data-liked="${iLiked}">
+            <span class="like-btn-icon">${iLiked?'❤️':'🤍'}</span>
+            <span class="like-count">${likeCount}</span>
+          </button>
+        </div>
+      </div>
+    </div>`;
+}
+
+function wireFeedInteractions(list) {
+  list.querySelectorAll('.like-btn').forEach(btn => {
+    btn.addEventListener('click', () => toggleLike(btn.dataset.entryId, btn));
+  });
+  list.querySelectorAll('[data-uid]').forEach(el => {
+    el.addEventListener('click', () => {
+      const uid = el.dataset.uid;
+      if (!uid) return;
+      profileViewUserId = uid;
+      document.getElementById('profile-back-btn').style.display = 'inline';
+      showView('profile');
+    });
+  });
+}
+
+async function renderFeedView() {
+  const list = document.getElementById('feed-list');
+  if (!currentUser) {
+    list.innerHTML = `<div class="empty-state" style="padding:64px 24px"><div style="font-size:48px;margin-bottom:16px">🌊</div><div style="font-size:16px;font-weight:700;color:var(--text);margin-bottom:8px">See what friends are eating</div><div style="margin-bottom:24px;font-size:14px">Sign in to follow friends and share your scoops</div><button class="btn-submit" onclick="showView('auth')" style="width:auto;padding:12px 32px">Sign In</button></div>`;
+    return;
+  }
+  list.innerHTML = '<div class="loading-row">Loading feed…</div>';
+  try {
+    const entries = await fetchFeedEntries();
+    if (!entries.length) {
+      list.innerHTML = `<div class="empty-state" style="padding:48px 24px"><div style="font-size:48px;margin-bottom:12px">🌊</div><div style="font-size:16px;font-weight:700;color:var(--text);margin-bottom:8px">Your feed is empty</div><div>Follow friends to see their scoops.<br>Use 🔍 to find people!</div></div>`;
+      return;
+    }
+    list.innerHTML = entries.map(renderFeedCard).join('');
+    wireFeedInteractions(list);
+  } catch { list.innerHTML = '<div class="empty-state">Could not load feed. Check your connection.</div>'; }
+}
+
+// ════════════════════════════════════════
+// PROFILE RENDER
+// ════════════════════════════════════════
+
+async function renderProfileView(userId) {
+  const content = document.getElementById('profile-content');
+  const isOwn   = !userId || userId === currentUser?.id;
+
+  if (!currentUser) {
+    content.innerHTML = `<div class="profile-login-prompt"><div class="emoji">👤</div><div style="font-size:16px;font-weight:700;color:var(--text);margin-bottom:8px">Create your profile</div><div style="color:var(--muted);margin-bottom:24px;font-size:14px">Sign in to track scoops and follow friends</div><button class="btn-submit" onclick="showView('auth')" style="width:auto;padding:12px 32px">Sign In</button></div>`;
+    return;
+  }
+
+  content.innerHTML = '<div class="loading-row">Loading profile…</div>';
+
+  try {
+    const uid     = isOwn ? currentUser.id : userId;
+    const profile = isOwn ? currentProfile : await fetchProfile(uid);
+    const stats   = await fetchProfileStats(uid);
+
+    let entries;
+    if (isOwn) {
+      if (!_currentEntries.length) _currentEntries = await fetchMyEntries();
+      entries = _currentEntries;
+    } else {
+      const { data } = await SB.from('entries').select('*').eq('user_id', uid).eq('is_public', true).order('created_at', { ascending: false });
+      entries = (data ?? []).map(normalizeEntry);
+    }
+
+    const following = isOwn ? false : await isFollowing(uid);
+    const initial   = avatarInitial(profile);
+    const dname     = escapeHtml(profile?.display_name || profile?.username || 'User');
+    const uname     = escapeHtml(profile?.username || '');
+
+    content.innerHTML = `
+      <div class="profile-header">
+        <div class="profile-avatar-lg">${initial}</div>
+        <div class="profile-name">${dname}</div>
+        ${uname ? `<div class="profile-at">@${uname}</div>` : ''}
+        ${isOwn
+          ? `<button class="signout-btn" id="btn-signout">Sign Out</button>`
+          : `<button class="follow-btn ${following?'following':''}" id="btn-follow" data-uid="${escapeHtml(uid)}" data-following="${following}">${following?'Following':'Follow'}</button>`}
+      </div>
+      <div class="profile-stats-row">
+        <div class="profile-stat"><span class="profile-stat-val">${entries.length}</span><span class="profile-stat-lbl">Scoops</span></div>
+        <div class="profile-stat"><span class="profile-stat-val">${stats.followers}</span><span class="profile-stat-lbl">Followers</span></div>
+        <div class="profile-stat"><span class="profile-stat-val">${stats.following}</span><span class="profile-stat-lbl">Following</span></div>
+      </div>
+      <div class="section-label">${isOwn ? 'Your Scoops' : 'Public Scoops'}</div>
+      <div class="profile-posts-grid" id="profile-grid">
+        ${entries.length
+          ? entries.map(e => `
+              <div class="profile-post-cell" data-id="${escapeHtml(e.id)}">
+                ${e.photo_data
+                  ? `<img src="${escapeHtml(e.photo_data)}" alt="" loading="lazy">`
+                  : `<span>🍦</span>`}
+              </div>`).join('')
+          : `<div style="grid-column:1/-1" class="empty-state">No ${isOwn?'':'public '}scoops yet 🍦</div>`}
+      </div>`;
+
+    if (isOwn) {
+      document.getElementById('btn-signout').addEventListener('click', async () => {
+        if (!confirm('Sign out?')) return;
+        await sbSignOut();
+      });
+    } else {
+      document.getElementById('btn-follow').addEventListener('click', function() { toggleFollow(uid, this); });
+    }
+
+    // Tap entry cell → open edit (own) or do nothing (others for now)
+    if (isOwn) {
+      content.querySelectorAll('.profile-post-cell[data-id]').forEach(cell => {
+        cell.addEventListener('click', () => openEditView(cell.dataset.id));
+      });
+    }
+  } catch (err) {
+    content.innerHTML = '<div class="empty-state">Could not load profile.</div>';
+  }
+}
+
+// ════════════════════════════════════════
+// SHOPS VIEW RENDER
+// ════════════════════════════════════════
+
+function getVisitedShopsFromEntries(entries) {
+  const counts = {};
+  for (const e of entries) {
+    const name = (e.shop || e.shop_name)?.trim();
+    if (!name) continue;
+    const key = name.toLowerCase();
+    if (!counts[key]) counts[key] = { name, count: 0 };
+    counts[key].count++;
+  }
+  return Object.values(counts).sort((a,b) => a.name.localeCompare(b.name));
+}
+
+function renderShopsView() {
+  const entries   = getActiveEntries();
+  const favorites = loadFavorites().slice().sort((a,b) => a.localeCompare(b));
+  const visited   = getVisitedShopsFromEntries(entries);
+  const favSet    = new Set(favorites.map(f => f.toLowerCase()));
+
+  renderShopsMap(visited);
+  const content = document.getElementById('shops-content');
+  const empty   = document.getElementById('shops-empty');
+
+  if (!favorites.length && !visited.length) { content.innerHTML=''; empty.style.display='block'; return; }
+  empty.style.display = 'none';
+
+  let html = '<div class="shops-section-label">⭐ Favorites</div>';
+  if (!favorites.length) {
+    html += '<div style="color:var(--muted);font-size:13px;margin-bottom:12px">No favorites yet — add one above.</div>';
+  } else {
+    html += favorites.map(name =>
+      `<div class="shop-card"><span class="shop-card-icon">⭐</span><span class="shop-card-name">${escapeHtml(name)}</span><button class="btn-remove-shop" data-name="${escapeHtml(name)}">✕</button></div>`).join('');
+  }
+  const nonFav = visited.filter(s => !favSet.has(s.name.toLowerCase()));
+  html += '<div class="shops-section-label" style="margin-top:20px">📍 Visited</div>';
+  if (!nonFav.length) {
+    html += '<div style="color:var(--muted);font-size:13px">Shops you\'ve logged will appear here.</div>';
+  } else {
+    html += nonFav.map(s =>
+      `<div class="shop-card"><span class="shop-card-icon">🏪</span><span class="shop-card-name">${escapeHtml(s.name)}</span><span class="shop-card-count">${s.count}×</span></div>`).join('');
+  }
+  content.innerHTML = html;
+  content.querySelectorAll('.btn-remove-shop').forEach(btn => {
+    btn.addEventListener('click', () => { removeFavorite(btn.dataset.name); renderShopsView(); });
+  });
+}
+
+// ════════════════════════════════════════
+// AUTH VIEW INTERACTIONS
+// ════════════════════════════════════════
+
+function showAuthError(msg) {
+  const el = document.getElementById('auth-error');
+  el.textContent = msg; el.style.display = 'block';
+}
+function clearAuthError() { document.getElementById('auth-error').style.display = 'none'; }
+
+// Sign in / Sign up tab switch
+document.getElementById('auth-signin-tab').addEventListener('click', () => {
+  document.getElementById('auth-signin-tab').classList.add('active');
+  document.getElementById('auth-signup-tab').classList.remove('active');
+  document.getElementById('auth-signin-pane').style.display = '';
+  document.getElementById('auth-signup-pane').style.display = 'none';
+  clearAuthError();
+});
+document.getElementById('auth-signup-tab').addEventListener('click', () => {
+  document.getElementById('auth-signup-tab').classList.add('active');
+  document.getElementById('auth-signin-tab').classList.remove('active');
+  document.getElementById('auth-signup-pane').style.display = '';
+  document.getElementById('auth-signin-pane').style.display = 'none';
+  clearAuthError();
+});
+
+document.getElementById('btn-signin').addEventListener('click', async () => {
+  clearAuthError();
+  const email    = document.getElementById('auth-email').value.trim();
+  const password = document.getElementById('auth-password').value;
+  if (!email || !password) { showAuthError('Please fill in all fields.'); return; }
+  const btn = document.getElementById('btn-signin');
+  btn.disabled = true; btn.textContent = 'Signing in…';
+  try { await sbSignIn(email, password); }
+  catch (err) { showAuthError(err.message || 'Sign in failed.'); btn.disabled=false; btn.textContent='Sign In 🍦'; }
+});
+
+document.getElementById('btn-signup').addEventListener('click', async () => {
+  clearAuthError();
+  const username  = document.getElementById('auth-username').value.trim();
+  const dname     = document.getElementById('auth-displayname').value.trim();
+  const email     = document.getElementById('auth-signup-email').value.trim();
+  const password  = document.getElementById('auth-signup-password').value;
+  if (!username || !email || !password) { showAuthError('Please fill in all fields.'); return; }
+  if (password.length < 6) { showAuthError('Password must be 6+ characters.'); return; }
+  const btn = document.getElementById('btn-signup');
+  btn.disabled = true; btn.textContent = 'Creating account…';
+  try {
+    await sbSignUp(email, password, username, dname);
+    showToast('Account created! Check your email if needed 📧');
+  } catch (err) { showAuthError(err.message || 'Sign up failed.'); }
+  btn.disabled = false; btn.textContent = 'Create Account 🍦';
+});
+
+document.getElementById('btn-guest').addEventListener('click', () => {
+  guestMode = true;
+  localStorage.setItem(GUEST_KEY, '1');
+  showView('home');
+});
+
+// ════════════════════════════════════════
+// RATING PICKER
+// ════════════════════════════════════════
+
+let selectedRating = 0;
+function setRating(value) {
+  selectedRating = value;
+  document.querySelectorAll('#rating-row .rating-btn').forEach(btn => btn.classList.toggle('active', Number(btn.dataset.value) <= value));
+}
+document.querySelectorAll('#rating-row .rating-btn').forEach(btn => {
+  btn.addEventListener('click', () => { const v=Number(btn.dataset.value); setRating(v===selectedRating?0:v); });
+});
+
+let selectedEditRating = 0;
+function setEditRating(value) {
+  selectedEditRating = value;
+  document.querySelectorAll('.edit-rating-btn').forEach(btn => btn.classList.toggle('active', Number(btn.dataset.value) <= value));
+}
+document.querySelectorAll('.edit-rating-btn').forEach(btn => {
+  btn.addEventListener('click', () => { const v=Number(btn.dataset.value); setEditRating(v===selectedEditRating?0:v); });
+});
+
+// ════════════════════════════════════════
+// SHARE TOGGLE
+// ════════════════════════════════════════
+
+function wireToggle(checkboxId, trackId) {
+  const checkbox = document.getElementById(checkboxId);
+  const track    = document.getElementById(trackId);
+  if (!checkbox || !track) return;
+  checkbox.addEventListener('change', () => track.classList.toggle('on', checkbox.checked));
+}
+wireToggle('share-toggle', 'share-track');
+wireToggle('edit-share-toggle', 'edit-share-track');
+
+function updateShareToggles() {
+  const show = !!currentUser;
+  document.getElementById('share-toggle-group').style.display = show ? 'block' : 'none';
+  document.getElementById('edit-share-group').style.display   = show ? 'block' : 'none';
+}
+
+// ════════════════════════════════════════
+// FLAVOR AUTOCOMPLETE
+// ════════════════════════════════════════
+
+function wireFlavorAutocomplete(inputId, suggestionsId) {
+  const input = document.getElementById(inputId);
+  const box   = document.getElementById(suggestionsId);
+  function show(query) {
+    const matches = getFlavorSuggestions(query);
+    if (!matches.length) { box.innerHTML=''; box.classList.remove('open'); return; }
+    box.innerHTML = matches.map(name => `<div class="suggestion-item" data-name="${escapeHtml(name)}"><span class="suggestion-icon">🍦</span>${escapeHtml(name)}</div>`).join('');
+    box.classList.add('open');
+    box.querySelectorAll('.suggestion-item').forEach(item => {
+      item.addEventListener('mousedown', e => { e.preventDefault(); input.value=item.dataset.name; box.classList.remove('open'); });
+    });
+  }
+  input.addEventListener('focus', () => show(input.value));
+  input.addEventListener('input', () => show(input.value));
+  input.addEventListener('blur',  () => setTimeout(() => box.classList.remove('open'), 150));
+}
+wireFlavorAutocomplete('input-flavor', 'flavor-suggestions');
+wireFlavorAutocomplete('input-edit-flavor', 'edit-flavor-suggestions');
+
+// ════════════════════════════════════════
+// SHOP AUTOCOMPLETE
+// ════════════════════════════════════════
+
+function wireShopAutocomplete(inputId, suggestionsId) {
+  const input=document.getElementById(inputId), box=document.getElementById(suggestionsId);
+  let currentQuery='';
+  function renderItems(items) {
+    if (!items.length) { box.innerHTML=''; box.classList.remove('open'); return; }
+    box.innerHTML = items.map(s => `<div class="suggestion-item" data-name="${escapeHtml(s.name)}"><span class="suggestion-icon">${s.icon}</span>${escapeHtml(s.name)}</div>`).join('');
+    box.classList.add('open');
+    box.querySelectorAll('.suggestion-item').forEach(item => {
+      item.addEventListener('mousedown', e => { e.preventDefault(); input.value=item.dataset.name; box.classList.remove('open'); });
+    });
+  }
+  function getLocalItems(query) {
+    const favorites=loadFavorites().slice().sort((a,b)=>a.localeCompare(b));
+    const past=getRecentShops(), favSet=new Set(favorites.map(f=>f.toLowerCase())), items=[];
+    if (!query) {
+      for (const f of favorites) items.push({name:f,icon:'⭐'});
+      for (const s of past.slice(0,5)) if (!favSet.has(s.toLowerCase())) items.push({name:s,icon:'🕐'});
+      return items.slice(0,7);
+    }
+    const q=query.toLowerCase();
+    for (const f of favorites) if (f.toLowerCase().includes(q)) items.push({name:f,icon:'⭐'});
+    for (const s of past) if (!favSet.has(s.toLowerCase())&&s.toLowerCase().includes(q)) items.push({name:s,icon:'🕐'});
+    return items;
+  }
+  function showSuggestions(query) {
+    currentQuery=query;
+    const local=getLocalItems(query);
+    if (query.length>=2) {
+      fetchPlacesSuggestions(query, places => {
+        if (currentQuery!==query) return;
+        const localNames=new Set(local.map(s=>s.name.toLowerCase()));
+        renderItems([...local,...places.filter(n=>!localNames.has(n.toLowerCase())).map(n=>({name:n,icon:'📍'}))]);
+      });
+    } else { renderItems(local); }
+  }
+  input.addEventListener('focus', () => showSuggestions(input.value));
+  input.addEventListener('input', () => showSuggestions(input.value));
+  input.addEventListener('blur',  () => setTimeout(() => box.classList.remove('open'), 150));
+}
+wireShopAutocomplete('input-shop', 'shop-suggestions');
+wireShopAutocomplete('input-edit-shop', 'edit-shop-suggestions');
+wireShopAutocomplete('input-new-shop', 'new-shop-suggestions');
+
+// ════════════════════════════════════════
+// LOG FORM SUBMIT
+// ════════════════════════════════════════
+
+document.getElementById('log-form').addEventListener('submit', async e => {
+  e.preventDefault();
+  const flavor = document.getElementById('input-flavor').value.trim();
+  if (!flavor) { showToast('Add a flavor first! 🍦'); document.getElementById('input-flavor').focus(); return; }
+  const btn = document.getElementById('log-submit-btn');
+  btn.disabled = true; btn.textContent = 'Saving…';
+  try {
+    const shop     = document.getElementById('input-shop').value;
+    const notes    = document.getElementById('input-notes').value;
+    const date     = document.getElementById('input-date').value;
+    const priceVal = document.getElementById('input-price').value;
+    const price    = priceVal==='' ? null : parseFloat(priceVal);
+    const isPublic = document.getElementById('share-toggle').checked;
+
+    if (currentUser) {
+      let photo_url = null;
+      if (currentLogPhoto) photo_url = await uploadPhotoToSupabase(currentLogPhoto).catch(() => null);
+      const newEntry = await saveEntryToSupabase({ flavor, shop, rating: selectedRating, notes, date, price, photo_url, is_public: isPublic });
+      _currentEntries.unshift(newEntry);
+    } else {
+      addLocalEntry({ flavor, shop, rating: selectedRating, notes, date, price, photo_data: currentLogPhoto });
+    }
+
+    document.getElementById('log-form').reset();
+    setRating(0);
+    initDateField();
+    clearLogPhoto();
+    document.getElementById('share-toggle').checked = false;
+    document.getElementById('share-track').classList.remove('on');
+    showToast(isPublic && currentUser ? 'Scoop posted to your feed! 🍦' : 'Scoop logged! 🍦');
+    showView('home');
+  } catch (err) {
+    showToast('Error saving. Try again.');
+    console.error(err);
+  } finally {
+    btn.disabled = false; btn.textContent = 'Log It 🍦';
+  }
+});
+
+// ════════════════════════════════════════
+// MY SHOPS — Add
+// ════════════════════════════════════════
+
+document.getElementById('btn-add-shop').addEventListener('click', () => {
+  const input = document.getElementById('input-new-shop');
+  const name  = input.value.trim();
+  if (!name) return;
+  if (!addFavorite(name)) { showToast(`"${name}" already in favorites`); return; }
+  input.value=''; renderShopsView();
+});
+document.getElementById('input-new-shop').addEventListener('keydown', e => {
+  if (e.key==='Enter') { e.preventDefault(); document.getElementById('btn-add-shop').click(); }
+});
+
+// ════════════════════════════════════════
+// EDIT VIEW
+// ════════════════════════════════════════
+
+let editingId = null;
+
+function openEditView(id) {
+  const entry = getActiveEntries().find(e => e.id === id);
+  if (!entry) return;
+  editingId = id;
+  document.getElementById('input-edit-flavor').value = entry.flavor;
+  document.getElementById('input-edit-shop').value   = entry.shop ?? '';
+  document.getElementById('input-edit-notes').value  = entry.notes ?? '';
+  document.getElementById('input-edit-date').value   = new Date(entry.date).toLocaleDateString('en-CA');
+  document.getElementById('input-edit-price').value  = entry.price != null ? entry.price : '';
+  setEditRating(entry.rating ?? 0);
+  // Share toggle
+  if (currentUser) {
+    const checked = entry.is_public ?? false;
+    document.getElementById('edit-share-toggle').checked = checked;
+    document.getElementById('edit-share-track').classList.toggle('on', checked);
+  }
+  showView('edit');
+}
+
+document.getElementById('edit-back-btn').addEventListener('click', () => showView('home'));
+
+document.getElementById('edit-save-btn').addEventListener('click', async () => {
+  const flavor = document.getElementById('input-edit-flavor').value.trim();
+  if (!flavor) { showToast('Flavor is required!'); return; }
+  const btn = document.getElementById('edit-save-btn');
+  btn.disabled = true; btn.textContent = 'Saving…';
+  const editPriceVal = document.getElementById('input-edit-price').value;
+  const fields = {
+    flavor,
+    shop:   document.getElementById('input-edit-shop').value,
+    rating: selectedEditRating,
+    notes:  document.getElementById('input-edit-notes').value,
+    date:   document.getElementById('input-edit-date').value,
+    price:  editPriceVal==='' ? null : parseFloat(editPriceVal),
+    is_public: document.getElementById('edit-share-toggle').checked,
+  };
+  try {
+    if (currentUser) { await updateEntryInSupabase(editingId, fields); }
+    else { updateLocalEntry(editingId, fields); }
+    editingId = null; showView('home');
+  } catch { showToast('Error saving. Try again.'); }
+  btn.disabled=false; btn.textContent='Save Changes';
+});
+
+document.getElementById('edit-delete-btn').addEventListener('click', async () => {
+  if (!confirm('Delete this scoop?')) return;
+  const btn = document.getElementById('edit-delete-btn');
+  btn.disabled = true; btn.textContent = 'Deleting…';
+  try {
+    if (currentUser) { await deleteEntryFromSupabase(editingId); }
+    else { deleteLocalEntry(editingId); }
+    editingId = null; showView('home');
+  } catch { showToast('Error deleting. Try again.'); }
+  btn.disabled=false; btn.textContent='Delete Entry';
+});
+
+// ════════════════════════════════════════
+// USER SEARCH (Feed)
+// ════════════════════════════════════════
+
+document.getElementById('btn-search-users').addEventListener('click', () => {
+  const wrap = document.getElementById('user-search-wrap');
+  const isOpen = wrap.style.display !== 'none';
+  wrap.style.display = isOpen ? 'none' : 'block';
+  if (!isOpen) document.getElementById('input-user-search').focus();
+});
+
+let searchTimer = null;
+document.getElementById('input-user-search').addEventListener('input', e => {
+  clearTimeout(searchTimer);
+  const q = e.target.value.trim();
+  const results = document.getElementById('user-search-results');
+  if (!q) { results.innerHTML=''; return; }
+  searchTimer = setTimeout(async () => {
+    const users = await searchUsers(q);
+    if (!users.length) { results.innerHTML='<div style="padding:14px;color:var(--muted);font-size:13px">No users found</div>'; return; }
+    results.innerHTML = users.map(u => `
+      <div class="user-result" data-uid="${escapeHtml(u.id)}">
+        <div class="user-result-avatar">${avatarInitial(u)}</div>
+        <div><div class="user-result-name">${escapeHtml(u.display_name||u.username)}</div><div class="user-result-username">@${escapeHtml(u.username)}</div></div>
+      </div>`).join('');
+    results.querySelectorAll('.user-result').forEach(row => {
+      row.addEventListener('click', () => {
+        profileViewUserId = row.dataset.uid;
+        document.getElementById('profile-back-btn').style.display = 'inline';
+        document.getElementById('user-search-wrap').style.display = 'none';
+        document.getElementById('input-user-search').value = '';
+        document.getElementById('user-search-results').innerHTML = '';
+        showView('profile');
+      });
+    });
+  }, 300);
+});
+
+// ════════════════════════════════════════
+// VIEW SWITCHING
+// ════════════════════════════════════════
+
+function showView(name) {
+  document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('view-' + name).classList.add('active');
+  const tabBar = document.getElementById('tab-bar');
+  tabBar.style.display = (name === 'auth') ? 'none' : '';
+  if (name !== 'edit' && name !== 'auth') {
+    const tab = document.querySelector(`.tab-btn[data-view="${name}"]`);
+    if (tab) tab.classList.add('active');
+  }
+  document.getElementById('app').classList.toggle('editing', name === 'edit');
+  if (name === 'home')    renderHome();
+  if (name === 'feed')    renderFeedView();
+  if (name === 'shops')   renderShopsView();
+  if (name === 'wrapped') renderWrappedView();
+  if (name === 'profile') {
+    const uid = profileViewUserId;
+    const backBtn = document.getElementById('profile-back-btn');
+    backBtn.style.display = (uid && uid !== currentUser?.id) ? 'inline' : 'none';
+    renderProfileView(uid);
+  }
+  document.getElementById('view-' + name).scrollTop = 0;
+}
+
+// Tab bar clicks
+document.querySelectorAll('.tab-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    if (btn.dataset.view === 'profile') profileViewUserId = null;
+    showView(btn.dataset.view);
+  });
+});
+
+// Profile back button
+document.getElementById('profile-back-btn').addEventListener('click', () => {
+  profileViewUserId = null;
+  document.getElementById('profile-back-btn').style.display = 'none';
+  showView('feed');
+});
+
+// ════════════════════════════════════════
+// PHOTO CAPTURE
+// ════════════════════════════════════════
+
+let currentLogPhoto = null;
+
 function setLogPhoto(dataUrl) {
   currentLogPhoto = dataUrl;
-  const area = document.getElementById('log-photo-area');
-  area.innerHTML = `
+  document.getElementById('log-photo-area').innerHTML = `
     <div class="photo-preview-wrap">
       <img src="${dataUrl}" alt="Photo preview">
       <button class="photo-remove-btn" id="log-photo-remove-btn" type="button">✕</button>
@@ -1438,65 +1733,41 @@ function setLogPhoto(dataUrl) {
 
 function clearLogPhoto() {
   currentLogPhoto = null;
-  const area = document.getElementById('log-photo-area');
-  area.innerHTML = `
+  document.getElementById('log-photo-area').innerHTML = `
     <div class="photo-btn-row">
-      <label class="photo-btn-label">
-        📷 Camera
-        <input type="file" id="input-photo-camera" accept="image/*" capture="environment">
-      </label>
-      <label class="photo-btn-label">
-        🖼️ Library
-        <input type="file" id="input-photo-library" accept="image/*">
-      </label>
+      <label class="photo-btn-label">📷 Camera<input type="file" id="input-photo-camera" accept="image/*" capture="environment"></label>
+      <label class="photo-btn-label">🖼️ Library<input type="file" id="input-photo-library" accept="image/*"></label>
     </div>`;
   wirePhotoInputs();
 }
 
 function wirePhotoInputs() {
-  const cameraInput  = document.getElementById('input-photo-camera');
-  const libraryInput = document.getElementById('input-photo-library');
-  if (cameraInput)  cameraInput.addEventListener('change',  e => handlePhotoInput(e.target.files[0]));
-  if (libraryInput) libraryInput.addEventListener('change', e => handlePhotoInput(e.target.files[0]));
+  const cam = document.getElementById('input-photo-camera');
+  const lib = document.getElementById('input-photo-library');
+  if (cam) cam.addEventListener('change', e => handlePhotoInput(e.target.files[0]));
+  if (lib) lib.addEventListener('change', e => handlePhotoInput(e.target.files[0]));
 }
 
 function handlePhotoInput(file) {
   if (!file) return;
-  compressImage(file, 1000, 0.65, dataUrl => setLogPhoto(dataUrl));
+  compressImage(file, 1200, 0.75, dataUrl => setLogPhoto(dataUrl));
 }
 
 // ════════════════════════════════════════
-// MAP — Leaflet + Nominatim geocoding
+// MAP — Leaflet + Nominatim
 // ════════════════════════════════════════
 
-const GEOCACHE_KEY = 'sundae_geocache';
 let shopsMap = null;
-let geocodeQueue = [];
-let geocodeTimer = null;
+let geocodeQueue = [], geocodeTimer = null;
 
-function loadGeoCache() {
-  try { return JSON.parse(localStorage.getItem(GEOCACHE_KEY) ?? '{}'); }
-  catch { return {}; }
-}
+function loadGeoCache()     { try { return JSON.parse(localStorage.getItem(GEOCACHE_KEY) ?? '{}'); } catch { return {}; } }
+function saveGeoCache(c)    { try { localStorage.setItem(GEOCACHE_KEY, JSON.stringify(c)); } catch {} }
 
-function saveGeoCache(cache) {
-  try { localStorage.setItem(GEOCACHE_KEY, JSON.stringify(cache)); } catch {}
-}
-
-// Geocode one shop name via Nominatim; calls callback with {lat, lng} or null
 function geocodeShop(name, callback) {
-  const cache = loadGeoCache();
-  const key = name.toLowerCase().trim();
-  if (cache[key]) { callback(cache[key]); return; }
-  if (cache[key] === null) { callback(null); return; }
-
+  const cache = loadGeoCache(), key = name.toLowerCase().trim();
+  if (cache[key] !== undefined) { callback(cache[key]); return; }
   geocodeQueue.push({ name, key, callback });
-  scheduleGeocode();
-}
-
-function scheduleGeocode() {
-  if (geocodeTimer) return;
-  geocodeTimer = setTimeout(processGeocodeQueue, 0);
+  if (!geocodeTimer) geocodeTimer = setTimeout(processGeocodeQueue, 0);
 }
 
 async function processGeocodeQueue() {
@@ -1504,120 +1775,57 @@ async function processGeocodeQueue() {
   if (!geocodeQueue.length) return;
   const { name, key, callback } = geocodeQueue.shift();
   const cache = loadGeoCache();
-
   try {
-    // Try 1: tight bounding box around user (~25km) — best for local shops
-    // Try 2: loose search if tight returns nothing
     const trySearch = async (bounded) => {
-      const params = new URLSearchParams({ q: name, format: 'json', limit: '1', addressdetails: '0' });
+      const params = new URLSearchParams({ q:name, format:'json', limit:'1', addressdetails:'0' });
       if (userLocation) {
         const d = bounded ? 0.25 : 1.5;
         params.append('viewbox', `${userLocation.lng-d},${userLocation.lat+d},${userLocation.lng+d},${userLocation.lat-d}`);
         params.append('bounded', bounded ? '1' : '0');
       }
-      const res = await fetch(`https://nominatim.openstreetmap.org/search?${params}`, {
-        headers: { 'Accept-Language': 'en-US,en' }
-      });
+      const res = await fetch(`https://nominatim.openstreetmap.org/search?${params}`, { headers:{'Accept-Language':'en-US,en'} });
       const data = await res.json();
       return data[0] ? { lat: parseFloat(data[0].lat), lng: parseFloat(data[0].lon) } : null;
     };
-
     let result = await trySearch(true);
-    // If tight search misses, try loose (waits 1.1s for rate limit)
-    if (!result && userLocation) {
-      await new Promise(r => setTimeout(r, 1100));
-      result = await trySearch(false);
-    }
-    cache[key] = result;
-    saveGeoCache(cache);
-    callback(result);
-  } catch {
-    callback(null);
-  }
-
-  // Nominatim: 1 request / second
+    if (!result && userLocation) { await new Promise(r => setTimeout(r, 1100)); result = await trySearch(false); }
+    cache[key] = result; saveGeoCache(cache); callback(result);
+  } catch { callback(null); }
   if (geocodeQueue.length) geocodeTimer = setTimeout(processGeocodeQueue, 1100);
 }
 
 function renderShopsMap(visitedShops) {
   const wrap = document.getElementById('shops-map-wrap');
-
-  // Always ensure map container exists
-  if (!document.getElementById('shops-map')) {
-    wrap.innerHTML = '<div id="shops-map"></div>';
-  }
-
-  // Default center: user location or San Diego
-  const defaultCenter = userLocation
-    ? [userLocation.lat, userLocation.lng]
-    : [32.7157, -117.1611];
-
-  // Init Leaflet once
+  if (!document.getElementById('shops-map')) wrap.innerHTML = '<div id="shops-map"></div>';
+  const defaultCenter = userLocation ? [userLocation.lat, userLocation.lng] : [32.7157, -117.1611];
   if (!shopsMap) {
     shopsMap = L.map('shops-map', { zoomControl: true, attributionControl: false });
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 19 }).addTo(shopsMap);
     shopsMap.setView(defaultCenter, userLocation ? 13 : 11);
-
-    // User location dot
-    if (userLocation) {
-      L.circleMarker(defaultCenter, {
-        radius: 8, fillColor: '#5B3FA6', color: 'white',
-        weight: 2.5, fillOpacity: 0.9
-      }).addTo(shopsMap).bindPopup('<b style="color:#5B3FA6">You are here</b>');
-    }
+    if (userLocation) L.circleMarker(defaultCenter, { radius:8, fillColor:'#5B3FA6', color:'white', weight:2.5, fillOpacity:0.9 }).addTo(shopsMap).bindPopup('<b style="color:#5B3FA6">You are here</b>');
   } else {
-    // Clear old shop markers (Marker instances only — keeps circle/tile layers)
-    shopsMap.eachLayer(layer => {
-      if (layer instanceof L.Marker) shopsMap.removeLayer(layer);
-    });
+    shopsMap.eachLayer(layer => { if (layer instanceof L.Marker) shopsMap.removeLayer(layer); });
   }
-
-  // Size fix — tab may have been hidden when map was initialized
   setTimeout(() => shopsMap && shopsMap.invalidateSize(), 150);
-
   if (!visitedShops.length) return;
-
-  const bounds = [];
-  let pendingCount = visitedShops.length;
-
+  const bounds = []; let pending = visitedShops.length;
   visitedShops.forEach(shop => {
     geocodeShop(shop.name, coords => {
-      pendingCount--;
+      pending--;
       if (coords) {
         bounds.push([coords.lat, coords.lng]);
-        const marker = L.marker([coords.lat, coords.lng], {
+        L.marker([coords.lat, coords.lng], {
           icon: L.divIcon({
             className: '',
-            html: `<div style="background:white;border-radius:50%;border:2.5px solid #5B3FA6;
-              width:36px;height:36px;display:flex;align-items:center;justify-content:center;
-              font-size:18px;box-shadow:0 2px 8px rgba(91,63,166,0.25);position:relative;">🍦${
-              shop.count > 1
-                ? `<span style="position:absolute;top:-5px;right:-5px;background:#5B3FA6;
-                    color:white;border-radius:9px;font-size:9px;font-weight:800;
-                    min-width:16px;height:16px;display:flex;align-items:center;
-                    justify-content:center;padding:0 3px">${shop.count}</span>`
-                : ''
-            }</div>`,
-            iconSize: [36, 36],
-            iconAnchor: [18, 18],
+            html: `<div style="background:white;border-radius:50%;border:2.5px solid #5B3FA6;width:36px;height:36px;display:flex;align-items:center;justify-content:center;font-size:18px;box-shadow:0 2px 8px rgba(91,63,166,0.25);position:relative;">🍦${shop.count>1?`<span style="position:absolute;top:-5px;right:-5px;background:#5B3FA6;color:white;border-radius:9px;font-size:9px;font-weight:800;min-width:16px;height:16px;display:flex;align-items:center;justify-content:center;padding:0 3px">${shop.count}</span>`:''}</div>`,
+            iconSize:[36,36], iconAnchor:[18,18],
           })
-        });
-        marker.bindPopup(
-          `<b style="color:#5B3FA6">${escapeHtml(shop.name)}</b><br>` +
-          `${shop.count} visit${shop.count !== 1 ? 's' : ''}`
-        );
-        marker.addTo(shopsMap);
+        }).bindPopup(`<b style="color:#5B3FA6">${escapeHtml(shop.name)}</b><br>${shop.count} visit${shop.count!==1?'s':''}`).addTo(shopsMap);
       }
-
-      if (pendingCount === 0) {
-        if (bounds.length === 1) {
-          shopsMap.setView(bounds[0], 14);
-        } else if (bounds.length > 1) {
-          shopsMap.fitBounds(bounds, { padding: [36, 36] });
-        } else {
-          // No shops geocoded — stay on user location, zoom street-level
-          shopsMap.setView(defaultCenter, userLocation ? 14 : 11);
-        }
+      if (pending===0) {
+        if (bounds.length===1) shopsMap.setView(bounds[0], 14);
+        else if (bounds.length>1) shopsMap.fitBounds(bounds, { padding:[36,36] });
+        else shopsMap.setView(defaultCenter, userLocation?14:11);
         setTimeout(() => shopsMap && shopsMap.invalidateSize(), 60);
       }
     });
@@ -1630,8 +1838,7 @@ function renderShopsMap(visitedShops) {
 
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
-    navigator.serviceWorker.register('/sundae-run-web/sw.js')
-      .catch(err => console.warn('SW registration failed (expected locally):', err));
+    navigator.serviceWorker.register('/sundae-run-web/sw.js').catch(() => {});
   });
 }
 
@@ -1643,19 +1850,55 @@ function initDateField() {
   document.getElementById('input-date').value = new Date().toISOString().split('T')[0];
 }
 
-// Inject Wrapped tab only in December (month index 11)
+// December only: Wrapped tab
 if (new Date().getMonth() === 11) {
   const wrappedTab = document.createElement('button');
-  wrappedTab.className = 'tab-btn';
-  wrappedTab.dataset.view = 'wrapped';
+  wrappedTab.className = 'tab-btn'; wrappedTab.dataset.view = 'wrapped';
   wrappedTab.innerHTML = '<span class="tab-icon">🎁</span><span class="tab-label">Wrapped</span>';
   wrappedTab.addEventListener('click', () => showView('wrapped'));
   document.getElementById('tab-bar').appendChild(wrappedTab);
 }
 
-renderHome();
-initDateField();
-wirePhotoInputs();
+async function initApp() {
+  initDateField();
+  wirePhotoInputs();
+  updateShareToggles();
+
+  // Auth state listener
+  SB.auth.onAuthStateChange(async (event, session) => {
+    if (event === 'SIGNED_IN' && session?.user) {
+      if (currentUser?.id === session.user.id) return;
+      currentUser = session.user;
+      currentProfile = await ensureProfile(currentUser.id).catch(() => null);
+      guestMode = false;
+      localStorage.removeItem(GUEST_KEY);
+      updateShareToggles();
+      showView('home');
+      setTimeout(() => offerLocalMigration(), 600);
+    } else if (event === 'SIGNED_OUT') {
+      currentUser = null; currentProfile = null; _currentEntries = [];
+      guestMode = false;
+      updateShareToggles();
+      showView('auth');
+    }
+  });
+
+  // Check existing session
+  const { data: { session } } = await SB.auth.getSession();
+  if (session?.user) {
+    currentUser = session.user;
+    currentProfile = await ensureProfile(currentUser.id).catch(() => null);
+    updateShareToggles();
+    showView('home');
+  } else if (localStorage.getItem(GUEST_KEY)) {
+    guestMode = true;
+    showView('home');
+  } else {
+    showView('auth');
+  }
+}
+
+initApp();
 </script>
 </body>
 </html>
