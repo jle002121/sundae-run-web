@@ -663,7 +663,7 @@ async function saveEntryToSupabase({ flavor, shop, rating, notes, date, price, p
     rating:     rating > 0 ? rating : null,
     notes:      notes?.trim() || null,
     logged_date: date || new Date().toLocaleDateString('en-CA'),
-    price:      price || null,
+    price:      price ?? null,
     photo_url:  photo_url || null,
     is_public:  is_public ?? false,
   }).select().single();
@@ -678,7 +678,7 @@ async function updateEntryInSupabase(id, { flavor, shop, rating, notes, date, pr
     rating:     rating > 0 ? rating : null,
     notes:      notes?.trim() || null,
     logged_date: date,
-    price:      price || null,
+    price:      price ?? null,
     is_public:  is_public ?? false,
   }).eq('id', id).eq('user_id', currentUser.id);
   if (error) throw error;
@@ -970,10 +970,12 @@ function getTopFlavors(entries) {
   const counts = {};
   for (const e of entries) {
     const f = e.flavor?.trim(); if (!f) continue;
-    const canonical = BUILTIN_FLAVOR_MAP[f.toLowerCase()] || f;
-    counts[canonical] = (counts[canonical] ?? 0) + 1;
+    const key = f.toLowerCase();
+    const canonical = BUILTIN_FLAVOR_MAP[key] || f;
+    if (!counts[key]) counts[key] = { name: canonical, count: 0 };
+    counts[key].count++;
   }
-  return Object.entries(counts).sort((a,b) => b[1]-a[1]).slice(0,5);
+  return Object.values(counts).sort((a,b) => b.count-a.count).slice(0,5).map(c => [c.name, c.count]);
 }
 
 // ════════════════════════════════════════
@@ -986,9 +988,14 @@ function getYearEntries(year) { return getActiveEntries().filter(e => new Date(e
 
 function getWrappedTopFlavor(ye) {
   const counts = {};
-  for (const e of ye) { const f = e.flavor?.trim(); if (!f) continue; const c = BUILTIN_FLAVOR_MAP[f.toLowerCase()]||f; counts[c]=(counts[c]??0)+1; }
-  const sorted = Object.entries(counts).sort((a,b)=>b[1]-a[1]||a[0].localeCompare(b[0]));
-  return sorted.length ? { name: sorted[0][0], count: sorted[0][1] } : null;
+  for (const e of ye) {
+    const f = e.flavor?.trim(); if (!f) continue;
+    const key = f.toLowerCase();
+    if (!counts[key]) counts[key] = { name: BUILTIN_FLAVOR_MAP[key]||f, count: 0 };
+    counts[key].count++;
+  }
+  const sorted = Object.values(counts).sort((a,b)=>b.count-a.count||a.name.localeCompare(b.name));
+  return sorted.length ? sorted[0] : null;
 }
 function getWrappedTotalSpent(ye) {
   const priced = ye.filter(e => e.price != null);
@@ -1520,8 +1527,9 @@ wireShopAutocomplete('input-new-shop', 'new-shop-suggestions');
 
 document.getElementById('log-form').addEventListener('submit', async e => {
   e.preventDefault();
-  const flavor = document.getElementById('input-flavor').value.trim();
-  if (!flavor) { showToast('Add a flavor first! 🍦'); document.getElementById('input-flavor').focus(); return; }
+  const flavorRaw = document.getElementById('input-flavor').value.trim();
+  if (!flavorRaw) { showToast('Add a flavor first! 🍦'); document.getElementById('input-flavor').focus(); return; }
+  const flavor = BUILTIN_FLAVOR_MAP[flavorRaw.toLowerCase()] || flavorRaw;
   const btn = document.getElementById('log-submit-btn');
   btn.disabled = true; btn.textContent = 'Saving…';
   try {
@@ -1600,8 +1608,9 @@ function openEditView(id) {
 document.getElementById('edit-back-btn').addEventListener('click', () => showView('home'));
 
 document.getElementById('edit-save-btn').addEventListener('click', async () => {
-  const flavor = document.getElementById('input-edit-flavor').value.trim();
-  if (!flavor) { showToast('Flavor is required!'); return; }
+  const flavorRaw = document.getElementById('input-edit-flavor').value.trim();
+  if (!flavorRaw) { showToast('Flavor is required!'); return; }
+  const flavor = BUILTIN_FLAVOR_MAP[flavorRaw.toLowerCase()] || flavorRaw;
   const btn = document.getElementById('edit-save-btn');
   btn.disabled = true; btn.textContent = 'Saving…';
   const editPriceVal = document.getElementById('input-edit-price').value;
@@ -1847,7 +1856,7 @@ if ('serviceWorker' in navigator) {
 // ════════════════════════════════════════
 
 function initDateField() {
-  document.getElementById('input-date').value = new Date().toISOString().split('T')[0];
+  document.getElementById('input-date').value = new Date().toLocaleDateString('en-CA');
 }
 
 // December only: Wrapped tab
