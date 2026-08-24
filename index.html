@@ -522,7 +522,10 @@ const GEOCACHE_KEY = 'sundae_geocache';
 // SUPABASE CLIENT
 // ════════════════════════════════════════
 
-const SB = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+// Keep guest/local tracking usable when the Supabase CDN or network is down.
+const SB = window.supabase?.createClient
+  ? window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY)
+  : null;
 
 // ════════════════════════════════════════
 // BUILT-IN FLAVORS
@@ -587,12 +590,14 @@ function removeFavorite(name) { saveFavorites(loadFavorites().filter(f => f.toLo
 // ════════════════════════════════════════
 
 async function sbSignIn(email, password) {
+  if (!SB) throw new Error('Account features are unavailable offline. Continue without an account.');
   const { data, error } = await SB.auth.signInWithPassword({ email, password });
   if (error) throw error;
   return data;
 }
 
 async function sbSignUp(email, password, username, displayName) {
+  if (!SB) throw new Error('Account features are unavailable offline. Continue without an account.');
   // Set before signUp so onAuthStateChange can read them even if it fires during the await
   localStorage.setItem('pending_username', username.trim().toLowerCase());
   localStorage.setItem('pending_displayname', (displayName || username).trim());
@@ -1805,6 +1810,10 @@ async function processGeocodeQueue() {
 
 function renderShopsMap(visitedShops) {
   const wrap = document.getElementById('shops-map-wrap');
+  if (!window.L) {
+    wrap.innerHTML = '<div class="map-empty"><span class="map-empty-emoji">🗺️</span><span class="map-empty-text">Map unavailable offline — your shop list still works.</span></div>';
+    return;
+  }
   if (!document.getElementById('shops-map')) wrap.innerHTML = '<div id="shops-map"></div>';
   const defaultCenter = userLocation ? [userLocation.lat, userLocation.lng] : [32.7157, -117.1611];
   if (!shopsMap) {
@@ -1847,7 +1856,7 @@ function renderShopsMap(visitedShops) {
 
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
-    navigator.serviceWorker.register('/sundae-run-web/sw.js').catch(() => {});
+    navigator.serviceWorker.register('./sw.js').catch(() => {});
   });
 }
 
@@ -1872,6 +1881,17 @@ async function initApp() {
   initDateField();
   wirePhotoInputs();
   updateShareToggles();
+
+  if (!SB) {
+    if (localStorage.getItem(GUEST_KEY)) {
+      guestMode = true;
+      showView('home');
+    } else {
+      showView('auth');
+      showAuthError('Account features are unavailable offline. You can still continue without an account.');
+    }
+    return;
+  }
 
   // Auth state listener
   SB.auth.onAuthStateChange(async (event, session) => {
