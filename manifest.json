@@ -1,15 +1,17 @@
 {
   "name": "Sundae Run",
   "short_name": "Sundae Run",
-  "description": "Track every scoop",
+  "description": "A private, installable journal for every scoop, flavor, and ice-cream shop.",
   "start_url": "/sundae-run-web/",
   "display": "standalone",
-  "background_color": "#F7F0FF",
-  "theme_color": "#5B3FA6",
+  "background_color": "#FFF8EA",
+  "theme_color": "#7A1E2B",
+  "categories": ["lifestyle", "food"],
+  "orientation": "portrait-primary",
   "icons": [
     {
       "src": "icon.png",
-      "sizes": "192x192",
+      "sizes": "512x512",
       "type": "image/png",
       "purpose": "any maskable"
     }

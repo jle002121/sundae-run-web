@@ -1,0 +1,31 @@
+name: Update Southern California ice-cream directory
+
+on:
+  schedule:
+    - cron: "17 15 1 * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  update-directory:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+      - name: Generate the latest offline directory
+        run: uv run scripts/update-socal-ice-cream.py
+      - name: Verify Sundae Run
+        run: node tests/app-regression.test.cjs
+      - name: Commit a changed directory
+        run: |
+          if git diff --quiet -- data/socal-ice-cream.js; then
+            echo "Directory is already current."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/socal-ice-cream.js
+          git commit -m "chore: update SoCal ice-cream directory"
+          git push

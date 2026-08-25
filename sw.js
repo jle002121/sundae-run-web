@@ -1,10 +1,11 @@
-const CACHE = 'sundae-v4';
+const CACHE = 'sundae-v9';
 const ASSETS = [
   '/sundae-run-web/',
   '/sundae-run-web/index.html',
   '/sundae-run-web/manifest.json',
   '/sundae-run-web/icon.png',
   '/sundae-run-web/sw.js',
+  '/sundae-run-web/data/socal-ice-cream.js',
 ];
 
 self.addEventListener('install', e => {

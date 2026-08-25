@@ -6,7 +6,9 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
   <meta name="apple-mobile-web-app-title" content="Sundae Run">
-  <meta name="theme-color" content="#5B3FA6">
+  <meta name="theme-color" content="#7A1E2B">
+  <meta name="description" content="A private, installable ice-cream journal that keeps your scoop history on your device.">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline' https://unpkg.com; script-src 'self' 'unsafe-inline' https://unpkg.com; img-src 'self' data: blob: https://*.tile.openstreetmap.org; connect-src 'self' https://nominatim.openstreetmap.org https://*.tile.openstreetmap.org; font-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests">
   <link rel="manifest" href="manifest.json">
   <link rel="apple-touch-icon" href="icon.png">
   <title>Sundae Run</title>
@@ -68,12 +70,12 @@
     .section-label { font-size: 10px; font-weight: 700; color: var(--muted); letter-spacing: 0.5px; text-transform: uppercase; margin-bottom: 10px; }
 
     /* ── Entry cards ── */
-    .entry-card { background: var(--card); border-radius: var(--r-card); padding: 14px; margin-bottom: 8px; display: flex; align-items: center; gap: 12px; cursor: pointer; }
+    .entry-card { width: 100%; background: var(--card); border-radius: var(--r-card); padding: 14px; margin-bottom: 8px; display: flex; align-items: center; gap: 12px; cursor: pointer; text-align: left; font-family: inherit; color: inherit; }
     .entry-chip { width: 38px; height: 38px; border-radius: 10px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 18px; }
     .entry-info { flex: 1; min-width: 0; }
     .entry-flavor { font-size: 14px; font-weight: 700; color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-    .entry-meta { font-size: 11px; color: var(--muted); margin-top: 2px; }
-    .entry-rating { font-size: 10px; margin-top: 3px; }
+    .entry-meta { font-size: 11px; color: var(--muted); margin-top: 2px; display: block; }
+    .entry-rating { font-size: 10px; margin-top: 3px; display: block; }
     .entry-photo-thumb { width: 38px; height: 38px; border-radius: 10px; object-fit: cover; flex-shrink: 0; }
 
     /* ── Empty state ── */
@@ -230,9 +232,63 @@
 
     /* ── Loading ── */
     .loading-row { text-align: center; padding: 40px 24px; color: var(--muted); font-size: 14px; }
+
+    /* ── Local-first refresh ── */
+    :root {
+      --primary: #7A1E2B;
+      --accent1: #FFE2A8;
+      --accent2: #F3B2AA;
+      --bg: #FFF9F0;
+      --card: #FFFFFF;
+      --text: #211C19;
+      --muted: #5F514B;
+      --divider: #D8CABA;
+      --gradient: #7A1E2B;
+      --focus: #005FCC;
+    }
+    html { background: #F2E8DA; color-scheme: light; }
+    body { line-height: 1.45; }
+    body::before { content: ''; position: fixed; inset: 0 0 auto; height: 10px; background: repeating-linear-gradient(90deg,#7A1E2B 0 24px,#FFF9F0 24px 48px); z-index: 1000; }
+    #app { background: var(--bg); border-inline: 1px solid #DED2C4; }
+    .header { padding-top: calc(42px + env(safe-area-inset-top)); border-bottom: 1px solid var(--divider); }
+    .header h1 { font-family: Georgia, 'Times New Roman', serif; font-size: 27px; letter-spacing: -.5px; }
+    .stat-card, .entry-card, .shop-card, .form-input, .auth-card { border: 1px solid var(--divider); }
+    .stat-card, .streak-card { box-shadow: none; }
+    .streak-card { background: #FFF0CC; border: 1px solid #DBB968; }
+    .btn-submit, .btn-add-shop { background: var(--primary); color: #fff; }
+    .tab-btn { min-height: 58px; }
+    .tab-btn.active { background: #FCE8E5; }
+    .tab-btn.active .tab-label { color: var(--primary); }
+    button, input, textarea { min-height: 44px; }
+    button:focus-visible, input:focus-visible, textarea:focus-visible, a:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
+    .skip-link { position: fixed; left: 12px; top: -60px; z-index: 2000; background: #fff; color: var(--text); padding: 10px 14px; border-radius: 8px; font-weight: 700; }
+    .skip-link:focus { top: 14px; }
+    .hero-card { background: #7A1E2B; color: #FFFFFF; border-radius: 22px; padding: 22px; margin-bottom: 18px; position: relative; overflow: hidden; }
+    .hero-card::after { content: '🍒'; position: absolute; right: 16px; top: 12px; font-size: 52px; transform: rotate(8deg); opacity: .9; }
+    .hero-kicker { color: #FFE2A8; font-size: 11px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
+    .hero-title { font-family: Georgia, 'Times New Roman', serif; font-size: 25px; line-height: 1.1; max-width: 260px; margin-top: 6px; }
+    .hero-copy { color: #FFF4E9; font-size: 13px; max-width: 285px; margin-top: 8px; }
+    .info-card { background: var(--card); border: 1px solid var(--divider); border-radius: var(--r-card); padding: 17px; margin-bottom: 12px; }
+    .info-card h2 { font-family: Georgia, 'Times New Roman', serif; color: var(--primary); font-size: 20px; margin-bottom: 7px; }
+    .info-card p, .info-card li { color: #493E39; font-size: 13px; }
+    .info-card ul, .info-card ol { padding-left: 20px; margin-top: 8px; }
+    .info-card li + li { margin-top: 6px; }
+    .action-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 13px; }
+    .secondary-btn { border: 1.5px solid var(--primary); color: var(--primary); background: transparent; border-radius: var(--r-btn); padding: 12px; font: 700 14px inherit; cursor: pointer; }
+    .privacy-pill { display: inline-flex; align-items: center; gap: 6px; background: #E7F2E7; color: #2D6235; border-radius: 999px; padding: 6px 10px; font-size: 11px; font-weight: 800; margin-bottom: 12px; }
+    .fine-print { font-size: 11px !important; margin-top: 10px; }
+    .compact-disclosure { padding: 0; overflow: hidden; }
+    .compact-disclosure summary { min-height: 58px; padding: 15px 17px; display: flex; align-items: center; justify-content: space-between; gap: 12px; cursor: pointer; list-style: none; color: var(--primary); font-family: Georgia, 'Times New Roman', serif; font-size: 19px; font-weight: 700; }
+    .compact-disclosure summary::-webkit-details-marker { display: none; }
+    .compact-disclosure summary::after { content: '+'; width: 28px; height: 28px; border: 1px solid var(--divider); border-radius: 50%; display: grid; place-items: center; flex: 0 0 auto; font: 700 19px/1 system-ui, sans-serif; }
+    .compact-disclosure[open] summary::after { content: '−'; }
+    .compact-disclosure[open] summary { border-bottom: 1px solid var(--divider); }
+    .disclosure-body { padding: 15px 17px 17px; }
+    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; transition: none !important; animation: none !important; } }
   </style>
 </head>
 <body>
+<a class="skip-link" href="#main-content">Skip to main content</a>
 <div id="app">
 
   <!-- ── Auth view ── -->
@@ -285,9 +341,14 @@
   </div>
 
   <!-- ── Home view ── -->
-  <div id="view-home" class="view">
+  <div id="view-home" class="view" role="main" tabindex="-1">
     <div class="header"><h1>Sundae Run 🍨</h1></div>
-    <div class="view-content">
+    <div class="view-content" id="main-content">
+      <section class="hero-card" aria-label="Sundae Run introduction">
+        <div class="hero-kicker">Your local scoop journal</div>
+        <div class="hero-title">Good ice cream deserves a paper trail.</div>
+        <p class="hero-copy">Log flavors, remember shops, and keep the whole history private on this device.</p>
+      </section>
       <div class="stats-row">
         <div class="stat-card"><span class="stat-value" id="stat-scoops">0</span><span class="stat-label">scoops</span></div>
         <div class="stat-card"><span class="stat-value" id="stat-flavors">0</span><span class="stat-label">flavors</span></div>
@@ -354,11 +415,11 @@
         <div class="form-group">
           <label class="form-label">Rating</label>
           <div class="rating-row" id="rating-row">
-            <button type="button" class="rating-btn" data-value="1">🍨</button>
-            <button type="button" class="rating-btn" data-value="2">🍨</button>
-            <button type="button" class="rating-btn" data-value="3">🍨</button>
-            <button type="button" class="rating-btn" data-value="4">🍨</button>
-            <button type="button" class="rating-btn" data-value="5">🍨</button>
+            <button type="button" class="rating-btn" data-value="1" aria-label="Rate 1 out of 5">🍨</button>
+            <button type="button" class="rating-btn" data-value="2" aria-label="Rate 2 out of 5">🍨</button>
+            <button type="button" class="rating-btn" data-value="3" aria-label="Rate 3 out of 5">🍨</button>
+            <button type="button" class="rating-btn" data-value="4" aria-label="Rate 4 out of 5">🍨</button>
+            <button type="button" class="rating-btn" data-value="5" aria-label="Rate 5 out of 5">🍨</button>
           </div>
         </div>
         <div class="form-group">
@@ -419,11 +480,11 @@
       <div class="form-group">
         <label class="form-label">Rating</label>
         <div class="rating-row" id="edit-rating-row">
-          <button type="button" class="rating-btn edit-rating-btn" data-value="1">🍨</button>
-          <button type="button" class="rating-btn edit-rating-btn" data-value="2">🍨</button>
-          <button type="button" class="rating-btn edit-rating-btn" data-value="3">🍨</button>
-          <button type="button" class="rating-btn edit-rating-btn" data-value="4">🍨</button>
-          <button type="button" class="rating-btn edit-rating-btn" data-value="5">🍨</button>
+          <button type="button" class="rating-btn edit-rating-btn" data-value="1" aria-label="Rate 1 out of 5">🍨</button>
+          <button type="button" class="rating-btn edit-rating-btn" data-value="2" aria-label="Rate 2 out of 5">🍨</button>
+          <button type="button" class="rating-btn edit-rating-btn" data-value="3" aria-label="Rate 3 out of 5">🍨</button>
+          <button type="button" class="rating-btn edit-rating-btn" data-value="4" aria-label="Rate 4 out of 5">🍨</button>
+          <button type="button" class="rating-btn edit-rating-btn" data-value="5" aria-label="Rate 5 out of 5">🍨</button>
         </div>
       </div>
       <div class="form-group">
@@ -466,6 +527,47 @@
     <div class="view-content"><div id="wrapped-content"></div></div>
   </div>
 
+  <!-- ── More / install / data controls ── -->
+  <div id="view-more" class="view">
+    <div class="header"><h1>Keep Your Scoops</h1></div>
+    <div class="view-content">
+      <div class="privacy-pill">🔒 Local-first · no account required</div>
+      <section class="info-card" aria-labelledby="install-heading">
+        <h2 id="install-heading">Put it on your Home Screen</h2>
+        <p id="install-copy">Open this page in Safari or Chrome, then use your browser’s “Add to Home Screen” option.</p>
+        <button class="btn-submit" id="install-btn" type="button" style="display:none">Install Sundae Run</button>
+        <ol id="ios-install-steps">
+          <li>In Safari, tap the Share button.</li>
+          <li>Choose <strong>Add to Home Screen</strong>.</li>
+          <li>Tap <strong>Add</strong>. Sundae Run will open like an app.</li>
+        </ol>
+      </section>
+      <section class="info-card" aria-labelledby="backup-heading">
+        <h2 id="backup-heading">Backup & restore</h2>
+        <p>Your entries—including saved photos—live in this browser. Export a backup before clearing browser data or moving phones.</p>
+        <div class="action-row">
+          <button class="secondary-btn" id="export-backup-btn" type="button">Export backup</button>
+          <button class="secondary-btn" id="import-backup-btn" type="button">Import backup</button>
+        </div>
+        <input id="import-backup-file" type="file" accept="application/json,.json" hidden>
+      </section>
+      <details class="info-card compact-disclosure">
+        <summary>Privacy</summary>
+        <div class="disclosure-body">
+          <p>Sundae Run does not require an account and does not send your scoop log or photos to a Sundae Run server. Shop search and the optional map contact OpenStreetMap services; those services may receive ordinary request information such as your IP address.</p>
+          <p class="fine-print">Avoid writing sensitive personal information in notes. Anyone with access to this unlocked device and browser profile may be able to see this journal.</p>
+        </div>
+      </details>
+      <details class="info-card compact-disclosure">
+        <summary>Accessibility statement</summary>
+        <div class="disclosure-body">
+          <p>We aim for keyboard access, visible focus, labeled controls, readable contrast, reduced-motion support, and compatibility with browser zoom and screen readers. This small independent project has not received a formal third-party accessibility audit.</p>
+          <p class="fine-print">If something prevents you from using Sundae Run, report the page and control involved to the person who shared this site with you.</p>
+        </div>
+      </details>
+    </div>
+  </div>
+
   <!-- ── Profile view ── -->
   <div id="view-profile" class="view">
     <div class="header">
@@ -480,27 +582,26 @@
   </div>
 
   <!-- ── Tab bar ── -->
-  <nav id="tab-bar">
+  <nav id="tab-bar" aria-label="Primary navigation">
     <button class="tab-btn active" data-view="home"><span class="tab-icon">🏠</span><span class="tab-label">Home</span></button>
-    <button class="tab-btn" data-view="feed"><span class="tab-icon">🌊</span><span class="tab-label">Feed</span></button>
     <button class="tab-btn" data-view="log"><span class="tab-icon">➕</span><span class="tab-label">Log</span></button>
     <button class="tab-btn" data-view="shops"><span class="tab-icon">🏪</span><span class="tab-label">Shops</span></button>
-    <button class="tab-btn" data-view="profile"><span class="tab-icon">👤</span><span class="tab-label">Profile</span></button>
+    <button class="tab-btn" data-view="more"><span class="tab-icon">⋯</span><span class="tab-label">More</span></button>
   </nav>
 
 </div>
 
-<div id="toast"></div>
+<div id="toast" role="status" aria-live="polite"></div>
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script src="data/socal-ice-cream.js"></script>
 <script>
 // ════════════════════════════════════════
 // CONFIG
 // ════════════════════════════════════════
 
-const SUPABASE_URL  = 'https://wnotlrbuzfiuxzpnkiwu.supabase.co';
-const SUPABASE_KEY  = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Indub3RscmJ1emZpdXh6cG5raXd1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzU2NTg4NzMsImV4cCI6MjA5MTIzNDg3M30.iQ-tRo040ACG9fCCo4uJH7QwWABoYC30i3vBmBQFPvw';
+const SUPABASE_URL  = '';
+const SUPABASE_KEY  = '';
 const PLACES_KEY    = '';
 
 // ════════════════════════════════════════
@@ -523,9 +624,7 @@ const GEOCACHE_KEY = 'sundae_geocache';
 // ════════════════════════════════════════
 
 // Keep guest/local tracking usable when the Supabase CDN or network is down.
-const SB = window.supabase?.createClient
-  ? window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY)
-  : null;
+const SB = null; // Local-first release: no account client or remote entry storage.
 
 // ════════════════════════════════════════
 // BUILT-IN FLAVORS
@@ -1052,28 +1151,124 @@ function renderWrappedView() {
 
 let userLocation = null;
 let nominatimTimer = null;
+const SAN_DIEGO_CENTER = { lat: 32.7157, lng: -117.1611 };
+const SAN_DIEGO_BOUNDS = { west: -117.62, north: 33.35, east: -116.70, south: 32.45 };
+const SOCAL_BOUNDS = { west: -118.95, north: 34.85, east: -116.05, south: 32.45 };
 if (navigator.geolocation) navigator.geolocation.getCurrentPosition(p => { userLocation={lat:p.coords.latitude,lng:p.coords.longitude}; },()=>{});
+
+function isInSouthernCalifornia(coords) {
+  return !!coords && coords.lat >= SOCAL_BOUNDS.south && coords.lat <= SOCAL_BOUNDS.north &&
+    coords.lng >= SOCAL_BOUNDS.west && coords.lng <= SOCAL_BOUNDS.east;
+}
+
+function cacheShopLocation(name, location) {
+  if (!name || !isInSouthernCalifornia(location)) return;
+  const cache = loadGeoCache();
+  cache[name.toLowerCase().trim()] = location;
+  saveGeoCache(cache);
+}
+
+function normalizeShopSearchQuery(query) {
+  let value = query.trim().replace(/\bicecream\b/gi, 'ice cream');
+  const dessertIntent = /\b(scoops?|ice cream|gelato|frozen yogurt|froyo)\b/i.test(value);
+  value = value.replace(/\bscoops?\b/gi, 'ice cream').replace(/\s+/g, ' ').trim();
+  const alreadyLocal = /\b(san diego|california|\bca\b|socal)\b/i.test(value);
+  if (dessertIntent && !alreadyLocal) value += ' San Diego California';
+  return value;
+}
+
+function normalizeSearchText(value) {
+  return String(value || '').normalize('NFKD').replace(/[\u0300-\u036f]/g, '')
+    .toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();
+}
+
+function searchOfflineShops(query) {
+  const places = window.SOCAL_ICE_CREAM_DIRECTORY?.places || [];
+  const tokens = normalizeSearchText(query).split(' ').filter(token => token.length > 1);
+  if (!tokens.length) return [];
+  const origin = isInSouthernCalifornia(userLocation) ? userLocation : SAN_DIEGO_CENTER;
+  const results = [];
+  for (const place of places) {
+    const name = normalizeSearchText(place.name);
+    const location = normalizeSearchText(`${place.address} ${place.locality} ${place.postcode}`);
+    const category = normalizeSearchText(place.category).replace(/ shop$/, '');
+    let score = 0, matched = 0;
+    for (const token of tokens) {
+      if (name.includes(token)) { score += 10; matched++; }
+      else if (location.includes(token)) { score += 5; matched++; }
+      else if (category.includes(token) || (token === 'cream' && category.includes('ice cream'))) { score += 2; matched++; }
+    }
+    if (!matched || (tokens.length > 1 && matched < Math.ceil(tokens.length / 2))) continue;
+    if (name === normalizeSearchText(query)) score += 30;
+    const distance = Math.hypot(place.lat-origin.lat, place.lng-origin.lng);
+    results.push({
+      name: place.name,
+      label: [place.address, place.locality, 'CA', place.postcode].filter(Boolean).join(', '),
+      lat: place.lat,
+      lng: place.lng,
+      score,
+      distance,
+    });
+  }
+  return results.sort((a,b) => b.score-a.score || a.distance-b.distance).slice(0,8);
+}
 
 function fetchPlacesSuggestions(query, callback) {
   if (!query || query.length < 2) { callback([]); return; }
   clearTimeout(nominatimTimer);
   nominatimTimer = setTimeout(async () => {
+    const offline = searchOfflineShops(query);
+    if (offline.length >= 3) { callback(offline.slice(0,5)); return; }
     if (PLACES_KEY) {
       try {
         const params = new URLSearchParams({ input:query,types:'establishment',key:PLACES_KEY });
         if (userLocation) { params.append('location',`${userLocation.lat},${userLocation.lng}`); params.append('radius','50000'); }
         const res = await fetch(`https://maps.googleapis.com/maps/api/place/autocomplete/json?${params}`);
-        if (res.ok) { const data=await res.json(); callback([...new Set((data.predictions??[]).map(p=>p.structured_formatting?.main_text||p.description.split(',')[0].trim()).filter(Boolean))].slice(0,5)); return; }
+        if (res.ok) {
+          const data=await res.json();
+          const names=[...new Set((data.predictions??[]).map(p=>p.structured_formatting?.main_text||p.description.split(',')[0].trim()).filter(Boolean))];
+          callback(names.slice(0,5).map(name=>({name,label:name})));
+          return;
+        }
       } catch {}
     }
     try {
-      const params=new URLSearchParams({q:query,format:'json',limit:'5',addressdetails:'0',dedupe:'1'});
-      if (userLocation) { const d=0.45; params.append('viewbox',`${userLocation.lng-d},${userLocation.lat+d},${userLocation.lng+d},${userLocation.lat-d}`); params.append('bounded','0'); }
-      const res=await fetch(`https://nominatim.openstreetmap.org/search?${params}`,{headers:{'Accept-Language':'en-US,en'}});
-      if (!res.ok){callback([]);return;}
-      const data=await res.json();
-      callback([...new Set(data.map(p=>p.name||p.display_name.split(',')[0].trim()).filter(n=>n&&n.length>1))].slice(0,5));
-    } catch { callback([]); }
+      const search = async (value, bounds) => {
+        const params=new URLSearchParams({
+          q:value, format:'jsonv2', limit:'6', addressdetails:'1', dedupe:'1', countrycodes:'us',
+          viewbox:`${bounds.west},${bounds.north},${bounds.east},${bounds.south}`,
+          bounded:'1',
+        });
+        const res=await fetch(`https://nominatim.openstreetmap.org/search?${params}`,{headers:{'Accept-Language':'en-US,en'}});
+        return res.ok ? res.json() : [];
+      };
+      const interpretedQuery = normalizeShopSearchQuery(query);
+      let data = await search(interpretedQuery, SAN_DIEGO_BOUNDS);
+      if (!data.length) data = await search(interpretedQuery, SOCAL_BOUNDS);
+      let inferredName = '';
+      const addressStart = query.search(/\d{2,}\s+\S/);
+      if (!data.length && addressStart > 0) {
+        inferredName = query.slice(0, addressStart).replace(/[\s,–—-]+$/, '').trim();
+        data = await search(query.slice(addressStart), SAN_DIEGO_BOUNDS);
+        if (!data.length) data = await search(query.slice(addressStart), SOCAL_BOUNDS);
+      }
+      const seen = new Set();
+      const places = [];
+      for (const place of data) {
+        const coords = { lat: parseFloat(place.lat), lng: parseFloat(place.lon) };
+        if (!isInSouthernCalifornia(coords)) continue;
+        const addressParts = place.display_name.split(',').map(part => part.trim());
+        const name = (place.name || inferredName || addressParts.slice(0, 2).join(' ')).trim();
+        const key = `${name.toLowerCase()}|${coords.lat.toFixed(5)}|${coords.lng.toFixed(5)}`;
+        if (!name || seen.has(key)) continue;
+        seen.add(key);
+        places.push({ name, label: place.display_name, ...coords });
+      }
+      const origin = isInSouthernCalifornia(userLocation) ? userLocation : SAN_DIEGO_CENTER;
+      places.sort((a,b) => Math.hypot(a.lat-origin.lat,a.lng-origin.lng)-Math.hypot(b.lat-origin.lat,b.lng-origin.lng));
+      const offlineKeys = new Set(offline.map(place => place.name.toLowerCase()));
+      callback([...offline,...places.filter(place=>!offlineKeys.has(place.name.toLowerCase()))].slice(0,5));
+    } catch { callback(offline.slice(0,5)); }
   }, 300);
 }
 
@@ -1117,6 +1312,90 @@ function showToast(msg) {
 }
 
 // ════════════════════════════════════════
+// INSTALL + PORTABLE LOCAL BACKUPS
+// ════════════════════════════════════════
+
+let deferredInstallPrompt = null;
+window.addEventListener('beforeinstallprompt', event => {
+  event.preventDefault();
+  deferredInstallPrompt = event;
+  document.getElementById('install-btn').style.display = '';
+});
+
+window.addEventListener('appinstalled', () => {
+  deferredInstallPrompt = null;
+  document.getElementById('install-btn').style.display = 'none';
+  showToast('Sundae Run installed! 🍒');
+});
+
+document.getElementById('install-btn').addEventListener('click', async () => {
+  if (!deferredInstallPrompt) return;
+  deferredInstallPrompt.prompt();
+  await deferredInstallPrompt.userChoice;
+  deferredInstallPrompt = null;
+  document.getElementById('install-btn').style.display = 'none';
+});
+
+function buildBackup() {
+  return {
+    app: 'Sundae Run',
+    version: 1,
+    exportedAt: new Date().toISOString(),
+    entries: loadLocalEntries(),
+    favoriteShops: loadFavorites(),
+  };
+}
+
+function isValidBackup(data) {
+  return data && data.app === 'Sundae Run' && data.version === 1 &&
+    Array.isArray(data.entries) && Array.isArray(data.favoriteShops) &&
+    data.entries.every(entry => entry && typeof entry.id === 'string' &&
+      typeof entry.flavor === 'string' && !Number.isNaN(Date.parse(entry.date)));
+}
+
+function mergeBackup(data) {
+  const entriesById = new Map(loadLocalEntries().map(entry => [entry.id, entry]));
+  for (const entry of data.entries) entriesById.set(entry.id, entry);
+  const entries = [...entriesById.values()].sort((a, b) => new Date(b.date) - new Date(a.date));
+
+  const shopsByName = new Map(loadFavorites().map(name => [name.toLowerCase(), name]));
+  for (const name of data.favoriteShops) {
+    if (typeof name === 'string' && name.trim()) shopsByName.set(name.trim().toLowerCase(), name.trim());
+  }
+  saveLocalEntries(entries);
+  saveFavorites([...shopsByName.values()]);
+  return { entries: data.entries.length, shops: data.favoriteShops.length };
+}
+
+document.getElementById('export-backup-btn').addEventListener('click', () => {
+  const blob = new Blob([JSON.stringify(buildBackup(), null, 2)], { type: 'application/json' });
+  const link = document.createElement('a');
+  link.href = URL.createObjectURL(blob);
+  link.download = `sundae-run-backup-${new Date().toLocaleDateString('en-CA')}.json`;
+  link.click();
+  setTimeout(() => URL.revokeObjectURL(link.href), 0);
+  showToast('Backup exported');
+});
+
+document.getElementById('import-backup-btn').addEventListener('click', () => {
+  document.getElementById('import-backup-file').click();
+});
+
+document.getElementById('import-backup-file').addEventListener('change', async event => {
+  const file = event.target.files?.[0];
+  event.target.value = '';
+  if (!file) return;
+  try {
+    const data = JSON.parse(await file.text());
+    if (!isValidBackup(data)) throw new Error('Invalid Sundae Run backup');
+    const result = mergeBackup(data);
+    showToast(`Restored ${result.entries} scoops`);
+  } catch {
+    showToast('That file is not a valid Sundae Run backup');
+  }
+});
+
+// ════════════════════════════════════════
 // HOME RENDER
 // ════════════════════════════════════════
 
@@ -1151,7 +1430,7 @@ async function renderHome() {
     const thumbHtml = entry.photo_data
       ? `<img class="entry-photo-thumb" src="${escapeHtml(entry.photo_data)}" alt="">`
       : `<div class="entry-chip" style="background:${chipColor(entry.flavor)}">🍦</div>`;
-    return `<div class="entry-card" data-id="${escapeHtml(entry.id)}">${thumbHtml}<div class="entry-info"><div class="entry-flavor">${escapeHtml(entry.flavor)}</div><div class="entry-meta">${escapeHtml(meta)}</div>${ratingHtml}</div><span style="font-size:16px;color:var(--muted);opacity:0.4">›</span></div>`;
+    return `<button type="button" class="entry-card" data-id="${escapeHtml(entry.id)}" aria-label="Edit ${escapeHtml(entry.flavor)} entry">${thumbHtml}<span class="entry-info"><span class="entry-flavor">${escapeHtml(entry.flavor)}</span><span class="entry-meta">${escapeHtml(meta)}</span>${ratingHtml}</span><span aria-hidden="true" style="font-size:16px;color:var(--muted);opacity:0.4">›</span></button>`;
   }).join('');
   list.querySelectorAll('.entry-card').forEach(card => card.addEventListener('click', () => openEditView(card.dataset.id)));
 }
@@ -1485,13 +1764,20 @@ wireFlavorAutocomplete('input-edit-flavor', 'edit-flavor-suggestions');
 
 function wireShopAutocomplete(inputId, suggestionsId) {
   const input=document.getElementById(inputId), box=document.getElementById(suggestionsId);
-  let currentQuery='';
+  let currentQuery='', currentItems=[];
   function renderItems(items) {
     if (!items.length) { box.innerHTML=''; box.classList.remove('open'); return; }
-    box.innerHTML = items.map(s => `<div class="suggestion-item" data-name="${escapeHtml(s.name)}"><span class="suggestion-icon">${s.icon}</span>${escapeHtml(s.name)}</div>`).join('');
+    currentItems=items;
+    box.innerHTML = items.map((s,index) => `<div class="suggestion-item" data-index="${index}"><span class="suggestion-icon">${s.icon}</span><span>${escapeHtml(s.name)}${s.label&&s.label!==s.name?`<small style="display:block;color:var(--muted);margin-top:2px">${escapeHtml(s.label)}</small>`:''}</span></div>`).join('');
     box.classList.add('open');
     box.querySelectorAll('.suggestion-item').forEach(item => {
-      item.addEventListener('mousedown', e => { e.preventDefault(); input.value=item.dataset.name; box.classList.remove('open'); });
+      item.addEventListener('mousedown', e => {
+        e.preventDefault();
+        const selected=currentItems[Number(item.dataset.index)];
+        input.value=selected.name;
+        if (isInSouthernCalifornia(selected)) cacheShopLocation(selected.name, {lat:selected.lat,lng:selected.lng,address:selected.label||''});
+        box.classList.remove('open');
+      });
     });
   }
   function getLocalItems(query) {
@@ -1514,7 +1800,7 @@ function wireShopAutocomplete(inputId, suggestionsId) {
       fetchPlacesSuggestions(query, places => {
         if (currentQuery!==query) return;
         const localNames=new Set(local.map(s=>s.name.toLowerCase()));
-        renderItems([...local,...places.filter(n=>!localNames.has(n.toLowerCase())).map(n=>({name:n,icon:'📍'}))]);
+        renderItems([...local,...places.filter(place=>!localNames.has(place.name.toLowerCase())).map(place=>({...place,icon:'📍'}))]);
       });
     } else { renderItems(local); }
   }
@@ -1779,7 +2065,8 @@ function saveGeoCache(c)    { try { localStorage.setItem(GEOCACHE_KEY, JSON.stri
 
 function geocodeShop(name, callback) {
   const cache = loadGeoCache(), key = name.toLowerCase().trim();
-  if (cache[key] !== undefined) { callback(cache[key]); return; }
+  if (cache[key] !== undefined && (cache[key] === null || isInSouthernCalifornia(cache[key]))) { callback(cache[key]); return; }
+  if (cache[key] !== undefined) { delete cache[key]; saveGeoCache(cache); }
   geocodeQueue.push({ name, key, callback });
   if (!geocodeTimer) geocodeTimer = setTimeout(processGeocodeQueue, 0);
 }
@@ -1790,19 +2077,20 @@ async function processGeocodeQueue() {
   const { name, key, callback } = geocodeQueue.shift();
   const cache = loadGeoCache();
   try {
-    const trySearch = async (bounded) => {
-      const params = new URLSearchParams({ q:name, format:'json', limit:'1', addressdetails:'0' });
-      if (userLocation) {
-        const d = bounded ? 0.25 : 1.5;
-        params.append('viewbox', `${userLocation.lng-d},${userLocation.lat+d},${userLocation.lng+d},${userLocation.lat-d}`);
-        params.append('bounded', bounded ? '1' : '0');
-      }
+    const trySearch = async query => {
+      const params = new URLSearchParams({
+        q:query, format:'jsonv2', limit:'1', addressdetails:'1', countrycodes:'us',
+        viewbox:`${SOCAL_BOUNDS.west},${SOCAL_BOUNDS.north},${SOCAL_BOUNDS.east},${SOCAL_BOUNDS.south}`,
+        bounded:'1',
+      });
       const res = await fetch(`https://nominatim.openstreetmap.org/search?${params}`, { headers:{'Accept-Language':'en-US,en'} });
       const data = await res.json();
-      return data[0] ? { lat: parseFloat(data[0].lat), lng: parseFloat(data[0].lon) } : null;
+      if (!data[0]) return null;
+      const result = { lat: parseFloat(data[0].lat), lng: parseFloat(data[0].lon), address:data[0].display_name||'' };
+      return isInSouthernCalifornia(result) ? result : null;
     };
-    let result = await trySearch(true);
-    if (!result && userLocation) { await new Promise(r => setTimeout(r, 1100)); result = await trySearch(false); }
+    let result = await trySearch(name);
+    if (!result) { await new Promise(r => setTimeout(r, 1100)); result = await trySearch(`${name}, San Diego County, California`); }
     cache[key] = result; saveGeoCache(cache); callback(result);
   } catch { callback(null); }
   if (geocodeQueue.length) geocodeTimer = setTimeout(processGeocodeQueue, 1100);
@@ -1815,12 +2103,13 @@ function renderShopsMap(visitedShops) {
     return;
   }
   if (!document.getElementById('shops-map')) wrap.innerHTML = '<div id="shops-map"></div>';
-  const defaultCenter = userLocation ? [userLocation.lat, userLocation.lng] : [32.7157, -117.1611];
+  const localUserLocation = isInSouthernCalifornia(userLocation) ? userLocation : null;
+  const defaultCenter = localUserLocation ? [localUserLocation.lat, localUserLocation.lng] : [SAN_DIEGO_CENTER.lat, SAN_DIEGO_CENTER.lng];
   if (!shopsMap) {
-    shopsMap = L.map('shops-map', { zoomControl: true, attributionControl: false });
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 19 }).addTo(shopsMap);
-    shopsMap.setView(defaultCenter, userLocation ? 13 : 11);
-    if (userLocation) L.circleMarker(defaultCenter, { radius:8, fillColor:'#5B3FA6', color:'white', weight:2.5, fillOpacity:0.9 }).addTo(shopsMap).bindPopup('<b style="color:#5B3FA6">You are here</b>');
+    shopsMap = L.map('shops-map', { zoomControl: true, attributionControl: true });
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 19, attribution:'&copy; OpenStreetMap contributors' }).addTo(shopsMap);
+    shopsMap.setView(defaultCenter, localUserLocation ? 13 : 11);
+    if (localUserLocation) L.circleMarker(defaultCenter, { radius:8, fillColor:'#7A1E2B', color:'white', weight:2.5, fillOpacity:0.9 }).addTo(shopsMap).bindPopup('<b style="color:#7A1E2B">You are here</b>');
   } else {
     shopsMap.eachLayer(layer => { if (layer instanceof L.Marker) shopsMap.removeLayer(layer); });
   }
@@ -1835,15 +2124,15 @@ function renderShopsMap(visitedShops) {
         L.marker([coords.lat, coords.lng], {
           icon: L.divIcon({
             className: '',
-            html: `<div style="background:white;border-radius:50%;border:2.5px solid #5B3FA6;width:36px;height:36px;display:flex;align-items:center;justify-content:center;font-size:18px;box-shadow:0 2px 8px rgba(91,63,166,0.25);position:relative;">🍦${shop.count>1?`<span style="position:absolute;top:-5px;right:-5px;background:#5B3FA6;color:white;border-radius:9px;font-size:9px;font-weight:800;min-width:16px;height:16px;display:flex;align-items:center;justify-content:center;padding:0 3px">${shop.count}</span>`:''}</div>`,
+            html: `<div style="background:white;border-radius:50%;border:2.5px solid #7A1E2B;width:36px;height:36px;display:flex;align-items:center;justify-content:center;font-size:18px;box-shadow:0 2px 8px rgba(122,30,43,0.22);position:relative;">🍦${shop.count>1?`<span style="position:absolute;top:-5px;right:-5px;background:#7A1E2B;color:white;border-radius:9px;font-size:9px;font-weight:800;min-width:16px;height:16px;display:flex;align-items:center;justify-content:center;padding:0 3px">${shop.count}</span>`:''}</div>`,
             iconSize:[36,36], iconAnchor:[18,18],
           })
-        }).bindPopup(`<b style="color:#5B3FA6">${escapeHtml(shop.name)}</b><br>${shop.count} visit${shop.count!==1?'s':''}`).addTo(shopsMap);
+        }).bindPopup(`<b style="color:#7A1E2B">${escapeHtml(shop.name)}</b><br>${shop.count} visit${shop.count!==1?'s':''}${coords.address?`<br><small>${escapeHtml(coords.address)}</small>`:''}`).addTo(shopsMap);
       }
       if (pending===0) {
         if (bounds.length===1) shopsMap.setView(bounds[0], 14);
         else if (bounds.length>1) shopsMap.fitBounds(bounds, { padding:[36,36] });
-        else shopsMap.setView(defaultCenter, userLocation?14:11);
+        else shopsMap.setView(defaultCenter, localUserLocation?14:11);
         setTimeout(() => shopsMap && shopsMap.invalidateSize(), 60);
       }
     });
@@ -1880,51 +2169,10 @@ if (new Date().getMonth() === 11) {
 async function initApp() {
   initDateField();
   wirePhotoInputs();
+  guestMode = true;
+  localStorage.setItem(GUEST_KEY, '1');
   updateShareToggles();
-
-  if (!SB) {
-    if (localStorage.getItem(GUEST_KEY)) {
-      guestMode = true;
-      showView('home');
-    } else {
-      showView('auth');
-      showAuthError('Account features are unavailable offline. You can still continue without an account.');
-    }
-    return;
-  }
-
-  // Auth state listener
-  SB.auth.onAuthStateChange(async (event, session) => {
-    if (event === 'SIGNED_IN' && session?.user) {
-      if (currentUser?.id === session.user.id) return;
-      currentUser = session.user;
-      currentProfile = await ensureProfile(currentUser.id).catch(() => null);
-      guestMode = false;
-      localStorage.removeItem(GUEST_KEY);
-      updateShareToggles();
-      showView('home');
-      setTimeout(() => offerLocalMigration(), 600);
-    } else if (event === 'SIGNED_OUT') {
-      currentUser = null; currentProfile = null; _currentEntries = [];
-      guestMode = false;
-      updateShareToggles();
-      showView('auth');
-    }
-  });
-
-  // Check existing session
-  const { data: { session } } = await SB.auth.getSession();
-  if (session?.user) {
-    currentUser = session.user;
-    currentProfile = await ensureProfile(currentUser.id).catch(() => null);
-    updateShareToggles();
-    showView('home');
-  } else if (localStorage.getItem(GUEST_KEY)) {
-    guestMode = true;
-    showView('home');
-  } else {
-    showView('auth');
-  }
+  showView('home');
 }
 
 initApp();
