@@ -62,12 +62,16 @@ vm.runInContext(`
   ${extractFunction('getWrappedLongestStreak')}
   ${extractFunction('getWrappedBusiestMonth')}
   ${extractFunction('getWrappedFavoriteShop')}
+  ${extractFunction('getWrappedTopRatedFlavor')}
+  ${extractFunction('getWrappedBiggestDay')}
+  ${extractFunction('getWrappedVariety')}
   ${extractFunction('isValidBackup')}
   ${extractFunction('isInSouthernCalifornia')}
   ${extractFunction('normalizeShopSearchQuery')}
   globalThis.api = { computeDailyStreak, computeWeeklyStreak, computeMonthlyStreak,
     getTopFlavors, getWrappedTopFlavor, getWrappedTotalSpent,
     getWrappedLongestStreak, getWrappedBusiestMonth, getWrappedFavoriteShop,
+    getWrappedTopRatedFlavor, getWrappedBiggestDay, getWrappedVariety,
     isValidBackup, isInSouthernCalifornia, normalizeShopSearchQuery };
 `, context);
 
@@ -102,15 +106,18 @@ const flavors = api.getTopFlavors([
 assert.equal(JSON.stringify(flavors), JSON.stringify([['Vanilla', 2], ['Mango', 1]]), 'flavors canonicalize case');
 
 const wrapped = [
-  { date: '2026-01-01T12:00:00', flavor: 'Mango', shop: 'A', price: 4.5 },
-  { date: '2026-01-02T12:00:00', flavor: 'vanilla', shop: 'B', price: null },
-  { date: '2026-01-03T12:00:00', flavor: 'Vanilla', shop: 'B', price: 5 },
+  { date: '2026-01-01T12:00:00', flavor: 'Mango', shop: 'A', price: 4.5, rating: 5 },
+  { date: '2026-01-02T12:00:00', flavor: 'vanilla', shop: 'B', price: null, rating: 4 },
+  { date: '2026-01-03T12:00:00', flavor: 'Vanilla', shop: 'B', price: 5, rating: 4 },
 ];
 assert.deepEqual({ ...api.getWrappedTopFlavor(wrapped) }, { name: 'Vanilla', count: 2 });
 assert.equal(api.getWrappedTotalSpent(wrapped), 9.5);
 assert.equal(api.getWrappedLongestStreak(wrapped), 3);
 assert.equal(api.getWrappedBusiestMonth(wrapped).name, 'January');
 assert.deepEqual({ ...api.getWrappedFavoriteShop(wrapped) }, { name: 'B', count: 2 });
+assert.equal(api.getWrappedTopRatedFlavor(wrapped).name, 'Mango');
+assert.deepEqual({ ...api.getWrappedBiggestDay([...wrapped, { ...wrapped[0], flavor: 'Chocolate' }]) }, { date: '2026-01-01', count: 2 });
+assert.deepEqual({ ...api.getWrappedVariety(wrapped) }, { flavors: 2, shops: 2 });
 
 const backupEntry = { id: 'entry-1', flavor: 'Vanilla', date: '2026-08-25T12:00:00.000Z' };
 assert.equal(api.isValidBackup({ app: 'Sundae Run', version: 1, entries: [backupEntry], favoriteShops: ['The Scoop'] }), true,
@@ -141,6 +148,8 @@ assert.match(html, /if \(!window\.L\)/, 'Leaflet CDN fallback missing');
 assert.match(html, /function buildBackup\(/, 'backup export is missing');
 assert.match(html, /function isValidBackup\(/, 'backup validation is missing');
 assert.match(html, /id=["']view-more["']/, 'install, privacy, and accessibility view is missing');
+assert.match(html, /id=["']open-recap-btn["']/, 'year-round annual report entry point is missing');
+assert.match(html, /Class superlatives/, 'annual report superlatives are missing');
 assert.match(html, /const SOCAL_BOUNDS =/, 'Southern California search bounds are missing');
 assert.match(html, /function isInSouthernCalifornia\(/, 'regional coordinate validation is missing');
 assert.match(html, /function cacheShopLocation\(/, 'selected shop coordinates are not retained');

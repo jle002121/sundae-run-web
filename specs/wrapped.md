@@ -82,3 +82,13 @@ Add an optional price field to every log entry so spending can be tracked, and a
 - [ ] All stats exclude entries from previous years
 - [ ] Empty state shown if no entries for current year
 - [ ] Existing log/edit/delete/streaks/flavor picker/My Shops all still work
+
+---
+
+## 2026 Editorial Recap Extension
+
+- Keep the December-only Wrapped tab, but provide a year-round entry point from More so the owner can preview the report as data accumulates.
+- Present the recap as an editorial annual report rather than a generic gradient-card grid.
+- Add total scoops, unique flavor/shop counts, price coverage and average recorded price.
+- Add three named superlatives: Regular of the Year, Critic's Choice, and Biggest Sundae Day.
+- Continue calculating everything locally from the selected calendar year's entries.

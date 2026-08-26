@@ -248,26 +248,30 @@
     }
     html { background: #F2E8DA; color-scheme: light; }
     body { line-height: 1.45; }
-    body::before { content: ''; position: fixed; inset: 0 0 auto; height: 10px; background: repeating-linear-gradient(90deg,#7A1E2B 0 24px,#FFF9F0 24px 48px); z-index: 1000; }
+    body::before { content: ''; position: fixed; inset: 0 0 auto; height: 6px; background: #7A1E2B; z-index: 1000; }
     #app { background: var(--bg); border-inline: 1px solid #DED2C4; }
     .header { padding-top: calc(42px + env(safe-area-inset-top)); border-bottom: 1px solid var(--divider); }
     .header h1 { font-family: Georgia, 'Times New Roman', serif; font-size: 27px; letter-spacing: -.5px; }
     .stat-card, .entry-card, .shop-card, .form-input, .auth-card { border: 1px solid var(--divider); }
+    .stat-card { border-radius: 2px; padding-block: 12px; }
+    .stats-row { gap: 1px; background: var(--divider); border: 1px solid var(--divider); }
+    .entry-card, .shop-card { border-radius: 3px; }
+    .form-input { border-radius: 4px; background: #FFFEFA; }
     .stat-card, .streak-card { box-shadow: none; }
     .streak-card { background: #FFF0CC; border: 1px solid #DBB968; }
     .btn-submit, .btn-add-shop { background: var(--primary); color: #fff; }
     .tab-btn { min-height: 58px; }
-    .tab-btn.active { background: #FCE8E5; }
+    .tab-btn.active { background: #FCE8E5; box-shadow: inset 0 3px 0 var(--primary); }
     .tab-btn.active .tab-label { color: var(--primary); }
     button, input, textarea { min-height: 44px; }
     button:focus-visible, input:focus-visible, textarea:focus-visible, a:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
     .skip-link { position: fixed; left: 12px; top: -60px; z-index: 2000; background: #fff; color: var(--text); padding: 10px 14px; border-radius: 8px; font-weight: 700; }
     .skip-link:focus { top: 14px; }
-    .hero-card { background: #7A1E2B; color: #FFFFFF; border-radius: 22px; padding: 22px; margin-bottom: 18px; position: relative; overflow: hidden; }
-    .hero-card::after { content: '🍒'; position: absolute; right: 16px; top: 12px; font-size: 52px; transform: rotate(8deg); opacity: .9; }
-    .hero-kicker { color: #FFE2A8; font-size: 11px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
-    .hero-title { font-family: Georgia, 'Times New Roman', serif; font-size: 25px; line-height: 1.1; max-width: 260px; margin-top: 6px; }
-    .hero-copy { color: #FFF4E9; font-size: 13px; max-width: 285px; margin-top: 8px; }
+    .hero-card { color: var(--text); border: 2px solid var(--primary); border-inline: 0; border-radius: 0; padding: 20px 4px 18px; margin-bottom: 18px; position: relative; }
+    .hero-card::after { content: 'EST. 2026  •  SAN DIEGO'; position: absolute; right: 4px; top: 20px; color: var(--muted); font: 700 9px/1 system-ui, sans-serif; letter-spacing: .09em; }
+    .hero-kicker { color: var(--primary); font-size: 10px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; }
+    .hero-title { font-family: Georgia, 'Times New Roman', serif; font-size: 29px; line-height: 1.04; max-width: 300px; margin-top: 18px; }
+    .hero-copy { color: var(--muted); font-size: 13px; max-width: 320px; margin-top: 9px; }
     .info-card { background: var(--card); border: 1px solid var(--divider); border-radius: var(--r-card); padding: 17px; margin-bottom: 12px; }
     .info-card h2 { font-family: Georgia, 'Times New Roman', serif; color: var(--primary); font-size: 20px; margin-bottom: 7px; }
     .info-card p, .info-card li { color: #493E39; font-size: 13px; }
@@ -284,6 +288,27 @@
     .compact-disclosure[open] summary::after { content: '−'; }
     .compact-disclosure[open] summary { border-bottom: 1px solid var(--divider); }
     .disclosure-body { padding: 15px 17px 17px; }
+
+    /* Annual report: an editorial scorecard, not a card grid. */
+    .wrapped-intro { border-top: 3px double var(--primary); border-bottom: 1px solid var(--primary); padding: 18px 0 16px; margin-bottom: 20px; }
+    .wrapped-edition { color: var(--primary); font-size: 10px; font-weight: 800; letter-spacing: .15em; text-transform: uppercase; }
+    .wrapped-headline { font: 700 34px/1 Georgia, 'Times New Roman', serif; color: var(--text); margin-top: 8px; }
+    .wrapped-deck { color: var(--muted); font-size: 13px; line-height: 1.5; margin-top: 8px; max-width: 340px; }
+    .wrapped-lead { display: grid; grid-template-columns: 1fr auto; align-items: end; gap: 16px; padding: 18px 0 20px; border-bottom: 1px solid var(--divider); }
+    .wrapped-lead-label, .report-section-title { color: var(--primary); font-size: 10px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
+    .wrapped-lead-value { font: 700 31px/1.05 Georgia, 'Times New Roman', serif; margin-top: 5px; }
+    .wrapped-lead-note { color: var(--muted); font-size: 12px; margin-top: 5px; }
+    .wrapped-lead-count { font: 700 42px/1 Georgia, 'Times New Roman', serif; color: var(--primary); }
+    .report-section-title { margin: 24px 0 8px; padding-bottom: 7px; border-bottom: 2px solid var(--primary); }
+    .report-row { display: grid; grid-template-columns: 1fr auto; gap: 14px; align-items: baseline; padding: 13px 0; border-bottom: 1px solid var(--divider); }
+    .report-row-title { font: 700 17px/1.25 Georgia, 'Times New Roman', serif; }
+    .report-row-note { color: var(--muted); font-size: 11px; margin-top: 3px; }
+    .report-row-value { color: var(--primary); font-size: 15px; font-weight: 800; text-align: right; }
+    .superlative { position: relative; border: 1px solid #B79443; border-radius: 2px; background: #FFF4D3; padding: 15px 16px 14px; margin-top: 9px; }
+    .superlative::before { content: 'SUNDAE RUN'; color: #866C31; font-size: 8px; font-weight: 900; letter-spacing: .16em; }
+    .superlative-name { font: italic 700 20px/1.2 Georgia, 'Times New Roman', serif; color: #4E3A12; margin-top: 4px; }
+    .superlative-detail { color: #66552F; font-size: 12px; margin-top: 4px; }
+    .report-footnote { color: var(--muted); font-size: 11px; line-height: 1.5; padding: 16px 0 4px; }
     @media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; transition: none !important; animation: none !important; } }
   </style>
 </head>
@@ -346,7 +371,7 @@
     <div class="view-content" id="main-content">
       <section class="hero-card" aria-label="Sundae Run introduction">
         <div class="hero-kicker">Your local scoop journal</div>
-        <div class="hero-title">Good ice cream deserves a paper trail.</div>
+        <div class="hero-title">The scoop record.</div>
         <p class="hero-copy">Log flavors, remember shops, and keep the whole history private on this device.</p>
       </section>
       <div class="stats-row">
@@ -523,7 +548,7 @@
 
   <!-- ── Wrapped view ── -->
   <div id="view-wrapped" class="view">
-    <div class="header"><h1 id="wrapped-title">Your Wrapped 🎁</h1></div>
+    <div class="header"><h1 id="wrapped-title">Annual Scoop Report</h1></div>
     <div class="view-content"><div id="wrapped-content"></div></div>
   </div>
 
@@ -550,6 +575,11 @@
           <button class="secondary-btn" id="import-backup-btn" type="button">Import backup</button>
         </div>
         <input id="import-backup-file" type="file" accept="application/json,.json" hidden>
+      </section>
+      <section class="info-card" aria-labelledby="recap-heading">
+        <h2 id="recap-heading">Annual scoop report</h2>
+        <p>See this year’s regular shop, repeat flavor, spending, streaks, and Sundae Run superlatives. The report keeps updating as you log.</p>
+        <button class="secondary-btn" id="open-recap-btn" type="button" style="width:100%;margin-top:13px">Open this year’s report</button>
       </section>
       <details class="info-card compact-disclosure">
         <summary>Privacy</summary>
@@ -583,9 +613,9 @@
 
   <!-- ── Tab bar ── -->
   <nav id="tab-bar" aria-label="Primary navigation">
-    <button class="tab-btn active" data-view="home"><span class="tab-icon">🏠</span><span class="tab-label">Home</span></button>
-    <button class="tab-btn" data-view="log"><span class="tab-icon">➕</span><span class="tab-label">Log</span></button>
-    <button class="tab-btn" data-view="shops"><span class="tab-icon">🏪</span><span class="tab-label">Shops</span></button>
+    <button class="tab-btn active" data-view="home"><span class="tab-icon">SR</span><span class="tab-label">Home</span></button>
+    <button class="tab-btn" data-view="log"><span class="tab-icon">＋</span><span class="tab-label">Log</span></button>
+    <button class="tab-btn" data-view="shops"><span class="tab-icon">⌖</span><span class="tab-label">Shops</span></button>
     <button class="tab-btn" data-view="more"><span class="tab-icon">⋯</span><span class="tab-label">More</span></button>
   </nav>
 
@@ -1125,24 +1155,76 @@ function getWrappedBusiestMonth(ye) {
 function getWrappedFavoriteShop(ye) {
   const counts={};
   for (const e of ye) { const s=(e.shop||e.shop_name)?.trim(); if(!s)continue; const k=s.toLowerCase(); if(!counts[k])counts[k]={name:s,count:0}; counts[k].count++; }
-  const sorted=Object.values(counts).sort((a,b)=>b.count-a.count);
+  const sorted=Object.values(counts).sort((a,b)=>b.count-a.count||a.name.localeCompare(b.name));
   return sorted.length?sorted[0]:null;
+}
+
+function getWrappedTopRatedFlavor(ye) {
+  const flavors = {};
+  for (const e of ye) {
+    const flavor = e.flavor?.trim(), rating = Number(e.rating);
+    if (!flavor || !Number.isFinite(rating) || rating <= 0) continue;
+    const key = flavor.toLowerCase();
+    if (!flavors[key]) flavors[key] = { name: BUILTIN_FLAVOR_MAP[key] || flavor, total: 0, count: 0 };
+    flavors[key].total += rating; flavors[key].count++;
+  }
+  const sorted = Object.values(flavors).map(f => ({ ...f, average: f.total / f.count }))
+    .sort((a,b) => b.average-a.average || b.count-a.count || a.name.localeCompare(b.name));
+  return sorted[0] || null;
+}
+
+function getWrappedBiggestDay(ye) {
+  const days = {};
+  for (const e of ye) { const day = localDateStr(e.date); days[day] = (days[day] || 0) + 1; }
+  const sorted = Object.entries(days).sort((a,b) => b[1]-a[1] || a[0].localeCompare(b[0]));
+  if (!sorted.length) return null;
+  return { date: sorted[0][0], count: sorted[0][1] };
+}
+
+function getWrappedVariety(ye) {
+  const flavors = new Set(), shops = new Set();
+  for (const e of ye) {
+    if (e.flavor?.trim()) flavors.add(e.flavor.trim().toLowerCase());
+    const shop = (e.shop || e.shop_name)?.trim(); if (shop) shops.add(shop.toLowerCase());
+  }
+  return { flavors: flavors.size, shops: shops.size };
+}
+
+function formatReportDate(dateString) {
+  return new Date(dateString + 'T12:00:00').toLocaleDateString('en-US', { month:'long', day:'numeric' });
 }
 
 function renderWrappedView() {
   const year = new Date().getFullYear();
-  document.getElementById('wrapped-title').textContent = `Your ${year} Wrapped 🎁`;
+  document.getElementById('wrapped-title').textContent = `${year} Scoop Report`;
   const ye = getYearEntries(year);
   const content = document.getElementById('wrapped-content');
   if (!ye.length) { content.innerHTML='<div class="empty-state">No scoops logged yet this year —<br>get out there! 🍦</div>'; return; }
   const topFlavor=getWrappedTopFlavor(ye),totalSpent=getWrappedTotalSpent(ye),
-        longestStreak=getWrappedLongestStreak(ye),busiestMonth=getWrappedBusiestMonth(ye),favShop=getWrappedFavoriteShop(ye);
+        longestStreak=getWrappedLongestStreak(ye),busiestMonth=getWrappedBusiestMonth(ye),favShop=getWrappedFavoriteShop(ye),
+        topRated=getWrappedTopRatedFlavor(ye),biggestDay=getWrappedBiggestDay(ye),variety=getWrappedVariety(ye);
+  const pricedCount = ye.filter(e => e.price != null).length;
+  const averagePrice = pricedCount ? totalSpent / pricedCount : null;
   content.innerHTML=`
-    <div class="wrapped-card"><span class="wrapped-card-emoji">🍦</span><span class="wrapped-card-value">${topFlavor?escapeHtml(topFlavor.name):'—'}</span><span class="wrapped-card-label">Top Flavor · ${topFlavor?topFlavor.count+' times':'—'}</span></div>
-    <div class="wrapped-card"><span class="wrapped-card-emoji">💸</span><span class="wrapped-card-value">${totalSpent!=null?'$'+totalSpent.toFixed(2):'—'}</span><span class="wrapped-card-label">Total Spent</span></div>
-    <div class="wrapped-card"><span class="wrapped-card-emoji">🔥</span><span class="wrapped-card-value">${longestStreak} day${longestStreak!==1?'s':''}</span><span class="wrapped-card-label">Longest Streak</span></div>
-    <div class="wrapped-card"><span class="wrapped-card-emoji">📅</span><span class="wrapped-card-value">${busiestMonth?escapeHtml(busiestMonth.name):'—'}</span><span class="wrapped-card-label">Busiest Month · ${busiestMonth?busiestMonth.count+' scoops':'—'}</span></div>
-    <div class="wrapped-card"><span class="wrapped-card-emoji">🏪</span><span class="wrapped-card-value">${favShop?escapeHtml(favShop.name):'—'}</span><span class="wrapped-card-label">Favorite Shop · ${favShop?favShop.count+' visits':'—'}</span></div>`;
+    <section class="wrapped-intro">
+      <div class="wrapped-edition">Sundae Run · annual edition</div>
+      <div class="wrapped-headline">A year in ice cream.</div>
+      <p class="wrapped-deck">The repeats, the regular stops, and the days worth remembering—calculated from your ${year} scoop log.</p>
+    </section>
+    <section class="wrapped-lead" aria-label="Top flavor">
+      <div><div class="wrapped-lead-label">Flavor of the year</div><div class="wrapped-lead-value">${topFlavor?escapeHtml(topFlavor.name):'—'}</div><div class="wrapped-lead-note">Your most repeated order</div></div>
+      <div class="wrapped-lead-count">${topFlavor?topFlavor.count:'—'}</div>
+    </section>
+    <h2 class="report-section-title">The tally</h2>
+    <div class="report-row"><div><div class="report-row-title">Scoops logged</div><div class="report-row-note">Across ${variety.flavors} flavor${variety.flavors!==1?'s':''} and ${variety.shops} shop${variety.shops!==1?'s':''}</div></div><div class="report-row-value">${ye.length}</div></div>
+    <div class="report-row"><div><div class="report-row-title">Ice-cream spending</div><div class="report-row-note">${pricedCount?`${pricedCount} of ${ye.length} logs included a price · $${averagePrice.toFixed(2)} average`:'Add prices to future logs to track this'}</div></div><div class="report-row-value">${totalSpent!=null?'$'+totalSpent.toFixed(2):'—'}</div></div>
+    <div class="report-row"><div><div class="report-row-title">Longest run</div><div class="report-row-note">Consecutive days with at least one scoop</div></div><div class="report-row-value">${longestStreak} day${longestStreak!==1?'s':''}</div></div>
+    <div class="report-row"><div><div class="report-row-title">Peak month</div><div class="report-row-note">${busiestMonth?busiestMonth.count+' scoop'+(busiestMonth.count!==1?'s':''):'No entries'}</div></div><div class="report-row-value">${busiestMonth?escapeHtml(busiestMonth.name):'—'}</div></div>
+    <h2 class="report-section-title">Class superlatives</h2>
+    <div class="superlative"><div class="superlative-name">Regular of the Year</div><div class="superlative-detail">${favShop?`${escapeHtml(favShop.name)} · ${favShop.count} visit${favShop.count!==1?'s':''}`:'No shop visits recorded yet'}</div></div>
+    <div class="superlative"><div class="superlative-name">Critic’s Choice</div><div class="superlative-detail">${topRated?`${escapeHtml(topRated.name)} · ${topRated.average.toFixed(1)} average rating across ${topRated.count} log${topRated.count!==1?'s':''}`:'Add ratings to unlock this award'}</div></div>
+    <div class="superlative"><div class="superlative-name">Biggest Sundae Day</div><div class="superlative-detail">${biggestDay?`${formatReportDate(biggestDay.date)} · ${biggestDay.count} scoop${biggestDay.count!==1?'s':''}`:'No scoop days recorded yet'}</div></div>
+    <p class="report-footnote">Only entries dated January 1–December 31, ${year} are counted. Spending reflects entries where a price was recorded.</p>`;
 }
 
 // ════════════════════════════════════════
@@ -1394,6 +1476,8 @@ document.getElementById('import-backup-file').addEventListener('change', async e
     showToast('That file is not a valid Sundae Run backup');
   }
 });
+
+document.getElementById('open-recap-btn').addEventListener('click', () => showView('wrapped'));
 
 // ════════════════════════════════════════
 // HOME RENDER
