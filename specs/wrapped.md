@@ -85,10 +85,10 @@ Add an optional price field to every log entry so spending can be tracked, and a
 
 ---
 
-## 2026 Editorial Recap Extension
+## 2026 Recap Extension
 
 - Keep the December-only Wrapped tab, but provide a year-round entry point from More so the owner can preview the report as data accumulates.
-- Present the recap as an editorial annual report rather than a generic gradient-card grid.
+- Present the recap as a warm, tactile personal collection using adapted Cult UI texture-card surfaces, Motion Primitives-style selection feedback, and Tremor-style data hierarchy. Avoid newspaper styling and generic gradient-card grids.
 - Add total scoops, unique flavor/shop counts, price coverage and average recorded price.
 - Add three named superlatives: Regular of the Year, Critic's Choice, and Biggest Sundae Day.
 - Continue calculating everything locally from the selected calendar year's entries.

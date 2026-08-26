@@ -6,7 +6,7 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
   <meta name="apple-mobile-web-app-title" content="Sundae Run">
-  <meta name="theme-color" content="#7A1E2B">
+  <meta name="theme-color" content="#0B5D6B">
   <meta name="description" content="A private, installable ice-cream journal that keeps your scoop history on your device.">
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline' https://unpkg.com; script-src 'self' 'unsafe-inline' https://unpkg.com; img-src 'self' data: blob: https://*.tile.openstreetmap.org; connect-src 'self' https://nominatim.openstreetmap.org https://*.tile.openstreetmap.org; font-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests">
   <link rel="manifest" href="manifest.json">
@@ -233,48 +233,61 @@
     /* ── Loading ── */
     .loading-row { text-align: center; padding: 40px 24px; color: var(--muted); font-size: 14px; }
 
-    /* ── Local-first refresh ── */
+    /* ── Boardwalk Creamery theme ── */
     :root {
-      --primary: #7A1E2B;
-      --accent1: #FFE2A8;
-      --accent2: #F3B2AA;
-      --bg: #FFF9F0;
+      --primary: #0B5D6B;
+      --cherry: #A92F41;
+      --accent1: #D7A86E;
+      --accent2: #BBDDE0;
+      --bg: #FFF8E8;
       --card: #FFFFFF;
-      --text: #211C19;
-      --muted: #5F514B;
-      --divider: #D8CABA;
-      --gradient: #7A1E2B;
-      --focus: #005FCC;
+      --text: #17333A;
+      --muted: #52696F;
+      --divider: #D8C6A7;
+      --gradient: #0B5D6B;
+      --focus: #A92F41;
     }
-    html { background: #F2E8DA; color-scheme: light; }
+    html { background: #E6DDCC; color-scheme: light; }
     body { line-height: 1.45; }
-    body::before { content: ''; position: fixed; inset: 0 0 auto; height: 6px; background: #7A1E2B; z-index: 1000; }
-    #app { background: var(--bg); border-inline: 1px solid #DED2C4; }
+    body::before { content: ''; position: fixed; inset: 0 0 auto; height: 6px; background: linear-gradient(90deg, var(--primary) 0 72%, var(--cherry) 72%); z-index: 1000; }
+    #app { background: var(--bg); border-inline: 1px solid #D8C6A7; }
     .header { padding-top: calc(42px + env(safe-area-inset-top)); border-bottom: 1px solid var(--divider); }
-    .header h1 { font-family: Georgia, 'Times New Roman', serif; font-size: 27px; letter-spacing: -.5px; }
+    .header h1 { font-family: ui-rounded, 'Avenir Next Rounded', 'SF Pro Rounded', system-ui, sans-serif; font-size: 27px; letter-spacing: -.7px; }
     .stat-card, .entry-card, .shop-card, .form-input, .auth-card { border: 1px solid var(--divider); }
-    .stat-card { border-radius: 2px; padding-block: 12px; }
-    .stats-row { gap: 1px; background: var(--divider); border: 1px solid var(--divider); }
-    .entry-card, .shop-card { border-radius: 3px; }
-    .form-input { border-radius: 4px; background: #FFFEFA; }
+    .stat-card { border-radius: 12px; padding-block: 12px; }
+    .stats-row { gap: 8px; background: transparent; border: 0; }
+    .entry-card, .shop-card { border-radius: 14px; }
+    .form-input { border-radius: 12px; background: #FFFEFC; }
     .stat-card, .streak-card { box-shadow: none; }
-    .streak-card { background: #FFF0CC; border: 1px solid #DBB968; }
-    .btn-submit, .btn-add-shop { background: var(--primary); color: #fff; }
-    .tab-btn { min-height: 58px; }
-    .tab-btn.active { background: #FCE8E5; box-shadow: inset 0 3px 0 var(--primary); }
+    .streak-card { background: #F5E3C6; border: 1px solid #D7A86E; border-radius: 12px; }
+    .streak-value, .streak-label { color: #714521; }
+    .btn-submit, .btn-add-shop { background: var(--cherry); color: #fff; }
+    .btn-submit:focus-visible, .btn-add-shop:focus-visible { outline-color: var(--primary); }
+    .tab-btn { min-height: 58px; position: relative; isolation: isolate; }
+    .tab-btn::before { content: ''; position: absolute; inset: 7px 10px; border-radius: 12px; background: #D9ECEC; opacity: 0; transform: scale(.86); transition: opacity .18s ease, transform .22s cubic-bezier(.2,.8,.2,1); z-index: -1; }
+    .tab-btn.active { background: transparent; box-shadow: none; }
+    .tab-btn.active::before { opacity: 1; transform: scale(1); }
     .tab-btn.active .tab-label { color: var(--primary); }
+    .tab-icon { min-width: 27px; height: 24px; display: grid; place-items: center; color: var(--muted); font-size: 19px; font-weight: 800; }
+    .tab-btn.active .tab-icon { color: var(--primary); }
     button, input, textarea { min-height: 44px; }
     button:focus-visible, input:focus-visible, textarea:focus-visible, a:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
     .skip-link { position: fixed; left: 12px; top: -60px; z-index: 2000; background: #fff; color: var(--text); padding: 10px 14px; border-radius: 8px; font-weight: 700; }
     .skip-link:focus { top: 14px; }
-    .hero-card { color: var(--text); border: 2px solid var(--primary); border-inline: 0; border-radius: 0; padding: 20px 4px 18px; margin-bottom: 18px; position: relative; }
-    .hero-card::after { content: 'EST. 2026  •  SAN DIEGO'; position: absolute; right: 4px; top: 20px; color: var(--muted); font: 700 9px/1 system-ui, sans-serif; letter-spacing: .09em; }
-    .hero-kicker { color: var(--primary); font-size: 10px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; }
-    .hero-title { font-family: Georgia, 'Times New Roman', serif; font-size: 29px; line-height: 1.04; max-width: 300px; margin-top: 18px; }
-    .hero-copy { color: var(--muted); font-size: 13px; max-width: 320px; margin-top: 9px; }
+    .hero-card { color: #fff; border: 0; border-radius: 18px; padding: 24px 122px 23px 20px; margin-bottom: 18px; position: relative; overflow: hidden; background: var(--primary); box-shadow: inset 0 -4px 0 rgba(0,0,0,.1); }
+    .hero-card::before { content: ''; position: absolute; inset: auto -36px -54px auto; width: 175px; height: 110px; border: 2px solid rgba(255,255,255,.18); border-radius: 50%; transform: rotate(-8deg); }
+    .hero-kicker { color: #FFE4B6; font-size: 10px; font-weight: 850; letter-spacing: .13em; text-transform: uppercase; }
+    .hero-title { font-family: ui-rounded, 'Avenir Next Rounded', 'SF Pro Rounded', system-ui, sans-serif; font-size: 29px; font-weight: 850; line-height: 1.06; max-width: 230px; margin-top: 8px; }
+    .hero-copy { color: #EAF5F5; font-size: 13px; max-width: 245px; margin-top: 9px; }
+    .scoop-mark { position: absolute; right: 25px; top: 19px; width: 78px; height: 105px; filter: drop-shadow(0 5px 0 rgba(0,0,0,.11)); }
+    .scoop-mark .scoop { position: absolute; width: 47px; height: 43px; border-radius: 52% 52% 45% 45%; border: 2px solid #17333A; left: 15px; }
+    .scoop-mark .scoop-one { top: 0; background: #FFF1C9; }
+    .scoop-mark .scoop-two { top: 29px; left: 8px; background: #E85767; }
+    .scoop-mark .scoop-three { top: 34px; left: 27px; background: #91CFD2; }
+    .scoop-mark .cone { position: absolute; top: 67px; left: 22px; width: 0; height: 0; border-left: 17px solid transparent; border-right: 17px solid transparent; border-top: 37px solid #D7A86E; }
     .info-card { background: var(--card); border: 1px solid var(--divider); border-radius: var(--r-card); padding: 17px; margin-bottom: 12px; }
-    .info-card h2 { font-family: Georgia, 'Times New Roman', serif; color: var(--primary); font-size: 20px; margin-bottom: 7px; }
-    .info-card p, .info-card li { color: #493E39; font-size: 13px; }
+    .info-card h2 { font-family: ui-rounded, 'Avenir Next Rounded', 'SF Pro Rounded', system-ui, sans-serif; color: var(--primary); font-size: 19px; margin-bottom: 7px; }
+    .info-card p, .info-card li { color: #40575D; font-size: 13px; }
     .info-card ul, .info-card ol { padding-left: 20px; margin-top: 8px; }
     .info-card li + li { margin-top: 6px; }
     .action-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 13px; }
@@ -282,32 +295,32 @@
     .privacy-pill { display: inline-flex; align-items: center; gap: 6px; background: #E7F2E7; color: #2D6235; border-radius: 999px; padding: 6px 10px; font-size: 11px; font-weight: 800; margin-bottom: 12px; }
     .fine-print { font-size: 11px !important; margin-top: 10px; }
     .compact-disclosure { padding: 0; overflow: hidden; }
-    .compact-disclosure summary { min-height: 58px; padding: 15px 17px; display: flex; align-items: center; justify-content: space-between; gap: 12px; cursor: pointer; list-style: none; color: var(--primary); font-family: Georgia, 'Times New Roman', serif; font-size: 19px; font-weight: 700; }
+    .compact-disclosure summary { min-height: 58px; padding: 15px 17px; display: flex; align-items: center; justify-content: space-between; gap: 12px; cursor: pointer; list-style: none; color: var(--primary); font-family: ui-rounded, 'Avenir Next Rounded', 'SF Pro Rounded', system-ui, sans-serif; font-size: 18px; font-weight: 750; }
     .compact-disclosure summary::-webkit-details-marker { display: none; }
     .compact-disclosure summary::after { content: '+'; width: 28px; height: 28px; border: 1px solid var(--divider); border-radius: 50%; display: grid; place-items: center; flex: 0 0 auto; font: 700 19px/1 system-ui, sans-serif; }
     .compact-disclosure[open] summary::after { content: '−'; }
     .compact-disclosure[open] summary { border-bottom: 1px solid var(--divider); }
     .disclosure-body { padding: 15px 17px 17px; }
 
-    /* Annual report: an editorial scorecard, not a card grid. */
-    .wrapped-intro { border-top: 3px double var(--primary); border-bottom: 1px solid var(--primary); padding: 18px 0 16px; margin-bottom: 20px; }
-    .wrapped-edition { color: var(--primary); font-size: 10px; font-weight: 800; letter-spacing: .15em; text-transform: uppercase; }
-    .wrapped-headline { font: 700 34px/1 Georgia, 'Times New Roman', serif; color: var(--text); margin-top: 8px; }
-    .wrapped-deck { color: var(--muted); font-size: 13px; line-height: 1.5; margin-top: 8px; max-width: 340px; }
-    .wrapped-lead { display: grid; grid-template-columns: 1fr auto; align-items: end; gap: 16px; padding: 18px 0 20px; border-bottom: 1px solid var(--divider); }
+    /* Boardwalk recap: bold shop-sign color with calm data hierarchy. */
+    .wrapped-intro { border: 0; border-radius: 18px; padding: 21px; margin-bottom: 12px; background: var(--primary); color: #fff; box-shadow: inset 0 -4px 0 rgba(0,0,0,.1); }
+    .wrapped-edition { color: #FFE4B6; font-size: 10px; font-weight: 850; letter-spacing: .13em; text-transform: uppercase; }
+    .wrapped-headline { font-family: ui-rounded, 'Avenir Next Rounded', 'SF Pro Rounded', system-ui, sans-serif; font-size: 30px; font-weight: 850; line-height: 1.05; color: #fff; margin-top: 7px; }
+    .wrapped-deck { color: #EAF5F5; font-size: 13px; line-height: 1.5; margin-top: 8px; max-width: 330px; }
+    .wrapped-lead { display: grid; grid-template-columns: 1fr auto; align-items: end; gap: 16px; padding: 20px; border: 2px solid #D7A86E; border-radius: 16px; background: #FFFDF7; }
     .wrapped-lead-label, .report-section-title { color: var(--primary); font-size: 10px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
-    .wrapped-lead-value { font: 700 31px/1.05 Georgia, 'Times New Roman', serif; margin-top: 5px; }
+    .wrapped-lead-value { font-family: ui-rounded, 'SF Pro Rounded', system-ui, sans-serif; font-size: 29px; font-weight: 800; line-height: 1.05; margin-top: 5px; }
     .wrapped-lead-note { color: var(--muted); font-size: 12px; margin-top: 5px; }
-    .wrapped-lead-count { font: 700 42px/1 Georgia, 'Times New Roman', serif; color: var(--primary); }
-    .report-section-title { margin: 24px 0 8px; padding-bottom: 7px; border-bottom: 2px solid var(--primary); }
-    .report-row { display: grid; grid-template-columns: 1fr auto; gap: 14px; align-items: baseline; padding: 13px 0; border-bottom: 1px solid var(--divider); }
-    .report-row-title { font: 700 17px/1.25 Georgia, 'Times New Roman', serif; }
+    .wrapped-lead-count { font-size: 40px; line-height: 1; font-weight: 800; color: var(--primary); }
+    .report-section-title { margin: 24px 0 9px; }
+    .report-row { display: grid; grid-template-columns: 1fr auto; gap: 14px; align-items: baseline; padding: 14px 15px; margin-bottom: 7px; border: 1px solid var(--divider); border-radius: 14px; background: var(--card); }
+    .report-row-title { font-size: 15px; line-height: 1.25; font-weight: 750; }
     .report-row-note { color: var(--muted); font-size: 11px; margin-top: 3px; }
     .report-row-value { color: var(--primary); font-size: 15px; font-weight: 800; text-align: right; }
-    .superlative { position: relative; border: 1px solid #B79443; border-radius: 2px; background: #FFF4D3; padding: 15px 16px 14px; margin-top: 9px; }
-    .superlative::before { content: 'SUNDAE RUN'; color: #866C31; font-size: 8px; font-weight: 900; letter-spacing: .16em; }
-    .superlative-name { font: italic 700 20px/1.2 Georgia, 'Times New Roman', serif; color: #4E3A12; margin-top: 4px; }
-    .superlative-detail { color: #66552F; font-size: 12px; margin-top: 4px; }
+    .superlative { position: relative; border: 1px solid #9BC9CD; border-left: 5px solid var(--cherry); border-radius: 12px; background: #F1FAFA; padding: 16px; margin-top: 8px; }
+    .superlative::before { content: 'BOARDWALK HONORS'; color: var(--primary); font-size: 8px; font-weight: 900; letter-spacing: .14em; }
+    .superlative-name { font-size: 18px; line-height: 1.2; font-weight: 800; color: var(--text); margin-top: 5px; }
+    .superlative-detail { color: var(--muted); font-size: 12px; margin-top: 5px; }
     .report-footnote { color: var(--muted); font-size: 11px; line-height: 1.5; padding: 16px 0 4px; }
     @media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; transition: none !important; animation: none !important; } }
   </style>
@@ -371,8 +384,9 @@
     <div class="view-content" id="main-content">
       <section class="hero-card" aria-label="Sundae Run introduction">
         <div class="hero-kicker">Your local scoop journal</div>
-        <div class="hero-title">The scoop record.</div>
+        <div class="hero-title">Your year in scoops.</div>
         <p class="hero-copy">Log flavors, remember shops, and keep the whole history private on this device.</p>
+        <div class="scoop-mark" aria-hidden="true"><span class="scoop scoop-one"></span><span class="scoop scoop-two"></span><span class="scoop scoop-three"></span><span class="cone"></span></div>
       </section>
       <div class="stats-row">
         <div class="stat-card"><span class="stat-value" id="stat-scoops">0</span><span class="stat-label">scoops</span></div>
@@ -1207,9 +1221,9 @@ function renderWrappedView() {
   const averagePrice = pricedCount ? totalSpent / pricedCount : null;
   content.innerHTML=`
     <section class="wrapped-intro">
-      <div class="wrapped-edition">Sundae Run · annual edition</div>
-      <div class="wrapped-headline">A year in ice cream.</div>
-      <p class="wrapped-deck">The repeats, the regular stops, and the days worth remembering—calculated from your ${year} scoop log.</p>
+      <div class="wrapped-edition">Your ${year} recap</div>
+      <div class="wrapped-headline">Your scoop story.</div>
+      <p class="wrapped-deck">The flavors you loved, the shops you returned to, and a few awards you earned along the way.</p>
     </section>
     <section class="wrapped-lead" aria-label="Top flavor">
       <div><div class="wrapped-lead-label">Flavor of the year</div><div class="wrapped-lead-value">${topFlavor?escapeHtml(topFlavor.name):'—'}</div><div class="wrapped-lead-note">Your most repeated order</div></div>
@@ -1220,7 +1234,7 @@ function renderWrappedView() {
     <div class="report-row"><div><div class="report-row-title">Ice-cream spending</div><div class="report-row-note">${pricedCount?`${pricedCount} of ${ye.length} logs included a price · $${averagePrice.toFixed(2)} average`:'Add prices to future logs to track this'}</div></div><div class="report-row-value">${totalSpent!=null?'$'+totalSpent.toFixed(2):'—'}</div></div>
     <div class="report-row"><div><div class="report-row-title">Longest run</div><div class="report-row-note">Consecutive days with at least one scoop</div></div><div class="report-row-value">${longestStreak} day${longestStreak!==1?'s':''}</div></div>
     <div class="report-row"><div><div class="report-row-title">Peak month</div><div class="report-row-note">${busiestMonth?busiestMonth.count+' scoop'+(busiestMonth.count!==1?'s':''):'No entries'}</div></div><div class="report-row-value">${busiestMonth?escapeHtml(busiestMonth.name):'—'}</div></div>
-    <h2 class="report-section-title">Class superlatives</h2>
+    <h2 class="report-section-title">Your superlatives</h2>
     <div class="superlative"><div class="superlative-name">Regular of the Year</div><div class="superlative-detail">${favShop?`${escapeHtml(favShop.name)} · ${favShop.count} visit${favShop.count!==1?'s':''}`:'No shop visits recorded yet'}</div></div>
     <div class="superlative"><div class="superlative-name">Critic’s Choice</div><div class="superlative-detail">${topRated?`${escapeHtml(topRated.name)} · ${topRated.average.toFixed(1)} average rating across ${topRated.count} log${topRated.count!==1?'s':''}`:'Add ratings to unlock this award'}</div></div>
     <div class="superlative"><div class="superlative-name">Biggest Sundae Day</div><div class="superlative-detail">${biggestDay?`${formatReportDate(biggestDay.date)} · ${biggestDay.count} scoop${biggestDay.count!==1?'s':''}`:'No scoop days recorded yet'}</div></div>

@@ -149,7 +149,7 @@ assert.match(html, /function buildBackup\(/, 'backup export is missing');
 assert.match(html, /function isValidBackup\(/, 'backup validation is missing');
 assert.match(html, /id=["']view-more["']/, 'install, privacy, and accessibility view is missing');
 assert.match(html, /id=["']open-recap-btn["']/, 'year-round annual report entry point is missing');
-assert.match(html, /Class superlatives/, 'annual report superlatives are missing');
+assert.match(html, /Your superlatives/, 'annual report superlatives are missing');
 assert.match(html, /const SOCAL_BOUNDS =/, 'Southern California search bounds are missing');
 assert.match(html, /function isInSouthernCalifornia\(/, 'regional coordinate validation is missing');
 assert.match(html, /function cacheShopLocation\(/, 'selected shop coordinates are not retained');
