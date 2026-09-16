@@ -65,6 +65,9 @@ vm.runInContext(`
   ${extractFunction('getWrappedTopRatedFlavor')}
   ${extractFunction('getWrappedBiggestDay')}
   ${extractFunction('getWrappedVariety')}
+  ${extractFunction('filterEntries')}
+  ${extractFunction('toStoredLocalDate')}
+  ${extractFunction('parseOptionalPrice')}
   ${extractFunction('isValidBackup')}
   ${extractFunction('isInSouthernCalifornia')}
   ${extractFunction('normalizeShopSearchQuery')}
@@ -72,6 +75,7 @@ vm.runInContext(`
     getTopFlavors, getWrappedTopFlavor, getWrappedTotalSpent,
     getWrappedLongestStreak, getWrappedBusiestMonth, getWrappedFavoriteShop,
     getWrappedTopRatedFlavor, getWrappedBiggestDay, getWrappedVariety,
+    filterEntries, toStoredLocalDate, parseOptionalPrice,
     isValidBackup, isInSouthernCalifornia, normalizeShopSearchQuery };
 `, context);
 
@@ -119,11 +123,32 @@ assert.equal(api.getWrappedTopRatedFlavor(wrapped).name, 'Mango');
 assert.deepEqual({ ...api.getWrappedBiggestDay([...wrapped, { ...wrapped[0], flavor: 'Chocolate' }]) }, { date: '2026-01-01', count: 2 });
 assert.deepEqual({ ...api.getWrappedVariety(wrapped) }, { flavors: 2, shops: 2 });
 
+const searchableEntries = [
+  { flavor: 'Taro', shop: 'Sul & Beans', rating: 5, date: '2026-08-26T12:00:00' },
+  { flavor: 'Vanilla', shop: 'Scoops Ocean Beach', rating: 4, date: '2025-07-04T12:00:00' },
+  { flavor: 'Chocolate', shop: '', rating: 0, date: '2026-01-10T12:00:00' },
+];
+assert.equal(api.filterEntries(searchableEntries, { query: 'beans', rating: 'all', year: 'all' }).length, 1,
+  'entry search matches shop names');
+assert.equal(api.filterEntries(searchableEntries, { query: 'van', rating: '4', year: '2025' }).length, 1,
+  'entry filters combine flavor, rating, and year');
+assert.equal(api.filterEntries(searchableEntries, { query: '', rating: '0', year: '2026' }).length, 1,
+  'entry filters include unrated scoops');
+assert.equal(api.parseOptionalPrice(''), null, 'blank prices remain null');
+assert.equal(api.parseOptionalPrice('4.50'), 4.5, 'decimal prices are parsed');
+assert.throws(() => api.parseOptionalPrice('-1'), /valid price/, 'negative prices are rejected');
+assert.match(api.toStoredLocalDate('2026-08-26'), /^2026-08-26T/, 'backdated entries preserve the selected local day');
+assert.throws(() => api.toStoredLocalDate(''), /valid date/, 'blank entry dates are rejected');
+
 const backupEntry = { id: 'entry-1', flavor: 'Vanilla', date: '2026-08-25T12:00:00.000Z' };
 assert.equal(api.isValidBackup({ app: 'Sundae Run', version: 1, entries: [backupEntry], favoriteShops: ['The Scoop'] }), true,
   'valid local backup is accepted');
 assert.equal(api.isValidBackup({ app: 'Sundae Run', version: 1, entries: [{ ...backupEntry, date: 'not-a-date' }], favoriteShops: [] }), false,
   'backup with invalid entry date is rejected');
+assert.equal(api.isValidBackup({ app: 'Sundae Run', version: 1, entries: [{ ...backupEntry, price: -2 }], favoriteShops: [] }), false,
+  'backup with invalid price is rejected');
+assert.equal(api.isValidBackup({ app: 'Sundae Run', version: 1, entries: [backupEntry], favoriteShops: [42] }), false,
+  'backup with invalid favorite shop is rejected');
 assert.equal(api.isValidBackup({ app: 'Something Else', version: 1, entries: [], favoriteShops: [] }), false,
   'foreign JSON is rejected');
 assert.equal(api.isInSouthernCalifornia({ lat: 32.7463, lng: -117.2515 }), true, 'Ocean Beach is inside the preferred map region');
@@ -136,13 +161,22 @@ assert.equal(api.normalizeShopSearchQuery('Salt & Straw San Diego'), 'Salt & Str
   'specific local business searches remain unchanged');
 
 for (const id of ['input-flavor', 'input-edit-flavor', 'input-price', 'input-edit-price',
-  'view-shops', 'shops-empty', 'view-wrapped']) {
+  'entry-search', 'entry-rating-filter', 'entry-year-filter', 'view-shops', 'shops-empty', 'view-wrapped']) {
   assert.match(html, new RegExp(`id=["']${id}["']`), `missing required DOM id ${id}`);
 }
-assert.match(html, /const SB = null/, 'local-first release must not initialize an account backend');
-assert.doesNotMatch(html, /supabase-js@/, 'local-first release must not load the Supabase client');
+assert.doesNotMatch(html, /SUPABASE|const SB\b|supabase-js@/i, 'local-first release must not contain an account backend');
+assert.doesNotMatch(html, /id=["']view-(?:auth|feed|profile)["']/, 'local-first release must not contain account or social views');
+assert.doesNotMatch(html, /share-toggle|is_public|Post to friends/i, 'local-first release must not contain social sharing controls');
 assert.doesNotMatch(html, /data-view=["']feed["']/, 'local-first navigation must not expose the social feed');
 assert.doesNotMatch(html, /data-view=["']profile["']/, 'local-first navigation must not expose remote profiles');
+assert.match(html, /<html lang=["']en["']/, 'document language is missing');
+assert.match(html, /href=["']#main-content["']/, 'keyboard skip link is missing');
+assert.match(html, /prefers-reduced-motion:\s*reduce/, 'reduced-motion support is missing');
+assert.match(html, /role=["']status["'][^>]+aria-live=["']polite["']/, 'filter results need a polite live region');
+assert.match(html, /for=["']input-new-shop["']/, 'favorite-shop input needs a label');
+assert.match(html, /id=["']import-backup-file["'][^>]+aria-label=/, 'backup picker needs an accessible name');
+assert.match(html, /id=["']input-flavor["'][^>]+required/, 'new scoop flavor must be required');
+assert.match(html, /id=["']input-edit-flavor["'][^>]+required/, 'edited scoop flavor must be required');
 assert.match(html, /Content-Security-Policy/, 'content security policy is missing');
 assert.match(html, /if \(!window\.L\)/, 'Leaflet CDN fallback missing');
 assert.match(html, /function buildBackup\(/, 'backup export is missing');
@@ -158,11 +192,13 @@ assert.match(html, /function searchOfflineShops\(/, 'offline shop directory sear
 assert.match(html, /data\/socal-ice-cream\.js/, 'offline shop directory is not loaded');
 assert.match(directorySource, /Scoops Ocean Beach/, 'offline directory is missing Scoops Ocean Beach');
 assert.match(directorySource, /An's Electronics Repair/, 'offline directory is missing An’s Electronics Repair');
-assert.match(sw, /sundae-v9/, 'service-worker cache version not bumped');
+assert.match(sw, /sundae-v16/, 'service-worker cache version not bumped');
 assert.match(sw, /data\/socal-ice-cream\.js/, 'offline shop directory is not precached');
 assert.match(sw, /self\.skipWaiting\(\)/, 'new service worker does not activate promptly');
 assert.match(sw, /self\.clients\.claim\(\)/, 'service worker does not claim clients');
-assert.match(sw, /url\.origin !== self\.location\.origin/, 'service worker must not cache third-party or account API responses');
+assert.match(sw, /url\.origin !== self\.location\.origin/, 'service worker must not cache third-party responses');
+assert.match(sw, /e\.request\.mode === 'navigate'[\s\S]+caches\.match\('\/sundae-run-web\/index\.html'\)/,
+  'offline navigation fallback is missing');
 
 const directoryContext = vm.createContext({ window: {}, String, Math });
 vm.runInContext(directorySource, directoryContext);
@@ -180,31 +216,70 @@ assert.equal(scoopsResults[0].name, 'Scoops Ocean Beach',
   'natural local query should rank the intended Scoops shop first');
 
 const localStore = new Map();
+let failingStorageKey = null;
+let storageFailureCount = 0;
 const localContext = vm.createContext({
   Date, Set, JSON,
   crypto: { randomUUID: () => 'fresh-phone-entry' },
   localStorage: {
     getItem: key => localStore.has(key) ? localStore.get(key) : null,
-    setItem: (key, value) => localStore.set(key, String(value)),
+    setItem: (key, value) => {
+      if (key === failingStorageKey && storageFailureCount++ === 0) throw new Error('Storage full');
+      localStore.set(key, String(value));
+    },
+    removeItem: key => localStore.delete(key),
   },
 });
 vm.runInContext(`
   const STORAGE_KEY = 'sundae_entries';
+  const SHOPS_KEY = 'sundae_shops';
   ${extractFunction('loadLocalEntries')}
   ${extractFunction('saveLocalEntries')}
   ${extractFunction('addLocalEntry')}
+  ${extractFunction('updateLocalEntry')}
+  ${extractFunction('deleteLocalEntry')}
+  ${extractFunction('loadFavorites')}
+  ${extractFunction('saveFavorites')}
+  ${extractFunction('toStoredLocalDate')}
   ${extractFunction('localDateStr')}
   ${extractFunction('computeDailyStreak')}
-  globalThis.localApi = { loadLocalEntries, addLocalEntry, computeDailyStreak };
+  ${extractFunction('buildBackup')}
+  ${extractFunction('mergeBackup')}
+  globalThis.localApi = { loadLocalEntries, addLocalEntry, updateLocalEntry, deleteLocalEntry,
+    loadFavorites, saveFavorites, computeDailyStreak, buildBackup, mergeBackup };
 `, localContext);
 assert.equal(localContext.localApi.loadLocalEntries().length, 0, 'fresh local launch starts with no entries');
 localContext.localApi.addLocalEntry({
   flavor: 'Vanilla', shop: 'Scoops Ocean Beach', rating: 5, notes: '',
-  date: new Date().toLocaleDateString('en-CA'), price: 5, photo_data: null,
+  date: new Date().toLocaleDateString('en-CA'), price: 5, photo_data: 'data:image/jpeg;base64,c2Nvb3A=',
 });
 const freshEntries = localContext.localApi.loadLocalEntries();
 assert.equal(freshEntries.length, 1, 'fresh local launch persists a new scoop');
 assert.equal(localContext.localApi.computeDailyStreak(freshEntries), 1, 'new scoop produces a one-day streak');
+localContext.localApi.updateLocalEntry('fresh-phone-entry', {
+  flavor: 'Vanilla Bean', shop: 'Scoops Ocean Beach', rating: 4, notes: 'Creamy',
+  date: '2026-08-26', price: 6,
+});
+assert.equal(localContext.localApi.loadLocalEntries()[0].flavor, 'Vanilla Bean', 'editing updates the stored scoop');
+assert.equal(localContext.localApi.loadLocalEntries()[0].date.startsWith('2026-08-26'), true, 'editing preserves a backdated local day');
+localContext.localApi.saveFavorites(['The Scoop']);
+const roundTripBackup = localContext.localApi.buildBackup();
+assert.equal(roundTripBackup.entries[0].photo_data, 'data:image/jpeg;base64,c2Nvb3A=', 'backup retains saved photos');
+localContext.localApi.deleteLocalEntry('fresh-phone-entry');
+assert.equal(localContext.localApi.loadLocalEntries().length, 0, 'deleting removes the selected scoop');
+localStore.clear();
+localContext.localApi.mergeBackup(roundTripBackup);
+assert.equal(localContext.localApi.loadLocalEntries()[0].flavor, 'Vanilla Bean', 'backup restores entries');
+assert.deepEqual([...localContext.localApi.loadFavorites()], ['The Scoop'], 'backup restores favorite shops');
+const beforeFailedRestore = localStore.get('sundae_entries');
+failingStorageKey = 'sundae_shops';
+storageFailureCount = 0;
+assert.throws(() => localContext.localApi.mergeBackup({
+  ...roundTripBackup,
+  entries: [{ ...roundTripBackup.entries[0], id: 'second-entry', flavor: 'Chocolate' }],
+}), /Storage full/, 'storage failure is surfaced during restore');
+failingStorageKey = null;
+assert.equal(localStore.get('sundae_entries'), beforeFailedRestore, 'failed restore rolls entry storage back');
 
 assert.equal(manifest.display, 'standalone', 'PWA must launch without browser chrome from the Home Screen');
 assert.equal(manifest.start_url, '/sundae-run-web/', 'PWA start URL must match its hosted path');

@@ -4,8 +4,8 @@
   "description": "A private, installable journal for every scoop, flavor, and ice-cream shop.",
   "start_url": "/sundae-run-web/",
   "display": "standalone",
-  "background_color": "#FFF8E8",
-  "theme_color": "#0B5D6B",
+  "background_color": "#EFF1EA",
+  "theme_color": "#172A38",
   "categories": ["lifestyle", "food"],
   "orientation": "portrait-primary",
   "icons": [

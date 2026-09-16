@@ -1,0 +1,231 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>RUNNING — Sundae Run browser smoke</title>
+  <style>
+    body { margin: 0; padding: 24px; color: #172a38; background: #dee6e2; font: 14px/1.5 system-ui, sans-serif; }
+    main { display: grid; grid-template-columns: minmax(280px,420px) 390px; gap: 24px; align-items: start; max-width: 900px; margin: auto; }
+    section { padding: 20px; background: #fbfcf8; border: 1px solid #bec9c3; }
+    h1 { margin: 0 0 8px; font: 32px/1.1 Georgia, serif; }
+    ol { padding-left: 22px; }
+    li { margin: 6px 0; }
+    .pass { color: #356044; }
+    .fail { color: #9b263d; }
+    iframe { width: 390px; height: 844px; background: white; border: 1px solid #9aa9a1; }
+    @media (max-width: 850px) { main { grid-template-columns: 1fr; } iframe { max-width: 100%; } }
+  </style>
+</head>
+<body>
+<main>
+  <section>
+    <h1>Browser smoke test</h1>
+    <p id="status">Launching Sundae Run…</p>
+    <ol id="results"></ol>
+  </section>
+  <iframe id="app-frame" title="Sundae Run test viewport"></iframe>
+</main>
+<script>
+const results = [];
+const failures = [];
+const list = document.getElementById('results');
+const status = document.getElementById('status');
+
+function record(name, passed, detail = '') {
+  results.push({ name, passed, detail });
+  if (!passed) failures.push(`${name}${detail ? `: ${detail}` : ''}`);
+  const item = document.createElement('li');
+  item.className = passed ? 'pass' : 'fail';
+  item.textContent = `${passed ? 'PASS' : 'FAIL'} — ${name}${detail ? ` (${detail})` : ''}`;
+  list.appendChild(item);
+}
+
+function assert(condition, name, detail = '') {
+  record(name, Boolean(condition), detail);
+  if (!condition) throw new Error(`${name}${detail ? `: ${detail}` : ''}`);
+}
+
+function waitFor(check, timeout = 5000) {
+  return new Promise((resolve, reject) => {
+    const started = Date.now();
+    const poll = () => {
+      try {
+        if (check()) return resolve();
+      } catch {}
+      if (Date.now() - started >= timeout) return reject(new Error('Timed out waiting for the app'));
+      setTimeout(poll, 40);
+    };
+    poll();
+  });
+}
+
+function setValue(element, value, eventName = 'input') {
+  element.value = value;
+  element.dispatchEvent(new Event(eventName, { bubbles: true }));
+}
+
+function rgb(color) {
+  const values = color.match(/[\d.]+/g)?.slice(0,3).map(Number);
+  return values?.length === 3 ? values : null;
+}
+
+function luminance(values) {
+  const channels = values.map(value => {
+    const channel = value / 255;
+    return channel <= .04045 ? channel / 12.92 : ((channel + .055) / 1.055) ** 2.4;
+  });
+  return .2126 * channels[0] + .7152 * channels[1] + .0722 * channels[2];
+}
+
+function contrast(foreground, background) {
+  const a = luminance(rgb(foreground));
+  const b = luminance(rgb(background));
+  return (Math.max(a,b) + .05) / (Math.min(a,b) + .05);
+}
+
+async function finish() {
+  const passed = failures.length === 0;
+  status.textContent = passed ? `Passed ${results.length} checks.` : `Failed ${failures.length} of ${results.length} checks.`;
+  status.className = passed ? 'pass' : 'fail';
+  document.title = `${passed ? 'PASS' : 'FAIL'} — Sundae Run browser smoke`;
+  await fetch('/__browser_test_result', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ passed, results, failures }),
+  }).catch(() => {});
+}
+
+async function run() {
+  localStorage.removeItem('sundae_entries');
+  localStorage.removeItem('sundae_shops');
+  localStorage.removeItem('sundae_geocache');
+
+  const frame = document.getElementById('app-frame');
+  frame.src = `../index.html?browser-smoke=${Date.now()}`;
+  await new Promise((resolve, reject) => {
+    frame.addEventListener('load', resolve, { once: true });
+    setTimeout(() => reject(new Error('App iframe did not load')), 8000);
+  });
+
+  const win = frame.contentWindow;
+  const doc = frame.contentDocument;
+  await waitFor(() => doc.querySelector('#view-home.active'));
+  assert(doc.querySelector('#view-home.active'), 'home view launches');
+  assert(doc.documentElement.scrollWidth <= doc.documentElement.clientWidth + 1, '390px viewport has no horizontal overflow');
+
+  const ids = [...doc.querySelectorAll('[id]')].map(element => element.id);
+  assert(new Set(ids).size === ids.length, 'DOM IDs are unique');
+  const unnamedButtons = [...doc.querySelectorAll('button')].filter(button =>
+    !(button.textContent.trim() || button.getAttribute('aria-label') || button.getAttribute('title')));
+  assert(unnamedButtons.length === 0, 'buttons have accessible names', `${unnamedButtons.length} unnamed`);
+  const unlabeledFields = [...doc.querySelectorAll('input:not([type="hidden"]), textarea, select')].filter(field =>
+    !field.closest('label') && !doc.querySelector(`label[for="${field.id}"]`) && !field.getAttribute('aria-label'));
+  assert(unlabeledFields.length === 0, 'form controls have labels', `${unlabeledFields.length} unlabeled`);
+  assert([...doc.images].every(image => image.hasAttribute('alt')), 'images include alt attributes');
+  assert([...doc.querySelectorAll('.tab-btn')].every(button => button.getBoundingClientRect().height >= 44), 'primary navigation meets touch-target height');
+
+  const heroCopy = doc.querySelector('.hero-copy');
+  const heroStyle = win.getComputedStyle(heroCopy);
+  const appStyle = win.getComputedStyle(doc.getElementById('app'));
+  assert(contrast(heroStyle.color, appStyle.backgroundColor) >= 4.5, 'hero copy meets text contrast');
+
+  doc.querySelector('[data-view="log"]').click();
+  await waitFor(() => doc.querySelector('#view-log.active'));
+  setValue(doc.getElementById('input-flavor'), 'Taro');
+  setValue(doc.getElementById('input-date'), '2025-12-30', 'change');
+  setValue(doc.getElementById('input-shop'), 'Sul & Beans');
+  setValue(doc.getElementById('input-price'), '5.50');
+  setValue(doc.getElementById('input-notes'), 'Creamy and nutty');
+  doc.querySelector('#rating-row [data-value="5"]').click();
+
+  const sourceCanvas = doc.createElement('canvas');
+  sourceCanvas.width = 24;
+  sourceCanvas.height = 12;
+  sourceCanvas.getContext('2d').fillRect(0, 0, 24, 12);
+  const compressedPhoto = await new Promise((resolve, reject) => {
+    sourceCanvas.toBlob(blob => {
+      if (!blob) return reject(new Error('Test photo could not be created'));
+      const file = new win.File([blob], 'test-scoop.png', { type: 'image/png' });
+      win.compressImage(file, 1200, .75, resolve);
+    }, 'image/png');
+    setTimeout(() => reject(new Error('Photo compression timed out')), 5000);
+  });
+  assert(compressedPhoto.startsWith('data:image/'), 'photo upload is compressed to an image data URL');
+  win.setLogPhoto(compressedPhoto);
+  doc.getElementById('log-form').requestSubmit();
+  await waitFor(() => doc.querySelector('#view-home.active') && doc.getElementById('stat-scoops').textContent === '1');
+  assert(doc.querySelector('.entry-flavor')?.textContent === 'Taro', 'logging creates a scoop');
+  assert(doc.querySelector('.entry-meta')?.textContent.includes('Sul & Beans'), 'logged shop appears on the entry');
+  assert(win.loadLocalEntries()[0].date.startsWith('2025-12-30'), 'backdated day is preserved');
+
+  setValue(doc.getElementById('entry-search'), 'missing flavor');
+  assert(doc.querySelector('.empty-state-title')?.textContent === 'No matching scoops', 'search shows an empty result state');
+  doc.getElementById('entry-filter-clear').click();
+  setValue(doc.getElementById('entry-rating-filter'), '4', 'change');
+  assert(doc.querySelector('.empty-state-title')?.textContent === 'No matching scoops', 'rating filter excludes nonmatching entries');
+  setValue(doc.getElementById('entry-rating-filter'), '5', 'change');
+  assert(doc.querySelectorAll('.entry-card').length === 1, 'rating filter includes matching entries');
+  setValue(doc.getElementById('entry-year-filter'), '2025', 'change');
+  assert(doc.querySelectorAll('.entry-card').length === 1, 'year filter includes matching entries');
+  doc.getElementById('entry-filter-clear').click();
+
+  doc.querySelector('.entry-card').click();
+  await waitFor(() => doc.querySelector('#view-edit.active'));
+  setValue(doc.getElementById('input-edit-flavor'), 'Taro Swirl');
+  setValue(doc.getElementById('input-edit-date'), '2026-01-15', 'change');
+  setValue(doc.getElementById('input-edit-price'), '6.25');
+  doc.querySelector('#edit-rating-row [data-value="4"]').click();
+  doc.getElementById('edit-save-btn').click();
+  await waitFor(() => doc.querySelector('#view-home.active'));
+  assert(doc.querySelector('.entry-flavor')?.textContent === 'Taro Swirl', 'editing updates the scoop');
+  assert(win.loadLocalEntries()[0].rating === 4, 'editing updates the rating');
+
+  doc.querySelector('[data-view="shops"]').click();
+  await waitFor(() => doc.querySelector('#view-shops.active'));
+  assert(doc.querySelector('#shops-map, .map-empty'), 'shops view provides a map or offline fallback');
+  assert(doc.getElementById('shops-content').textContent.includes('Sul & Beans'), 'visited shop appears in Shops');
+  setValue(doc.getElementById('input-new-shop'), 'Salt & Straw');
+  doc.getElementById('btn-add-shop').click();
+  assert(doc.getElementById('shops-content').textContent.includes('Salt & Straw'), 'favorite shop can be added');
+
+  const backup = win.buildBackup();
+  assert(win.isValidBackup(backup), 'exported backup validates');
+  assert(backup.entries.length === 1 && backup.favoriteShops.includes('Salt & Straw'), 'backup contains entries and favorites');
+  assert(backup.entries[0].photo_data?.startsWith('data:image/'), 'backup contains the scoop photo');
+
+  win.showView('home');
+  doc.querySelector('.entry-card').click();
+  win.confirm = () => true;
+  doc.getElementById('edit-delete-btn').click();
+  await waitFor(() => doc.querySelector('#view-home.active') && doc.getElementById('stat-scoops').textContent === '0');
+  assert(win.loadLocalEntries().length === 0, 'deleting removes the scoop');
+
+  if ('serviceWorker' in win.navigator && 'caches' in win) {
+    await Promise.race([win.navigator.serviceWorker.ready, new Promise((_, reject) => setTimeout(() => reject(new Error('Service worker not ready')), 7000))]);
+    const cacheNames = await win.caches.keys();
+    const shellName = cacheNames.find(name => /^sundae-v\d+$/.test(name));
+    assert(shellName, 'PWA shell cache is installed');
+    const cachedUrls = (await (await win.caches.open(shellName)).keys()).map(request => new URL(request.url).pathname);
+    const requiredAssets = ['/sundae-run-web/', '/sundae-run-web/index.html', '/sundae-run-web/manifest.json', '/sundae-run-web/icon.png', '/sundae-run-web/sw.js', '/sundae-run-web/data/socal-ice-cream.js'];
+    assert(requiredAssets.every(asset => cachedUrls.includes(asset)), 'PWA cache contains the complete offline shell');
+
+    await fetch('/__go_offline', { method: 'POST' });
+    const offlineFrame = doc.createElement('iframe');
+    offlineFrame.hidden = true;
+    doc.body.appendChild(offlineFrame);
+    const offlineLoaded = new Promise((resolve, reject) => {
+      offlineFrame.addEventListener('load', resolve, { once: true });
+      setTimeout(() => reject(new Error('Offline navigation timed out')), 8000);
+    });
+    offlineFrame.src = `/sundae-run-web/offline-launch-${Date.now()}`;
+    await offlineLoaded;
+    assert(offlineFrame.contentDocument?.title === 'Sundae Run' && offlineFrame.contentDocument.querySelector('#view-home'),
+      'cached app launches while the origin is offline');
+  }
+}
+
+run().catch(error => record('browser workflow completed', false, error.message)).finally(finish);
+</script>
+</body>
+</html>

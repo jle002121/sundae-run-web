@@ -6,9 +6,9 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
   <meta name="apple-mobile-web-app-title" content="Sundae Run">
-  <meta name="theme-color" content="#0B5D6B">
+  <meta name="theme-color" content="#172A38">
   <meta name="description" content="A private, installable ice-cream journal that keeps your scoop history on your device.">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline' https://unpkg.com; script-src 'self' 'unsafe-inline' https://unpkg.com; img-src 'self' data: blob: https://*.tile.openstreetmap.org; connect-src 'self' https://nominatim.openstreetmap.org https://*.tile.openstreetmap.org; font-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline' https://unpkg.com; script-src 'self' 'unsafe-inline' https://unpkg.com https://cdn.jsdelivr.net; img-src 'self' data: blob: https://*.tile.openstreetmap.org; connect-src 'self' https://nominatim.openstreetmap.org https://*.tile.openstreetmap.org; font-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'">
   <link rel="manifest" href="manifest.json">
   <link rel="apple-touch-icon" href="icon.png">
   <title>Sundae Run</title>
@@ -19,15 +19,15 @@
 
     /* ── Tokens ── */
     :root {
-      --primary:  #5B3FA6;
-      --accent1:  #C9B8FF;
-      --accent2:  #FFB3C6;
-      --bg:       #F7F0FF;
-      --card:     #FFFFFF;
-      --text:     #1C1C1E;
-      --muted:    #9B7ED4;
-      --divider:  #EEE8FF;
-      --gradient: linear-gradient(135deg, #C9B8FF, #FFB3C6);
+      --primary:  #172A38;
+      --accent1:  #A58E62;
+      --accent2:  #ADBCB1;
+      --bg:       #EFF1EA;
+      --card:     #FBFCF8;
+      --text:     #172A38;
+      --muted:    #5C6968;
+      --divider:  #CDD5CE;
+      --gradient: #4F685B;
       --r-card:   16px;
       --r-btn:    14px;
       --r-stat:   12px;
@@ -101,7 +101,6 @@
     .btn-delete { width: 100%; background: none; border: 1.5px solid #FFCCC9; border-radius: var(--r-btn); padding: 14px; font-size: 14px; font-weight: 700; color: #FF453A; cursor: pointer; font-family: inherit; margin-top: 8px; }
     .btn-delete:active { opacity: 0.7; }
     .back-btn { background: none; border: none; color: var(--primary); font-size: 14px; font-weight: 700; cursor: pointer; font-family: inherit; padding: 0; flex-shrink: 0; }
-    .icon-btn { background: none; border: none; font-size: 20px; cursor: pointer; padding: 4px; line-height: 1; }
 
     /* ── Tab bar ── */
     #tab-bar { display: flex; background: var(--card); border-top: 1px solid var(--divider); padding-bottom: env(safe-area-inset-bottom); flex-shrink: 0; }
@@ -144,14 +143,6 @@
     .photo-preview-wrap img { width: 100%; max-height: 200px; object-fit: cover; display: block; }
     .photo-remove-btn { position: absolute; top: 8px; right: 8px; width: 28px; height: 28px; border-radius: 50%; background: rgba(0,0,0,0.55); border: none; color: white; font-size: 13px; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; }
 
-    /* ── Share toggle ── */
-    .toggle-row { display: flex; align-items: center; gap: 10px; cursor: pointer; padding: 4px 0; }
-    .toggle-track { width: 44px; height: 26px; background: var(--divider); border-radius: 13px; position: relative; transition: background 0.2s; flex-shrink: 0; }
-    .toggle-track.on { background: var(--primary); }
-    .toggle-thumb { width: 22px; height: 22px; background: white; border-radius: 50%; position: absolute; top: 2px; left: 2px; transition: transform 0.2s; box-shadow: 0 1px 4px rgba(0,0,0,0.2); }
-    .toggle-track.on .toggle-thumb { transform: translateX(18px); }
-    .toggle-text { font-size: 14px; color: var(--text); font-weight: 500; }
-
     /* ── Map ── */
     #shops-map { width: 100%; height: 240px; border-radius: var(--r-card); margin-bottom: 16px; overflow: hidden; border: 1px solid var(--divider); }
     .map-empty { height: 240px; border-radius: var(--r-card); background: var(--card); border: 1.5px dashed var(--divider); display: flex; flex-direction: column; align-items: center; justify-content: center; margin-bottom: 16px; color: var(--muted); gap: 6px; }
@@ -164,164 +155,181 @@
     .wrapped-card-value { font-size: 20px; font-weight: 800; color: var(--primary); line-height: 1.2; }
     .wrapped-card-label { font-size: 11px; font-weight: 700; color: var(--primary); text-transform: uppercase; letter-spacing: 0.5px; opacity: 0.7; }
 
-    /* ── Auth screen ── */
-    #view-auth { background: var(--bg); justify-content: flex-start; }
-    .auth-logo { text-align: center; padding: 64px 24px 32px; }
-    .auth-logo-emoji { font-size: 64px; display: block; line-height: 1; margin-bottom: 12px; }
-    .auth-logo-title { font-size: 30px; font-weight: 800; color: var(--primary); }
-    .auth-logo-sub { font-size: 14px; color: var(--muted); margin-top: 6px; font-weight: 500; }
-    .auth-card { background: var(--card); border-radius: 20px; padding: 20px; margin: 0 16px; }
-    .auth-tabs { display: flex; gap: 0; margin-bottom: 20px; background: var(--bg); border-radius: var(--r-btn); padding: 4px; }
-    .auth-tab { flex: 1; background: none; border: none; padding: 10px; border-radius: 10px; font-size: 14px; font-weight: 700; color: var(--muted); cursor: pointer; font-family: inherit; transition: all 0.15s; }
-    .auth-tab.active { background: var(--primary); color: white; }
-    .auth-error { color: #FF453A; font-size: 13px; font-weight: 600; margin-bottom: 10px; display: none; }
-    .auth-guest-btn { width: 100%; background: none; border: none; color: var(--muted); font-size: 13px; font-weight: 600; padding: 20px 16px; cursor: pointer; font-family: inherit; }
-
-    /* ── Feed view ── */
-    .feed-header-row { display: flex; align-items: center; justify-content: space-between; }
-    .feed-card { background: var(--card); border-radius: var(--r-card); margin-bottom: 12px; overflow: hidden; }
-    .feed-card-header { display: flex; align-items: center; gap: 10px; padding: 12px 14px 8px; }
-    .feed-avatar { width: 36px; height: 36px; border-radius: 50%; background: var(--gradient); display: flex; align-items: center; justify-content: center; font-size: 15px; font-weight: 800; color: var(--primary); flex-shrink: 0; cursor: pointer; }
-    .feed-username { font-size: 14px; font-weight: 700; color: var(--text); cursor: pointer; }
-    .feed-time { font-size: 11px; color: var(--muted); margin-top: 1px; }
-    .feed-photo { width: 100%; max-height: 320px; object-fit: cover; display: block; }
-    .feed-body { padding: 10px 14px 14px; }
-    .feed-flavor { font-size: 16px; font-weight: 800; color: var(--text); margin-bottom: 3px; }
-    .feed-shop { font-size: 12px; color: var(--muted); margin-bottom: 6px; }
-    .feed-notes { font-size: 13px; color: var(--text); margin-bottom: 8px; line-height: 1.45; }
-    .feed-footer { display: flex; align-items: center; gap: 14px; }
-    .like-btn { display: flex; align-items: center; gap: 5px; background: none; border: none; cursor: pointer; padding: 0; font-family: inherit; color: var(--muted); font-size: 13px; font-weight: 700; -webkit-tap-highlight-color: transparent; transition: transform 0.1s; }
-    .like-btn:active { transform: scale(0.9); }
-    .like-btn.liked { color: #FF453A; }
-    .like-btn-icon { font-size: 20px; line-height: 1; }
-    .feed-rating { font-size: 12px; margin-left: auto; }
-
-    /* ── User search ── */
-    .search-bar-wrap { padding: 0 16px 10px; }
-    .search-bar-wrap .form-input { border-radius: 12px; padding: 11px 16px; font-size: 14px; }
-    .user-result { display: flex; align-items: center; gap: 10px; padding: 10px 0; border-bottom: 1px solid var(--divider); cursor: pointer; }
-    .user-result:last-child { border-bottom: none; }
-    .user-result-avatar { width: 38px; height: 38px; border-radius: 50%; background: var(--gradient); display: flex; align-items: center; justify-content: center; font-size: 15px; font-weight: 800; color: var(--primary); flex-shrink: 0; }
-    .user-result-name { font-size: 14px; font-weight: 700; color: var(--text); }
-    .user-result-username { font-size: 12px; color: var(--muted); }
-    #user-search-results { background: var(--card); border-radius: var(--r-btn); padding: 0 14px; margin-top: 6px; max-height: 220px; overflow-y: auto; }
-
-    /* ── Profile view ── */
-    .profile-header { text-align: center; padding: 20px 16px 16px; }
-    .profile-avatar-lg { width: 76px; height: 76px; border-radius: 50%; background: var(--gradient); display: flex; align-items: center; justify-content: center; font-size: 30px; font-weight: 800; color: var(--primary); margin: 0 auto 10px; }
-    .profile-name { font-size: 20px; font-weight: 800; color: var(--text); }
-    .profile-at { font-size: 13px; color: var(--muted); margin-top: 3px; }
-    .profile-stats-row { display: flex; gap: 1px; background: var(--divider); border-radius: var(--r-card); overflow: hidden; margin: 14px 0; }
-    .profile-stat { flex: 1; background: var(--card); padding: 14px 8px; text-align: center; }
-    .profile-stat-val { font-size: 20px; font-weight: 800; color: var(--primary); display: block; }
-    .profile-stat-lbl { font-size: 9px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; margin-top: 2px; display: block; }
-    .follow-btn { border: none; border-radius: var(--r-btn); padding: 10px 28px; font-size: 14px; font-weight: 700; cursor: pointer; font-family: inherit; margin-top: 10px; background: var(--primary); color: white; transition: opacity 0.15s; }
-    .follow-btn:active { opacity: 0.8; }
-    .follow-btn.following { background: none; color: var(--primary); border: 1.5px solid var(--primary); }
-    .signout-btn { border: 1.5px solid var(--divider); border-radius: var(--r-btn); padding: 10px 28px; font-size: 14px; font-weight: 700; cursor: pointer; font-family: inherit; margin-top: 10px; background: none; color: var(--muted); }
-    .profile-posts-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; margin-top: 16px; }
-    .profile-post-cell { aspect-ratio: 1; background: var(--card); overflow: hidden; display: flex; align-items: center; justify-content: center; font-size: 28px; cursor: pointer; position: relative; }
-    .profile-post-cell img { width: 100%; height: 100%; object-fit: cover; }
-    .profile-post-cell .cell-flavor { font-size: 10px; font-weight: 700; color: var(--muted); position: absolute; bottom: 4px; left: 0; right: 0; text-align: center; }
-    .profile-login-prompt { text-align: center; padding: 64px 24px; }
-    .profile-login-prompt .emoji { font-size: 48px; margin-bottom: 12px; }
-
     /* ── Toast ── */
     #toast { position: fixed; bottom: 90px; left: 50%; transform: translateX(-50%); background: #1C1C1E; color: white; padding: 10px 20px; border-radius: 20px; font-size: 13px; font-weight: 700; z-index: 999; opacity: 0; transition: opacity 0.2s; pointer-events: none; white-space: nowrap; max-width: 280px; text-align: center; }
     #toast.show { opacity: 1; }
 
-    /* ── Loading ── */
-    .loading-row { text-align: center; padding: 40px 24px; color: var(--muted); font-size: 14px; }
-
-    /* ── Boardwalk Creamery theme ── */
+    /* ── Sundae Run journal identity ── */
     :root {
-      --primary: #0B5D6B;
-      --cherry: #A92F41;
-      --accent1: #D7A86E;
-      --accent2: #BBDDE0;
-      --bg: #FFF8E8;
-      --card: #FFFFFF;
-      --text: #17333A;
-      --muted: #52696F;
-      --divider: #D8C6A7;
-      --gradient: #0B5D6B;
-      --focus: #A92F41;
+      --primary: #172A38;
+      --ink: #172A38;
+      --cherry: #4F685B;
+      --sage: #ADBCB1;
+      --blush: #D8B5AB;
+      --accent1: #A58E62;
+      --accent2: #ADBCB1;
+      --bg: #EFF1EA;
+      --card: #FBFCF8;
+      --text: #172A38;
+      --muted: #5C6968;
+      --divider: #CDD5CE;
+      --shell: #DEE6E2;
+      --line-strong: #BEC9C3;
+      --soft: #E2EAE4;
+      --header-bg: rgba(239,241,234,.96);
+      --tab-bg: rgba(251,252,248,.98);
+      --surface-hover: rgba(255,255,255,.5);
+      --surface-press: rgba(79,104,91,.07);
+      --accent-hover: #3B5348;
+      --gradient: #4F685B;
+      --focus: #4F685B;
+      --r-card: 3px;
+      --r-btn: 3px;
+      --r-stat: 2px;
+      --display: 'Iowan Old Style', 'Palatino Linotype', Baskerville, 'Times New Roman', serif;
+      --body: 'Avenir Next', 'Helvetica Neue', Arial, sans-serif;
     }
-    html { background: #E6DDCC; color-scheme: light; }
-    body { line-height: 1.45; }
-    body::before { content: ''; position: fixed; inset: 0 0 auto; height: 6px; background: linear-gradient(90deg, var(--primary) 0 72%, var(--cherry) 72%); z-index: 1000; }
-    #app { background: var(--bg); border-inline: 1px solid #D8C6A7; }
-    .header { padding-top: calc(42px + env(safe-area-inset-top)); border-bottom: 1px solid var(--divider); }
-    .header h1 { font-family: ui-rounded, 'Avenir Next Rounded', 'SF Pro Rounded', system-ui, sans-serif; font-size: 27px; letter-spacing: -.7px; }
-    .stat-card, .entry-card, .shop-card, .form-input, .auth-card { border: 1px solid var(--divider); }
-    .stat-card { border-radius: 12px; padding-block: 12px; }
-    .stats-row { gap: 8px; background: transparent; border: 0; }
-    .entry-card, .shop-card { border-radius: 14px; }
-    .form-input { border-radius: 12px; background: #FFFEFC; }
-    .stat-card, .streak-card { box-shadow: none; }
-    .streak-card { background: #F5E3C6; border: 1px solid #D7A86E; border-radius: 12px; }
-    .streak-value, .streak-label { color: #714521; }
-    .btn-submit, .btn-add-shop { background: var(--cherry); color: #fff; }
-    .btn-submit:focus-visible, .btn-add-shop:focus-visible { outline-color: var(--primary); }
-    .tab-btn { min-height: 58px; position: relative; isolation: isolate; }
-    .tab-btn::before { content: ''; position: absolute; inset: 7px 10px; border-radius: 12px; background: #D9ECEC; opacity: 0; transform: scale(.86); transition: opacity .18s ease, transform .22s cubic-bezier(.2,.8,.2,1); z-index: -1; }
-    .tab-btn.active { background: transparent; box-shadow: none; }
-    .tab-btn.active::before { opacity: 1; transform: scale(1); }
-    .tab-btn.active .tab-label { color: var(--primary); }
-    .tab-icon { min-width: 27px; height: 24px; display: grid; place-items: center; color: var(--muted); font-size: 19px; font-weight: 800; }
-    .tab-btn.active .tab-icon { color: var(--primary); }
-    button, input, textarea { min-height: 44px; }
-    button:focus-visible, input:focus-visible, textarea:focus-visible, a:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
-    .skip-link { position: fixed; left: 12px; top: -60px; z-index: 2000; background: #fff; color: var(--text); padding: 10px 14px; border-radius: 8px; font-weight: 700; }
-    .skip-link:focus { top: 14px; }
-    .hero-card { color: #fff; border: 0; border-radius: 18px; padding: 24px 122px 23px 20px; margin-bottom: 18px; position: relative; overflow: hidden; background: var(--primary); box-shadow: inset 0 -4px 0 rgba(0,0,0,.1); }
-    .hero-card::before { content: ''; position: absolute; inset: auto -36px -54px auto; width: 175px; height: 110px; border: 2px solid rgba(255,255,255,.18); border-radius: 50%; transform: rotate(-8deg); }
-    .hero-kicker { color: #FFE4B6; font-size: 10px; font-weight: 850; letter-spacing: .13em; text-transform: uppercase; }
-    .hero-title { font-family: ui-rounded, 'Avenir Next Rounded', 'SF Pro Rounded', system-ui, sans-serif; font-size: 29px; font-weight: 850; line-height: 1.06; max-width: 230px; margin-top: 8px; }
-    .hero-copy { color: #EAF5F5; font-size: 13px; max-width: 245px; margin-top: 9px; }
-    .scoop-mark { position: absolute; right: 25px; top: 19px; width: 78px; height: 105px; filter: drop-shadow(0 5px 0 rgba(0,0,0,.11)); }
-    .scoop-mark .scoop { position: absolute; width: 47px; height: 43px; border-radius: 52% 52% 45% 45%; border: 2px solid #17333A; left: 15px; }
-    .scoop-mark .scoop-one { top: 0; background: #FFF1C9; }
-    .scoop-mark .scoop-two { top: 29px; left: 8px; background: #E85767; }
-    .scoop-mark .scoop-three { top: 34px; left: 27px; background: #91CFD2; }
-    .scoop-mark .cone { position: absolute; top: 67px; left: 22px; width: 0; height: 0; border-left: 17px solid transparent; border-right: 17px solid transparent; border-top: 37px solid #D7A86E; }
-    .info-card { background: var(--card); border: 1px solid var(--divider); border-radius: var(--r-card); padding: 17px; margin-bottom: 12px; }
-    .info-card h2 { font-family: ui-rounded, 'Avenir Next Rounded', 'SF Pro Rounded', system-ui, sans-serif; color: var(--primary); font-size: 19px; margin-bottom: 7px; }
-    .info-card p, .info-card li { color: #40575D; font-size: 13px; }
-    .info-card ul, .info-card ol { padding-left: 20px; margin-top: 8px; }
-    .info-card li + li { margin-top: 6px; }
-    .action-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 13px; }
-    .secondary-btn { border: 1.5px solid var(--primary); color: var(--primary); background: transparent; border-radius: var(--r-btn); padding: 12px; font: 700 14px inherit; cursor: pointer; }
-    .privacy-pill { display: inline-flex; align-items: center; gap: 6px; background: #E7F2E7; color: #2D6235; border-radius: 999px; padding: 6px 10px; font-size: 11px; font-weight: 800; margin-bottom: 12px; }
-    .fine-print { font-size: 11px !important; margin-top: 10px; }
-    .compact-disclosure { padding: 0; overflow: hidden; }
-    .compact-disclosure summary { min-height: 58px; padding: 15px 17px; display: flex; align-items: center; justify-content: space-between; gap: 12px; cursor: pointer; list-style: none; color: var(--primary); font-family: ui-rounded, 'Avenir Next Rounded', 'SF Pro Rounded', system-ui, sans-serif; font-size: 18px; font-weight: 750; }
-    .compact-disclosure summary::-webkit-details-marker { display: none; }
-    .compact-disclosure summary::after { content: '+'; width: 28px; height: 28px; border: 1px solid var(--divider); border-radius: 50%; display: grid; place-items: center; flex: 0 0 auto; font: 700 19px/1 system-ui, sans-serif; }
-    .compact-disclosure[open] summary::after { content: '−'; }
-    .compact-disclosure[open] summary { border-bottom: 1px solid var(--divider); }
-    .disclosure-body { padding: 15px 17px 17px; }
 
-    /* Boardwalk recap: bold shop-sign color with calm data hierarchy. */
-    .wrapped-intro { border: 0; border-radius: 18px; padding: 21px; margin-bottom: 12px; background: var(--primary); color: #fff; box-shadow: inset 0 -4px 0 rgba(0,0,0,.1); }
-    .wrapped-edition { color: #FFE4B6; font-size: 10px; font-weight: 850; letter-spacing: .13em; text-transform: uppercase; }
-    .wrapped-headline { font-family: ui-rounded, 'Avenir Next Rounded', 'SF Pro Rounded', system-ui, sans-serif; font-size: 30px; font-weight: 850; line-height: 1.05; color: #fff; margin-top: 7px; }
-    .wrapped-deck { color: #EAF5F5; font-size: 13px; line-height: 1.5; margin-top: 8px; max-width: 330px; }
-    .wrapped-lead { display: grid; grid-template-columns: 1fr auto; align-items: end; gap: 16px; padding: 20px; border: 2px solid #D7A86E; border-radius: 16px; background: #FFFDF7; }
-    .wrapped-lead-label, .report-section-title { color: var(--primary); font-size: 10px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
-    .wrapped-lead-value { font-family: ui-rounded, 'SF Pro Rounded', system-ui, sans-serif; font-size: 29px; font-weight: 800; line-height: 1.05; margin-top: 5px; }
-    .wrapped-lead-note { color: var(--muted); font-size: 12px; margin-top: 5px; }
-    .wrapped-lead-count { font-size: 40px; line-height: 1; font-weight: 800; color: var(--primary); }
-    .report-section-title { margin: 24px 0 9px; }
-    .report-row { display: grid; grid-template-columns: 1fr auto; gap: 14px; align-items: baseline; padding: 14px 15px; margin-bottom: 7px; border: 1px solid var(--divider); border-radius: 14px; background: var(--card); }
-    .report-row-title { font-size: 15px; line-height: 1.25; font-weight: 750; }
-    .report-row-note { color: var(--muted); font-size: 11px; margin-top: 3px; }
-    .report-row-value { color: var(--primary); font-size: 15px; font-weight: 800; text-align: right; }
-    .superlative { position: relative; border: 1px solid #9BC9CD; border-left: 5px solid var(--cherry); border-radius: 12px; background: #F1FAFA; padding: 16px; margin-top: 8px; }
-    .superlative::before { content: 'BOARDWALK HONORS'; color: var(--primary); font-size: 8px; font-weight: 900; letter-spacing: .14em; }
-    .superlative-name { font-size: 18px; line-height: 1.2; font-weight: 800; color: var(--text); margin-top: 5px; }
-    .superlative-detail { color: var(--muted); font-size: 12px; margin-top: 5px; }
-    .report-footnote { color: var(--muted); font-size: 11px; line-height: 1.5; padding: 16px 0 4px; }
+    html { background: var(--shell); color-scheme: light; }
+    body { line-height: 1.5; font-family: var(--body); background: var(--shell); }
+    body::before { content: ''; position: fixed; inset: 0 0 auto; height: 3px; background: var(--cherry); z-index: 1000; }
+    #app { max-width: 460px; background: var(--bg); border-inline: 1px solid var(--divider); box-shadow: 0 0 48px rgba(49,37,31,.08); }
+    .view-content { padding: 24px 22px 42px; }
+
+    .header { min-height: 102px; padding: calc(43px + env(safe-area-inset-top)) 22px 17px; display: flex; align-items: end; background: var(--header-bg); border-bottom: 1px solid var(--divider); }
+    .header h1 { color: var(--ink); font: 400 30px/1 var(--display); letter-spacing: -.025em; text-transform: none; }
+    .header-row { width: 100%; }
+    .brand-header { justify-content: space-between; gap: 18px; }
+    .brand-lockup { display: flex; align-items: center; gap: 11px; }
+    .brand-mark { width: 34px; height: 34px; display: grid; place-items: center; color: var(--cherry); background: transparent; border: 1px solid var(--cherry); border-radius: 50%; font: italic 600 13px/1 var(--display); }
+    .brand-header h1 { font-size: 27px; }
+
+    .hero-card { margin: 0 0 28px; padding: 31px 2px 25px; position: relative; overflow: visible; color: var(--ink); background: transparent; border: 0; border-bottom: 1px solid var(--ink); border-radius: 0; box-shadow: none; }
+    .hero-card::before, .hero-card::after { display: none; }
+    .hero-kicker { color: var(--cherry); font-size: 9px; line-height: 1; font-weight: 750; letter-spacing: .18em; text-transform: uppercase; }
+    .hero-title { max-width: 340px; margin-top: 17px; color: var(--ink); font: 400 45px/.95 var(--display); letter-spacing: -.045em; }
+    .hero-title em { color: var(--cherry); font-weight: 400; }
+    .hero-copy { max-width: 315px; margin-top: 17px; color: var(--muted); font-size: 13px; line-height: 1.65; font-weight: 450; }
+    .hero-action { min-height: 44px; margin-top: 21px; padding: 11px 16px; color: #fff; background: var(--cherry); border: 1px solid var(--cherry); border-radius: 2px; box-shadow: none; font: 700 10px/1 var(--body); letter-spacing: .13em; text-transform: uppercase; cursor: pointer; transition: background .16s ease, transform .16s ease; }
+    .hero-action:hover { background: var(--accent-hover); transform: translateY(-1px); }
+    .hero-action:active { transform: translateY(1px); }
+    .hero-route { margin-top: 24px; padding-top: 12px; border-top: 1px solid var(--divider); color: var(--muted); font-size: 8px; font-weight: 650; letter-spacing: .16em; white-space: nowrap; }
+
+    .stats-row { display: grid; grid-template-columns: repeat(3,1fr); gap: 0; margin: 0 0 24px; background: transparent; border-block: 1px solid var(--ink); border-radius: 0; box-shadow: none; overflow: hidden; }
+    .stat-card { padding: 17px 6px 15px; border: 0; border-right: 1px solid var(--divider); border-radius: 0; background: transparent; text-align: center; }
+    .stat-card:last-child { border-right: 0; }
+    .stat-value { color: var(--ink); font: 400 28px/1 var(--display); }
+    .stat-label { margin-top: 6px; color: var(--muted); font-size: 8px; font-weight: 700; letter-spacing: .15em; }
+
+    .streak-row { gap: 0; margin: 0 0 33px; padding: 0 4px; align-items: start; }
+    .streak-card { padding: 8px 5px; background: transparent; border: 0; border-right: 1px solid var(--divider); border-radius: 0; box-shadow: none; }
+    .streak-card:last-child { border-right: 0; }
+    .streak-flame { display: block; color: var(--muted); font-size: 7px; line-height: 1; font-weight: 700; letter-spacing: .16em; }
+    .streak-value { margin-top: 7px; color: var(--cherry); font: italic 500 23px/1 var(--display); }
+    .streak-label { margin-top: 5px; color: var(--muted); font-size: 7px; font-weight: 650; letter-spacing: .09em; }
+
+    .section-label { display: flex; align-items: center; gap: 13px; margin: 31px 0 13px; color: var(--ink); font-size: 9px; font-weight: 750; letter-spacing: .18em; text-transform: uppercase; }
+    .section-label::before { display: none; }
+    .section-label::after { content: ''; height: 1px; flex: 1; background: var(--divider); }
+    #top-flavors-section { margin-bottom: 29px; }
+    .flavor-bar-row { min-height: 43px; margin: 0; padding: 11px 2px; position: relative; isolation: isolate; overflow: hidden; display: flex; align-items: center; gap: 10px; background: transparent; border: 0; border-bottom: 1px solid var(--divider); border-radius: 0; box-shadow: none; }
+    .flavor-bar-fill { position: absolute; z-index: -1; inset: auto auto 0 0; height: 2px; min-width: 7px; background: var(--cherry); border: 0; }
+    .flavor-bar-name { color: var(--ink); font: 400 16px/1.2 var(--display); }
+    .flavor-bar-count { color: var(--muted); font-size: 11px; font-weight: 700; }
+
+    .entry-card { min-height: 72px; margin: 0; padding: 12px 2px; display: flex; align-items: center; gap: 13px; background: transparent; border: 0; border-bottom: 1px solid var(--divider); border-radius: 0; box-shadow: none; transition: background .16s ease, padding .16s ease; }
+    .entry-card:hover { padding-inline: 8px; background: var(--surface-hover); transform: none; box-shadow: none; }
+    .entry-card:active { background: var(--surface-press); transform: none; box-shadow: none; }
+    .entry-chip, .entry-photo-thumb { width: 46px; height: 46px; border: 1px solid var(--line-strong); border-radius: 50%; }
+    .entry-chip { color: var(--ink); font: italic 600 12px/1 var(--display); }
+    .entry-flavor { color: var(--ink); font: 600 16px/1.2 var(--display); }
+    .entry-meta { margin-top: 4px; color: var(--muted); font-size: 9px; font-weight: 600; text-transform: uppercase; letter-spacing: .08em; }
+    .entry-rating { font-size: 8px; opacity: .82; }
+
+    .sr-only { position: absolute !important; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+    .entry-browser { margin: 8px 0 23px; padding: 14px 0 12px; border-block: 1px solid var(--divider); }
+    .entry-search { min-height: 45px; padding: 10px 2px; background: transparent; border: 0; border-bottom: 1px solid var(--line-strong); box-shadow: none; font-size: 14px; }
+    .entry-search:focus { background: transparent; border-color: var(--cherry); box-shadow: none; }
+    .entry-filter-row { display: grid; grid-template-columns: 1fr 1fr auto; align-items: end; gap: 8px; margin-top: 11px; }
+    .entry-filter-field { display: grid; gap: 5px; color: var(--muted); font-size: 8px; font-weight: 750; letter-spacing: .13em; text-transform: uppercase; }
+    .entry-filter-select { min-height: 42px; width: 100%; padding: 8px 28px 8px 10px; color: var(--ink); background: var(--card); border: 1px solid var(--line-strong); border-radius: 2px; font: 600 12px/1 var(--body); }
+    .entry-filter-clear { min-height: 42px; padding: 8px 11px; color: var(--cherry); background: transparent; border: 1px solid var(--divider); border-radius: 2px; font: 700 9px/1 var(--body); letter-spacing: .07em; text-transform: uppercase; cursor: pointer; }
+    .entry-results-summary { min-height: 16px; margin-top: 9px; color: var(--muted); font-size: 9px; letter-spacing: .04em; }
+
+    .empty-state-card, .empty-state { padding: 38px 24px; color: var(--muted); background: rgba(251,248,242,.7); border: 1px solid var(--divider); border-radius: 2px; box-shadow: none; text-align: center; }
+    .empty-state-mark { width: 55px; height: 55px; margin: 0 auto 17px; display: grid; place-items: center; color: var(--cherry); background: transparent; border: 1px solid var(--cherry); border-radius: 50%; font: italic 600 14px/1 var(--display); }
+    .empty-state-title { color: var(--ink); font: 400 26px/1 var(--display); text-transform: none; }
+    .empty-state-copy { max-width: 270px; margin: 10px auto 19px; color: var(--muted); font-size: 12px; line-height: 1.65; }
+    .empty-state-action { min-height: 44px; padding: 10px 16px; color: #fff; background: var(--cherry); border: 1px solid var(--cherry); border-radius: 2px; box-shadow: none; font: 700 9px/1 var(--body); letter-spacing: .13em; text-transform: uppercase; cursor: pointer; }
+
+    .form-group { margin-bottom: 20px; }
+    .form-label, .shops-section-label { margin-bottom: 7px; color: var(--muted); font-size: 8px; font-weight: 750; letter-spacing: .17em; }
+    .form-input { min-height: 50px; padding: 13px 14px; color: var(--ink); background: var(--card); border: 1px solid var(--line-strong); border-radius: 2px; box-shadow: none; font-family: var(--body); }
+    .form-input::placeholder { color: #9B9188; }
+    .form-input:focus { background: #fff; border-color: var(--cherry); box-shadow: 0 0 0 1px var(--cherry); }
+    textarea.form-input { height: 98px; }
+    .rating-row { gap: 4px; padding: 7px; background: var(--card); border: 1px solid var(--line-strong); }
+    .rating-btn { flex: 1; min-height: 43px; font-size: 24px; border: 1px solid transparent; }
+    .rating-btn.active { background: var(--soft); border-color: var(--line-strong); opacity: 1; transform: none; }
+
+    .btn-submit, .btn-add-shop { min-height: 50px; color: #fff; background: var(--cherry); border: 1px solid var(--cherry); border-radius: 2px; box-shadow: none; font-weight: 750; letter-spacing: .09em; text-transform: uppercase; }
+    .btn-submit:active, .btn-add-shop:active, .secondary-btn:active { transform: translateY(1px); box-shadow: none; }
+    .btn-delete { min-height: 48px; color: var(--cherry); background: transparent; border: 1px solid #C89BA4; border-radius: 2px; font-weight: 700; text-transform: uppercase; }
+    .back-btn { min-height: 38px; padding: 0 10px 0 0; color: var(--cherry); font-size: 10px; font-weight: 750; letter-spacing: .06em; text-transform: uppercase; }
+    .secondary-btn { min-height: 46px; padding: 11px; color: var(--cherry); background: transparent; border: 1px solid var(--cherry); border-radius: 2px; box-shadow: none; font-size: 10px; font-weight: 750; letter-spacing: .07em; text-transform: uppercase; }
+
+    #tab-bar { min-height: 70px; padding: 0 4px env(safe-area-inset-bottom); background: var(--tab-bg); border-top: 1px solid var(--divider); gap: 0; }
+    .tab-btn { min-height: 64px; padding: 9px 3px 7px; position: relative; background: transparent; border: 0; border-radius: 0; }
+    .tab-btn::before { content: ''; position: absolute; inset: 0 13px auto; height: 2px; background: var(--cherry); opacity: 0; }
+    .tab-icon { min-width: 30px; height: 25px; color: var(--muted); font: italic 600 14px/1 var(--display); }
+    .tab-label { color: var(--muted); font-size: 8px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
+    .tab-btn.active { background: transparent; box-shadow: none; }
+    .tab-btn.active::before { opacity: 1; }
+    .tab-btn.active .tab-icon, .tab-btn.active .tab-label { color: var(--cherry); }
+
+    .suggestions { top: calc(100% + 5px); border: 1px solid var(--line-strong); border-radius: 2px; box-shadow: 0 12px 28px rgba(43,33,29,.12); }
+    .suggestion-item { border-bottom: 1px solid var(--divider); }
+    .suggestion-item:active { background: var(--soft); }
+    .shop-card { min-height: 61px; margin: 0; padding: 13px 2px; background: transparent; border: 0; border-bottom: 1px solid var(--divider); border-radius: 0; box-shadow: none; }
+    .shop-card-name { color: var(--ink); font-family: var(--display); font-size: 16px; font-weight: 600; }
+    #shops-map, .map-empty { border: 1px solid var(--line-strong); border-radius: 2px; box-shadow: none; }
+    .map-empty { background: var(--card); color: var(--muted); }
+    .photo-btn-label { min-height: 48px; color: var(--cherry); background: var(--card); border: 1px solid var(--line-strong); border-radius: 2px; box-shadow: none; }
+
+    .privacy-pill { color: var(--ink); background: var(--soft); border: 1px solid var(--divider); border-radius: 2px; box-shadow: none; }
+    .info-card { margin: 0 0 15px; padding: 20px; background: var(--card); border: 1px solid var(--line-strong); border-radius: 2px; box-shadow: none; }
+    .info-card h2 { margin-bottom: 8px; color: var(--ink); font: 400 23px/1.1 var(--display); text-transform: none; }
+    .info-card p, .info-card li { color: var(--muted); font-size: 12px; }
+    .compact-disclosure summary { color: var(--ink); font: 400 20px/1 var(--display); text-transform: none; }
+    .compact-disclosure summary::after { border: 1px solid var(--divider); border-radius: 50%; }
+
+    .wrapped-intro { margin: 0 0 18px; padding: 25px; color: #fff; background: var(--cherry); border: 0; border-radius: 2px; box-shadow: none; }
+    .wrapped-edition { color: #EAD8D6; font-size: 8px; font-weight: 700; letter-spacing: .18em; }
+    .wrapped-headline { margin-top: 10px; color: #fff; font: 400 38px/.98 var(--display); text-transform: none; }
+    .wrapped-deck { margin-top: 12px; color: #F3E8E5; font-size: 12px; line-height: 1.6; }
+    .wrapped-lead { padding: 20px; background: var(--card); border: 1px solid var(--ink); border-radius: 2px; box-shadow: none; }
+    .wrapped-lead-label, .report-section-title { color: var(--muted); font-size: 8px; font-weight: 750; letter-spacing: .17em; }
+    .wrapped-lead-value { color: var(--ink); font: 400 28px/1 var(--display); text-transform: none; }
+    .wrapped-lead-count { color: var(--cherry); font: italic 500 43px/.9 var(--display); }
+    .report-section-title { margin: 30px 0 11px; }
+    .report-row { margin: 0; padding: 14px 2px; background: transparent; border: 0; border-bottom: 1px solid var(--divider); border-radius: 0; box-shadow: none; }
+    .report-row-title { color: var(--ink); font-family: var(--display); font-size: 16px; font-weight: 600; }
+    .report-row-value { color: var(--cherry); font-size: 13px; font-weight: 700; }
+    .superlative { margin: 0 0 10px; padding: 17px; background: var(--card); border: 1px solid var(--line-strong); border-left: 3px solid var(--cherry); border-radius: 1px; box-shadow: none; }
+    .superlative::before { color: var(--muted); }
+    .superlative-name { color: var(--ink); font: 400 21px/1.1 var(--display); text-transform: none; }
+
+    #toast { bottom: 87px; color: #fff; background: var(--ink); border: 0; border-radius: 2px; box-shadow: 0 8px 24px rgba(43,33,29,.16); }
+    button, input, textarea { min-height: 44px; }
+    button:focus-visible, input:focus-visible, textarea:focus-visible, a:focus-visible { outline: 2px solid var(--focus); outline-offset: 3px; }
+    .skip-link { position: fixed; left: 12px; top: -70px; z-index: 2000; padding: 10px 14px; color: #fff; background: var(--ink); border-radius: 2px; font-weight: 700; }
+    .skip-link:focus { top: 15px; }
+
+    @media (max-width: 370px) {
+      .hero-title { font-size: 40px; }
+      .entry-filter-row { grid-template-columns: 1fr 1fr; }
+      .entry-filter-clear { grid-column: 1 / -1; }
+    }
     @media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; transition: none !important; animation: none !important; } }
   </style>
 </head>
@@ -329,64 +337,18 @@
 <a class="skip-link" href="#main-content">Skip to main content</a>
 <div id="app">
 
-  <!-- ── Auth view ── -->
-  <div id="view-auth" class="view">
-    <div class="auth-logo">
-      <span class="auth-logo-emoji">🍨</span>
-      <div class="auth-logo-title">Sundae Run</div>
-      <div class="auth-logo-sub">Strava for ice cream</div>
-    </div>
-    <div class="auth-card">
-      <div class="auth-tabs">
-        <button class="auth-tab active" id="auth-signin-tab">Sign In</button>
-        <button class="auth-tab" id="auth-signup-tab">Sign Up</button>
-      </div>
-      <div id="auth-error" class="auth-error"></div>
-
-      <div id="auth-signin-pane">
-        <div class="form-group">
-          <label class="form-label">Email</label>
-          <input class="form-input" type="email" id="auth-email" placeholder="you@example.com" autocomplete="email">
-        </div>
-        <div class="form-group">
-          <label class="form-label">Password</label>
-          <input class="form-input" type="password" id="auth-password" placeholder="Password" autocomplete="current-password">
-        </div>
-        <button class="btn-submit" id="btn-signin">Sign In 🍦</button>
-      </div>
-
-      <div id="auth-signup-pane" style="display:none">
-        <div class="form-group">
-          <label class="form-label">Username</label>
-          <input class="form-input" type="text" id="auth-username" placeholder="sundaelover42" autocomplete="username">
-        </div>
-        <div class="form-group">
-          <label class="form-label">Display Name</label>
-          <input class="form-input" type="text" id="auth-displayname" placeholder="Your Name">
-        </div>
-        <div class="form-group">
-          <label class="form-label">Email</label>
-          <input class="form-input" type="email" id="auth-signup-email" placeholder="you@example.com" autocomplete="email">
-        </div>
-        <div class="form-group">
-          <label class="form-label">Password</label>
-          <input class="form-input" type="password" id="auth-signup-password" placeholder="6+ characters" autocomplete="new-password">
-        </div>
-        <button class="btn-submit" id="btn-signup">Create Account 🍦</button>
-      </div>
-    </div>
-    <button class="auth-guest-btn" id="btn-guest">Continue without account →</button>
-  </div>
-
   <!-- ── Home view ── -->
   <div id="view-home" class="view" role="main" tabindex="-1">
-    <div class="header"><h1>Sundae Run 🍨</h1></div>
+    <div class="header brand-header">
+      <div class="brand-lockup"><span class="brand-mark" aria-hidden="true">SR</span><h1>Sundae Run</h1></div>
+    </div>
     <div class="view-content" id="main-content">
       <section class="hero-card" aria-label="Sundae Run introduction">
         <div class="hero-kicker">Your local scoop journal</div>
-        <div class="hero-title">Your year in scoops.</div>
+        <div class="hero-title">Your year in<br><em>scoops.</em></div>
         <p class="hero-copy">Log flavors, remember shops, and keep the whole history private on this device.</p>
-        <div class="scoop-mark" aria-hidden="true"><span class="scoop scoop-one"></span><span class="scoop scoop-two"></span><span class="scoop scoop-three"></span><span class="cone"></span></div>
+        <button class="hero-action" type="button" data-open-log>Log a scoop <span aria-hidden="true">→</span></button>
+        <div class="hero-route" aria-hidden="true">FLAVOR&nbsp; / &nbsp;SHOP&nbsp; / &nbsp;DATE&nbsp; / &nbsp;RATING</div>
       </section>
       <div class="stats-row">
         <div class="stat-card"><span class="stat-value" id="stat-scoops">0</span><span class="stat-label">scoops</span></div>
@@ -394,53 +356,56 @@
         <div class="stat-card"><span class="stat-value" id="stat-shops">0</span><span class="stat-label">shops</span></div>
       </div>
       <div class="streak-row">
-        <div class="streak-card"><span class="streak-flame">🔥</span><span class="streak-value" id="streak-daily">0</span><span class="streak-label">day streak</span></div>
-        <div class="streak-card"><span class="streak-flame">🔥</span><span class="streak-value" id="streak-weekly">0</span><span class="streak-label">week streak</span></div>
-        <div class="streak-card"><span class="streak-flame">🔥</span><span class="streak-value" id="streak-monthly">0</span><span class="streak-label">month streak</span></div>
+        <div class="streak-card"><span class="streak-flame">DAILY</span><span class="streak-value" id="streak-daily">0</span><span class="streak-label">day run</span></div>
+        <div class="streak-card"><span class="streak-flame">WEEKLY</span><span class="streak-value" id="streak-weekly">0</span><span class="streak-label">week run</span></div>
+        <div class="streak-card"><span class="streak-flame">MONTHLY</span><span class="streak-value" id="streak-monthly">0</span><span class="streak-label">month run</span></div>
       </div>
       <div id="top-flavors-section" style="display:none">
         <div class="section-label">Top Flavors</div>
         <div id="top-flavors-list"></div>
       </div>
+      <section class="entry-browser" id="entry-browser" aria-label="Search and filter scoop history" hidden>
+        <label class="sr-only" for="entry-search">Search flavors or shops</label>
+        <input class="form-input entry-search" id="entry-search" type="search" placeholder="Search flavors or shops…" autocomplete="off">
+        <div class="entry-filter-row">
+          <label class="entry-filter-field" for="entry-rating-filter">Rating
+            <select class="entry-filter-select" id="entry-rating-filter">
+              <option value="all">All ratings</option>
+              <option value="5">5 scoops</option>
+              <option value="4">4 scoops</option>
+              <option value="3">3 scoops</option>
+              <option value="2">2 scoops</option>
+              <option value="1">1 scoop</option>
+              <option value="0">Unrated</option>
+            </select>
+          </label>
+          <label class="entry-filter-field" for="entry-year-filter">Year
+            <select class="entry-filter-select" id="entry-year-filter"><option value="all">All years</option></select>
+          </label>
+          <button class="entry-filter-clear" id="entry-filter-clear" type="button">Clear</button>
+        </div>
+        <div class="entry-results-summary" id="entry-results-summary" role="status" aria-live="polite"></div>
+      </section>
       <div class="section-label">Recent Scoops</div>
       <div id="entry-list"></div>
     </div>
   </div>
 
-  <!-- ── Feed view ── -->
-  <div id="view-feed" class="view">
-    <div class="header">
-      <div class="feed-header-row">
-        <h1>Feed 🌊</h1>
-        <button class="icon-btn" id="btn-search-users" title="Find friends">🔍</button>
-      </div>
-    </div>
-    <div id="user-search-wrap" style="display:none">
-      <div class="search-bar-wrap">
-        <input class="form-input" type="text" id="input-user-search" placeholder="Search by username…" autocomplete="off">
-        <div id="user-search-results"></div>
-      </div>
-    </div>
-    <div class="view-content" style="padding-top:8px">
-      <div id="feed-list"></div>
-    </div>
-  </div>
-
   <!-- ── Log view ── -->
   <div id="view-log" class="view">
-    <div class="header"><h1>New Scoop 🍦</h1></div>
+    <div class="header"><h1>Log a Scoop</h1></div>
     <div class="view-content">
       <form id="log-form">
         <div class="form-group">
           <label class="form-label" for="input-flavor">Flavor *</label>
           <div class="suggestions-wrap">
-            <input class="form-input" type="text" id="input-flavor" placeholder="e.g. Chocolate Chip Cookie Dough" autocomplete="off">
+            <input class="form-input" type="text" id="input-flavor" placeholder="e.g. Chocolate Chip Cookie Dough" autocomplete="off" required>
             <div class="suggestions" id="flavor-suggestions"></div>
           </div>
         </div>
         <div class="form-group">
           <label class="form-label" for="input-date">Date</label>
-          <input class="form-input" type="date" id="input-date">
+          <input class="form-input" type="date" id="input-date" required>
         </div>
         <div class="form-group suggestions-wrap">
           <label class="form-label" for="input-shop">Shop</label>
@@ -474,14 +439,6 @@
             </div>
           </div>
         </div>
-        <div class="form-group" id="share-toggle-group" style="display:none">
-          <label class="form-label">Share</label>
-          <label class="toggle-row" id="share-toggle-row">
-            <input type="checkbox" id="share-toggle" style="display:none">
-            <div class="toggle-track" id="share-track"><div class="toggle-thumb"></div></div>
-            <span class="toggle-text">Post to friends' feed</span>
-          </label>
-        </div>
         <button type="submit" class="btn-submit" id="log-submit-btn">Log It 🍦</button>
       </form>
     </div>
@@ -492,20 +449,20 @@
     <div class="header">
       <div class="header-row">
         <button class="back-btn" id="edit-back-btn">← Back</button>
-        <h1>Edit Scoop ✏️</h1>
+        <h1>Edit Scoop</h1>
       </div>
     </div>
     <div class="view-content">
       <div class="form-group">
         <label class="form-label" for="input-edit-flavor">Flavor *</label>
         <div class="suggestions-wrap">
-          <input class="form-input" type="text" id="input-edit-flavor" autocomplete="off">
+          <input class="form-input" type="text" id="input-edit-flavor" autocomplete="off" required>
           <div class="suggestions" id="edit-flavor-suggestions"></div>
         </div>
       </div>
       <div class="form-group">
         <label class="form-label" for="input-edit-date">Date</label>
-        <input class="form-input" type="date" id="input-edit-date">
+        <input class="form-input" type="date" id="input-edit-date" required>
       </div>
       <div class="form-group suggestions-wrap">
         <label class="form-label" for="input-edit-shop">Shop</label>
@@ -530,14 +487,6 @@
         <label class="form-label" for="input-edit-notes">Notes</label>
         <textarea class="form-input" id="input-edit-notes" placeholder="Any thoughts?"></textarea>
       </div>
-      <div class="form-group" id="edit-share-group" style="display:none">
-        <label class="form-label">Share</label>
-        <label class="toggle-row">
-          <input type="checkbox" id="edit-share-toggle" style="display:none">
-          <div class="toggle-track" id="edit-share-track"><div class="toggle-thumb"></div></div>
-          <span class="toggle-text">Post to friends' feed</span>
-        </label>
-      </div>
       <button class="btn-submit" id="edit-save-btn">Save Changes</button>
       <button class="btn-delete" id="edit-delete-btn">Delete Entry</button>
     </div>
@@ -545,10 +494,11 @@
 
   <!-- ── Shops view ── -->
   <div id="view-shops" class="view">
-    <div class="header"><h1>My Shops 🗺️</h1></div>
+    <div class="header"><h1>Scoop Stops</h1></div>
     <div class="view-content">
       <div id="shops-map-wrap"></div>
       <div class="form-group suggestions-wrap">
+        <label class="sr-only" for="input-new-shop">Add a favorite shop</label>
         <div class="add-shop-row">
           <input class="form-input" type="text" id="input-new-shop" placeholder="Search or type a shop..." autocomplete="off">
           <button class="btn-add-shop" id="btn-add-shop">Add</button>
@@ -588,7 +538,7 @@
           <button class="secondary-btn" id="export-backup-btn" type="button">Export backup</button>
           <button class="secondary-btn" id="import-backup-btn" type="button">Import backup</button>
         </div>
-        <input id="import-backup-file" type="file" accept="application/json,.json" hidden>
+        <input id="import-backup-file" type="file" accept="application/json,.json" aria-label="Choose a Sundae Run backup file" hidden>
       </section>
       <section class="info-card" aria-labelledby="recap-heading">
         <h2 id="recap-heading">Annual scoop report</h2>
@@ -612,22 +562,9 @@
     </div>
   </div>
 
-  <!-- ── Profile view ── -->
-  <div id="view-profile" class="view">
-    <div class="header">
-      <div class="header-row">
-        <button class="back-btn" id="profile-back-btn" style="display:none">← Back</button>
-        <h1>Profile 👤</h1>
-      </div>
-    </div>
-    <div class="view-content" style="padding-top:0">
-      <div id="profile-content"></div>
-    </div>
-  </div>
-
   <!-- ── Tab bar ── -->
   <nav id="tab-bar" aria-label="Primary navigation">
-    <button class="tab-btn active" data-view="home"><span class="tab-icon">SR</span><span class="tab-label">Home</span></button>
+    <button class="tab-btn active" data-view="home" aria-current="page"><span class="tab-icon">SR</span><span class="tab-label">Home</span></button>
     <button class="tab-btn" data-view="log"><span class="tab-icon">＋</span><span class="tab-label">Log</span></button>
     <button class="tab-btn" data-view="shops"><span class="tab-icon">⌖</span><span class="tab-label">Shops</span></button>
     <button class="tab-btn" data-view="more"><span class="tab-icon">⋯</span><span class="tab-label">More</span></button>
@@ -638,37 +575,22 @@
 <div id="toast" role="status" aria-live="polite"></div>
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+<script src="https://cdn.jsdelivr.net/npm/motion@13.4.0/dist/motion.js"></script>
 <script src="data/socal-ice-cream.js"></script>
 <script>
 // ════════════════════════════════════════
 // CONFIG
 // ════════════════════════════════════════
 
-const SUPABASE_URL  = '';
-const SUPABASE_KEY  = '';
 const PLACES_KEY    = '';
 
 // ════════════════════════════════════════
 // STATE
 // ════════════════════════════════════════
 
-let currentUser    = null;
-let currentProfile = null;
-let guestMode      = false;
-let profileViewUserId = null; // null = own profile
-let _currentEntries   = [];  // in-memory entry cache (normalized)
-
-const GUEST_KEY   = 'sundae_guest';
 const STORAGE_KEY = 'sundae_entries';
 const SHOPS_KEY   = 'sundae_shops';
 const GEOCACHE_KEY = 'sundae_geocache';
-
-// ════════════════════════════════════════
-// SUPABASE CLIENT
-// ════════════════════════════════════════
-
-// Keep guest/local tracking usable when the Supabase CDN or network is down.
-const SB = null; // Local-first release: no account client or remote entry storage.
 
 // ════════════════════════════════════════
 // BUILT-IN FLAVORS
@@ -684,21 +606,37 @@ const BUILTIN_FLAVOR_MAP = {};
 for (const f of BUILTIN_FLAVORS) BUILTIN_FLAVOR_MAP[f.toLowerCase()] = f;
 
 // ════════════════════════════════════════
-// LOCAL DATA LAYER (guest / offline)
+// LOCAL DATA LAYER (private / offline)
 // ════════════════════════════════════════
 
 function loadLocalEntries() {
-  try { return JSON.parse(localStorage.getItem(STORAGE_KEY) ?? '[]'); }
+  try {
+    const entries = JSON.parse(localStorage.getItem(STORAGE_KEY) ?? '[]');
+    return Array.isArray(entries) ? entries : [];
+  }
   catch { return []; }
 }
 function saveLocalEntries(entries) { localStorage.setItem(STORAGE_KEY, JSON.stringify(entries)); }
+
+function toStoredLocalDate(value) {
+  const date = new Date(`${value}T12:00:00`);
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(value) || Number.isNaN(date.getTime())) throw new Error('Choose a valid date.');
+  return date.toISOString();
+}
+
+function parseOptionalPrice(value) {
+  if (value === '') return null;
+  const price = Number(value);
+  if (!Number.isFinite(price) || price < 0) throw new Error('Enter a valid price.');
+  return price;
+}
 
 function addLocalEntry({ flavor, shop, rating, notes, date, price, photo_data }) {
   const entries = loadLocalEntries();
   const entry = {
     id: crypto.randomUUID(), flavor: flavor.trim(), shop: (shop||'').trim(),
     rating, notes: (notes||'').trim(),
-    date: new Date(date + 'T12:00:00').toISOString(),
+    date: toStoredLocalDate(date),
     price: price ?? null, photo_data: photo_data ?? null,
   };
   entries.unshift(entry);
@@ -708,16 +646,19 @@ function addLocalEntry({ flavor, shop, rating, notes, date, price, photo_data })
 function updateLocalEntry(id, fields) {
   const entries = loadLocalEntries();
   const idx = entries.findIndex(e => e.id === id);
-  if (idx === -1) return;
+  if (idx === -1) throw new Error('Scoop not found.');
   entries[idx] = { ...entries[idx], flavor: fields.flavor.trim(), shop: (fields.shop||'').trim(),
     rating: fields.rating, notes: (fields.notes||'').trim(),
-    date: new Date(fields.date + 'T12:00:00').toISOString(), price: fields.price ?? null };
+    date: toStoredLocalDate(fields.date), price: fields.price ?? null };
   saveLocalEntries(entries);
 }
 function deleteLocalEntry(id) { saveLocalEntries(loadLocalEntries().filter(e => e.id !== id)); }
 
 function loadFavorites() {
-  try { return JSON.parse(localStorage.getItem(SHOPS_KEY) ?? '[]'); } catch { return []; }
+  try {
+    const favorites = JSON.parse(localStorage.getItem(SHOPS_KEY) ?? '[]');
+    return Array.isArray(favorites) ? favorites : [];
+  } catch { return []; }
 }
 function saveFavorites(list) { localStorage.setItem(SHOPS_KEY, JSON.stringify(list)); }
 function addFavorite(name) {
@@ -729,240 +670,7 @@ function addFavorite(name) {
 function removeFavorite(name) { saveFavorites(loadFavorites().filter(f => f.toLowerCase() !== name.toLowerCase())); }
 
 // ════════════════════════════════════════
-// SUPABASE — AUTH
-// ════════════════════════════════════════
-
-async function sbSignIn(email, password) {
-  if (!SB) throw new Error('Account features are unavailable offline. Continue without an account.');
-  const { data, error } = await SB.auth.signInWithPassword({ email, password });
-  if (error) throw error;
-  return data;
-}
-
-async function sbSignUp(email, password, username, displayName) {
-  if (!SB) throw new Error('Account features are unavailable offline. Continue without an account.');
-  // Set before signUp so onAuthStateChange can read them even if it fires during the await
-  localStorage.setItem('pending_username', username.trim().toLowerCase());
-  localStorage.setItem('pending_displayname', (displayName || username).trim());
-  const { data, error } = await SB.auth.signUp({ email, password });
-  if (error) {
-    localStorage.removeItem('pending_username');
-    localStorage.removeItem('pending_displayname');
-    throw error;
-  }
-  return data;
-}
-
-async function sbSignOut() {
-  await SB.auth.signOut();
-}
-
-async function ensureProfile(userId) {
-  let { data: profile } = await SB.from('profiles').select('*').eq('id', userId).single();
-  if (!profile) {
-    const uname = localStorage.getItem('pending_username') || `user_${userId.substring(0, 8)}`;
-    const dname = localStorage.getItem('pending_displayname') || uname;
-    localStorage.removeItem('pending_username');
-    localStorage.removeItem('pending_displayname');
-    const { data } = await SB.from('profiles')
-      .insert({ id: userId, username: uname, display_name: dname })
-      .select().single();
-    profile = data;
-  }
-  return profile;
-}
-
-// ════════════════════════════════════════
-// SUPABASE — ENTRIES
-// ════════════════════════════════════════
-
-function normalizeEntry(e) {
-  return {
-    id:         e.id,
-    flavor:     e.flavor,
-    shop:       e.shop_name || e.shop || '',
-    rating:     e.rating || 0,
-    notes:      e.notes || '',
-    date:       e.logged_date ? (e.logged_date + 'T12:00:00') : (e.date || e.created_at),
-    price:      e.price ?? null,
-    photo_data: e.photo_url || e.photo_data || null,
-    photo_url:  e.photo_url || null,
-    is_public:  e.is_public ?? false,
-    user_id:    e.user_id || null,
-    created_at: e.created_at || null,
-  };
-}
-
-async function fetchMyEntries() {
-  const { data, error } = await SB.from('entries')
-    .select('*')
-    .eq('user_id', currentUser.id)
-    .order('logged_date', { ascending: false, nullsFirst: false })
-    .order('created_at', { ascending: false });
-  if (error) throw error;
-  return (data ?? []).map(normalizeEntry);
-}
-
-async function saveEntryToSupabase({ flavor, shop, rating, notes, date, price, photo_url, is_public }) {
-  const { data, error } = await SB.from('entries').insert({
-    user_id:    currentUser.id,
-    flavor,
-    shop_name:  shop?.trim() || null,
-    rating:     rating > 0 ? rating : null,
-    notes:      notes?.trim() || null,
-    logged_date: date || new Date().toLocaleDateString('en-CA'),
-    price:      price ?? null,
-    photo_url:  photo_url || null,
-    is_public:  is_public ?? false,
-  }).select().single();
-  if (error) throw error;
-  return normalizeEntry(data);
-}
-
-async function updateEntryInSupabase(id, { flavor, shop, rating, notes, date, price, is_public }) {
-  const { error } = await SB.from('entries').update({
-    flavor,
-    shop_name:  shop?.trim() || null,
-    rating:     rating > 0 ? rating : null,
-    notes:      notes?.trim() || null,
-    logged_date: date,
-    price:      price ?? null,
-    is_public:  is_public ?? false,
-  }).eq('id', id).eq('user_id', currentUser.id);
-  if (error) throw error;
-  const idx = _currentEntries.findIndex(e => e.id === id);
-  if (idx !== -1) _currentEntries[idx] = { ..._currentEntries[idx], flavor, shop, rating, notes, date: date + 'T12:00:00', price, is_public };
-}
-
-async function deleteEntryFromSupabase(id) {
-  const entry = _currentEntries.find(e => e.id === id);
-  if (entry?.photo_url) {
-    const path = entry.photo_url.split('/entry-photos/')[1];
-    if (path) await SB.storage.from('entry-photos').remove([decodeURIComponent(path)]).catch(() => {});
-  }
-  const { error } = await SB.from('entries').delete().eq('id', id).eq('user_id', currentUser.id);
-  if (error) throw error;
-  _currentEntries = _currentEntries.filter(e => e.id !== id);
-}
-
-// ════════════════════════════════════════
-// SUPABASE — FEED
-// ════════════════════════════════════════
-
-async function fetchFeedEntries() {
-  // Who I follow
-  const { data: follows } = await SB.from('follows')
-    .select('following_id')
-    .eq('follower_id', currentUser.id);
-  const followingIds = (follows ?? []).map(f => f.following_id);
-  const allIds = [currentUser.id, ...followingIds];
-
-  // Entries
-  const { data: entries, error } = await SB.from('entries')
-    .select('*')
-    .in('user_id', allIds)
-    .eq('is_public', true)
-    .order('created_at', { ascending: false })
-    .limit(50);
-  if (error) throw error;
-  if (!entries?.length) return [];
-
-  // Profiles
-  const userIds = [...new Set(entries.map(e => e.user_id))];
-  const { data: profiles } = await SB.from('profiles').select('id,username,display_name').in('id', userIds);
-  const profileMap = {};
-  for (const p of profiles ?? []) profileMap[p.id] = p;
-
-  // Likes
-  const entryIds = entries.map(e => e.id);
-  const { data: likes } = await SB.from('likes').select('entry_id,user_id').in('entry_id', entryIds);
-  const likesMap = {};
-  for (const l of likes ?? []) {
-    if (!likesMap[l.entry_id]) likesMap[l.entry_id] = [];
-    likesMap[l.entry_id].push(l.user_id);
-  }
-
-  return entries.map(e => ({
-    ...normalizeEntry(e),
-    _profile:  profileMap[e.user_id] ?? null,
-    _likeCount: (likesMap[e.id] ?? []).length,
-    _iLiked:    (likesMap[e.id] ?? []).includes(currentUser.id),
-  }));
-}
-
-async function toggleLike(entryId, btn) {
-  if (!currentUser) { showToast('Sign in to like posts'); return; }
-  const wasLiked = btn.dataset.liked === 'true';
-  const iconEl  = btn.querySelector('.like-btn-icon');
-  const countEl = btn.querySelector('.like-count');
-  const count   = parseInt(countEl.textContent, 10) || 0;
-
-  if (wasLiked) {
-    btn.dataset.liked = 'false';
-    btn.classList.remove('liked');
-    iconEl.textContent = '🤍';
-    countEl.textContent = Math.max(0, count - 1);
-    await SB.from('likes').delete().eq('entry_id', entryId).eq('user_id', currentUser.id).catch(() => {});
-  } else {
-    btn.dataset.liked = 'true';
-    btn.classList.add('liked');
-    iconEl.textContent = '❤️';
-    countEl.textContent = count + 1;
-    await SB.from('likes').insert({ entry_id: entryId, user_id: currentUser.id }).catch(() => {});
-  }
-}
-
-// ════════════════════════════════════════
-// SUPABASE — PROFILES & FOLLOWS
-// ════════════════════════════════════════
-
-async function fetchProfile(userId) {
-  const { data } = await SB.from('profiles').select('*').eq('id', userId).single();
-  return data;
-}
-
-async function fetchProfileStats(userId) {
-  const [fr, fg] = await Promise.all([
-    SB.from('follows').select('*', { count: 'exact', head: true }).eq('following_id', userId),
-    SB.from('follows').select('*', { count: 'exact', head: true }).eq('follower_id', userId),
-  ]);
-  return { followers: fr.count ?? 0, following: fg.count ?? 0 };
-}
-
-async function isFollowing(targetId) {
-  if (!currentUser) return false;
-  const { data } = await SB.from('follows')
-    .select('*').eq('follower_id', currentUser.id).eq('following_id', targetId).single();
-  return !!data;
-}
-
-async function toggleFollow(targetId, btn) {
-  if (!currentUser) return;
-  const following = btn.dataset.following === 'true';
-  if (following) {
-    btn.textContent = 'Follow';
-    btn.classList.remove('following');
-    btn.dataset.following = 'false';
-    await SB.from('follows').delete().eq('follower_id', currentUser.id).eq('following_id', targetId).catch(() => {});
-  } else {
-    btn.textContent = 'Following';
-    btn.classList.add('following');
-    btn.dataset.following = 'true';
-    await SB.from('follows').insert({ follower_id: currentUser.id, following_id: targetId }).catch(() => {});
-  }
-}
-
-async function searchUsers(query) {
-  if (!query || query.length < 2) return [];
-  const { data } = await SB.from('profiles')
-    .select('id,username,display_name')
-    .ilike('username', `%${query}%`)
-    .limit(8);
-  return data ?? [];
-}
-
-// ════════════════════════════════════════
-// PHOTO — COMPRESS + UPLOAD
+// PHOTO — LOCAL COMPRESSION
 // ════════════════════════════════════════
 
 function compressImage(file, maxSide, quality, callback) {
@@ -983,57 +691,11 @@ function compressImage(file, maxSide, quality, callback) {
   reader.readAsDataURL(file);
 }
 
-function dataURLtoBlob(dataUrl) {
-  const [header, data] = dataUrl.split(',');
-  const mime = header.match(/:(.*?);/)[1];
-  const binary = atob(data);
-  const arr = new Uint8Array(binary.length);
-  for (let i = 0; i < binary.length; i++) arr[i] = binary.charCodeAt(i);
-  return new Blob([arr], { type: mime });
-}
-
-async function uploadPhotoToSupabase(dataUrl) {
-  const blob = dataURLtoBlob(dataUrl);
-  const filename = `${currentUser.id}/${Date.now()}.jpg`;
-  const { error } = await SB.storage.from('entry-photos').upload(filename, blob, { contentType: 'image/jpeg', upsert: false });
-  if (error) throw error;
-  const { data: { publicUrl } } = SB.storage.from('entry-photos').getPublicUrl(filename);
-  return publicUrl;
-}
-
-// ════════════════════════════════════════
-// MIGRATION — localStorage → Supabase
-// ════════════════════════════════════════
-
-async function offerLocalMigration() {
-  const local = loadLocalEntries();
-  if (!local.length) return;
-  const ok = confirm(`You have ${local.length} scoop${local.length !== 1 ? 's' : ''} saved before signing in. Import them to your account?`);
-  if (!ok) return;
-  let imported = 0;
-  for (const e of local) {
-    try {
-      let photo_url = null;
-      if (e.photo_data) photo_url = await uploadPhotoToSupabase(e.photo_data).catch(() => null);
-      await saveEntryToSupabase({
-        flavor: e.flavor, shop: e.shop, rating: e.rating,
-        notes: e.notes, date: new Date(e.date).toLocaleDateString('en-CA'),
-        price: e.price, photo_url, is_public: false,
-      });
-      imported++;
-    } catch {}
-  }
-  localStorage.removeItem(STORAGE_KEY);
-  _currentEntries = await fetchMyEntries();
-  showToast(`Imported ${imported} scoop${imported !== 1 ? 's' : ''}! 🍦`);
-}
-
-// ════════════════════════════════════════
 // ACTIVE ENTRIES HELPER
 // ════════════════════════════════════════
 
 function getActiveEntries() {
-  return currentUser ? _currentEntries : loadLocalEntries();
+  return loadLocalEntries();
 }
 
 function getRecentShops() {
@@ -1372,7 +1034,7 @@ function fetchPlacesSuggestions(query, callback) {
 // RENDERING HELPERS
 // ════════════════════════════════════════
 
-const CHIP_COLORS=['#FFB3C6','#C9B8FF','#B8F0E6','#FFE4A0','#FFD6B3'];
+const CHIP_COLORS=['#DCE7DF','#DDE6EA','#E8E0D2','#E2E4D4','#DFD9E3'];
 function chipColor(flavor) { let n=0; for(const c of flavor)n+=c.charCodeAt(0); return CHIP_COLORS[n%CHIP_COLORS.length]; }
 
 function formatDate(iso) {
@@ -1383,22 +1045,8 @@ function formatDate(iso) {
   return d.toLocaleDateString('en-US',{month:'short',day:'numeric'});
 }
 
-function timeAgo(iso) {
-  const diff = Date.now() - new Date(iso).getTime();
-  const m = Math.floor(diff/60000), h = Math.floor(m/60), d = Math.floor(h/24);
-  if (m < 1)  return 'just now';
-  if (m < 60) return `${m}m ago`;
-  if (h < 24) return `${h}h ago`;
-  if (d < 7)  return `${d}d ago`;
-  return new Date(iso).toLocaleDateString('en-US',{month:'short',day:'numeric'});
-}
-
 function escapeHtml(str) {
   return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
-}
-
-function avatarInitial(profile) {
-  return ((profile?.display_name || profile?.username || '?')[0]).toUpperCase();
 }
 
 function showToast(msg) {
@@ -1446,7 +1094,13 @@ function isValidBackup(data) {
   return data && data.app === 'Sundae Run' && data.version === 1 &&
     Array.isArray(data.entries) && Array.isArray(data.favoriteShops) &&
     data.entries.every(entry => entry && typeof entry.id === 'string' &&
-      typeof entry.flavor === 'string' && !Number.isNaN(Date.parse(entry.date)));
+      typeof entry.flavor === 'string' && entry.flavor.trim() && !Number.isNaN(Date.parse(entry.date)) &&
+      (entry.shop == null || typeof entry.shop === 'string') &&
+      (entry.notes == null || typeof entry.notes === 'string') &&
+      (entry.rating == null || (Number.isInteger(entry.rating) && entry.rating >= 0 && entry.rating <= 5)) &&
+      (entry.price == null || (Number.isFinite(entry.price) && entry.price >= 0)) &&
+      (entry.photo_data == null || typeof entry.photo_data === 'string')) &&
+    data.favoriteShops.every(name => typeof name === 'string' && name.trim());
 }
 
 function mergeBackup(data) {
@@ -1458,8 +1112,18 @@ function mergeBackup(data) {
   for (const name of data.favoriteShops) {
     if (typeof name === 'string' && name.trim()) shopsByName.set(name.trim().toLowerCase(), name.trim());
   }
-  saveLocalEntries(entries);
-  saveFavorites([...shopsByName.values()]);
+  const previousEntries = localStorage.getItem(STORAGE_KEY);
+  const previousShops = localStorage.getItem(SHOPS_KEY);
+  try {
+    saveLocalEntries(entries);
+    saveFavorites([...shopsByName.values()]);
+  } catch (error) {
+    if (previousEntries == null) localStorage.removeItem(STORAGE_KEY);
+    else localStorage.setItem(STORAGE_KEY, previousEntries);
+    if (previousShops == null) localStorage.removeItem(SHOPS_KEY);
+    else localStorage.setItem(SHOPS_KEY, previousShops);
+    throw error;
+  }
   return { entries: data.entries.length, shops: data.favoriteShops.length };
 }
 
@@ -1484,10 +1148,12 @@ document.getElementById('import-backup-file').addEventListener('change', async e
   try {
     const data = JSON.parse(await file.text());
     if (!isValidBackup(data)) throw new Error('Invalid Sundae Run backup');
+    if (!confirm(`Import ${data.entries.length} scoop${data.entries.length === 1 ? '' : 's'}? Existing entries will be kept.`)) return;
     const result = mergeBackup(data);
     showToast(`Restored ${result.entries} scoops`);
+    showView('home');
   } catch {
-    showToast('That file is not a valid Sundae Run backup');
+    showToast('Backup could not be restored');
   }
 });
 
@@ -1497,11 +1163,75 @@ document.getElementById('open-recap-btn').addEventListener('click', () => showVi
 // HOME RENDER
 // ════════════════════════════════════════
 
-async function renderHome() {
-  if (currentUser) {
-    document.getElementById('entry-list').innerHTML = '<div class="loading-row">Loading scoops…</div>';
-    _currentEntries = await fetchMyEntries().catch(() => _currentEntries);
+const entryFilters = { query: '', rating: 'all', year: 'all' };
+
+function filterEntries(entries, filters = entryFilters) {
+  const query = (filters.query || '').trim().toLowerCase();
+  const rating = String(filters.rating ?? 'all');
+  const year = String(filters.year ?? 'all');
+  return entries.filter(entry => {
+    const haystack = `${entry.flavor || ''} ${entry.shop || ''}`.toLowerCase();
+    if (query && !haystack.includes(query)) return false;
+    if (rating !== 'all' && Number(entry.rating || 0) !== Number(rating)) return false;
+    if (year !== 'all' && String(new Date(entry.date).getFullYear()) !== year) return false;
+    return true;
+  });
+}
+
+function syncEntryYearFilter(entries) {
+  const select = document.getElementById('entry-year-filter');
+  const years = [...new Set(entries.map(entry => new Date(entry.date).getFullYear()).filter(Number.isFinite))]
+    .sort((a, b) => b - a);
+  if (entryFilters.year !== 'all' && !years.includes(Number(entryFilters.year))) entryFilters.year = 'all';
+  select.innerHTML = '<option value="all">All years</option>' + years.map(year => `<option value="${year}">${year}</option>`).join('');
+  select.value = entryFilters.year;
+}
+
+function renderHomeEntries(entries) {
+  const list = document.getElementById('entry-list');
+  const browser = document.getElementById('entry-browser');
+  const summary = document.getElementById('entry-results-summary');
+  browser.hidden = !entries.length;
+  if (!entries.length) {
+    summary.textContent = '';
+    list.innerHTML='<div class="empty-state-card"><div class="empty-state-mark" aria-hidden="true">01</div><div class="empty-state-title">Start your scoop trail</div><p class="empty-state-copy">Save the flavor, shop, and rating so your favorites have somewhere to grow.</p><button class="empty-state-action" type="button" data-open-log>Log your first scoop</button></div>';
+    runHomeMotion();
+    return;
   }
+
+  const visibleEntries = filterEntries(entries);
+  const hasFilters = Boolean(entryFilters.query || entryFilters.rating !== 'all' || entryFilters.year !== 'all');
+  document.getElementById('entry-filter-clear').disabled = !hasFilters;
+  summary.textContent = hasFilters ? `${visibleEntries.length} of ${entries.length} scoops` : `${entries.length} scoop${entries.length === 1 ? '' : 's'}`;
+
+  if (!visibleEntries.length) {
+    list.innerHTML='<div class="empty-state-card"><div class="empty-state-title">No matching scoops</div><p class="empty-state-copy">Try a different flavor, shop, rating, or year.</p><button class="empty-state-action" type="button" data-clear-entry-filters>Clear filters</button></div>';
+    return;
+  }
+
+  list.innerHTML = visibleEntries.map(entry => {
+    const ratingHtml = entry.rating>0 ? `<div class="entry-rating">${'🍨'.repeat(entry.rating)}</div>` : '';
+    const meta = [entry.shop, formatDate(entry.date)].filter(Boolean).join(' · ');
+    const thumbHtml = entry.photo_data
+      ? `<img class="entry-photo-thumb" src="${escapeHtml(entry.photo_data)}" alt="">`
+      : `<div class="entry-chip" style="background:${chipColor(entry.flavor)}" aria-hidden="true">SR</div>`;
+    return `<button type="button" class="entry-card" data-id="${escapeHtml(entry.id)}" aria-label="Edit ${escapeHtml(entry.flavor)} entry">${thumbHtml}<span class="entry-info"><span class="entry-flavor">${escapeHtml(entry.flavor)}</span><span class="entry-meta">${escapeHtml(meta)}</span>${ratingHtml}</span><span aria-hidden="true" style="font-size:16px;color:var(--muted);opacity:0.4">›</span></button>`;
+  }).join('');
+  list.querySelectorAll('.entry-card').forEach(card => card.addEventListener('click', () => openEditView(card.dataset.id)));
+  runHomeMotion();
+}
+
+function clearEntryFilters({ render = true } = {}) {
+  entryFilters.query = '';
+  entryFilters.rating = 'all';
+  entryFilters.year = 'all';
+  document.getElementById('entry-search').value = '';
+  document.getElementById('entry-rating-filter').value = 'all';
+  document.getElementById('entry-year-filter').value = 'all';
+  if (render) renderHomeEntries(getActiveEntries());
+}
+
+function renderHome() {
   const entries = getActiveEntries();
   // Stats
   document.getElementById('stat-scoops').textContent  = entries.length;
@@ -1516,171 +1246,30 @@ async function renderHome() {
   const section = document.getElementById('top-flavors-section');
   if (top.length) {
     section.style.display='block';
+    const maxFlavorCount = top[0][1];
     document.getElementById('top-flavors-list').innerHTML = top.map(([name,count]) =>
-      `<div class="flavor-bar-row"><span class="flavor-bar-name">🍦 ${escapeHtml(name)}</span><span class="flavor-bar-count">${count}×</span></div>`).join('');
+      `<div class="flavor-bar-row"><span class="flavor-bar-fill" style="width:${Math.round(count/maxFlavorCount*100)}%" aria-hidden="true"></span><span class="flavor-bar-name">${escapeHtml(name)}</span><span class="flavor-bar-count">${count}×</span></div>`).join('');
   } else { section.style.display='none'; }
-  // Entry list
-  const list = document.getElementById('entry-list');
-  if (!entries.length) { list.innerHTML='<div class="empty-state">No scoops yet —<br>tap ➕ to log your first! 🍦</div>'; return; }
-  list.innerHTML = entries.map(entry => {
-    const ratingHtml = entry.rating>0 ? `<div class="entry-rating">${'🍨'.repeat(entry.rating)}</div>` : '';
-    const meta = [entry.shop, formatDate(entry.date)].filter(Boolean).join(' · ');
-    const thumbHtml = entry.photo_data
-      ? `<img class="entry-photo-thumb" src="${escapeHtml(entry.photo_data)}" alt="">`
-      : `<div class="entry-chip" style="background:${chipColor(entry.flavor)}">🍦</div>`;
-    return `<button type="button" class="entry-card" data-id="${escapeHtml(entry.id)}" aria-label="Edit ${escapeHtml(entry.flavor)} entry">${thumbHtml}<span class="entry-info"><span class="entry-flavor">${escapeHtml(entry.flavor)}</span><span class="entry-meta">${escapeHtml(meta)}</span>${ratingHtml}</span><span aria-hidden="true" style="font-size:16px;color:var(--muted);opacity:0.4">›</span></button>`;
-  }).join('');
-  list.querySelectorAll('.entry-card').forEach(card => card.addEventListener('click', () => openEditView(card.dataset.id)));
+  syncEntryYearFilter(entries);
+  renderHomeEntries(entries);
 }
 
-// ════════════════════════════════════════
-// FEED RENDER
-// ════════════════════════════════════════
-
-function renderFeedCard(entry) {
-  const p = entry._profile;
-  const likeCount = entry._likeCount ?? 0;
-  const iLiked    = entry._iLiked ?? false;
-  const initial   = p ? avatarInitial(p) : '?';
-  const name      = escapeHtml(p?.display_name || p?.username || 'Someone');
-  const username  = escapeHtml(p?.username || '');
-  return `
-    <div class="feed-card">
-      <div class="feed-card-header">
-        <div class="feed-avatar" data-uid="${escapeHtml(entry.user_id || '')}">${initial}</div>
-        <div style="flex:1;min-width:0">
-          <div class="feed-username" data-uid="${escapeHtml(entry.user_id || '')}">${name}</div>
-          <div class="feed-time">${username ? '@'+username+' · ' : ''}${timeAgo(entry.created_at)}</div>
-        </div>
-        ${entry.rating>0 ? `<div class="feed-rating">${'🍨'.repeat(entry.rating)}</div>` : ''}
-      </div>
-      ${entry.photo_data ? `<img class="feed-photo" src="${escapeHtml(entry.photo_data)}" alt="" loading="lazy">` : ''}
-      <div class="feed-body">
-        <div class="feed-flavor">🍦 ${escapeHtml(entry.flavor)}</div>
-        ${entry.shop ? `<div class="feed-shop">📍 ${escapeHtml(entry.shop)}</div>` : ''}
-        ${entry.notes ? `<div class="feed-notes">${escapeHtml(entry.notes)}</div>` : ''}
-        <div class="feed-footer">
-          <button class="like-btn ${iLiked?'liked':''}" data-entry-id="${escapeHtml(entry.id)}" data-liked="${iLiked}">
-            <span class="like-btn-icon">${iLiked?'❤️':'🤍'}</span>
-            <span class="like-count">${likeCount}</span>
-          </button>
-        </div>
-      </div>
-    </div>`;
-}
-
-function wireFeedInteractions(list) {
-  list.querySelectorAll('.like-btn').forEach(btn => {
-    btn.addEventListener('click', () => toggleLike(btn.dataset.entryId, btn));
-  });
-  list.querySelectorAll('[data-uid]').forEach(el => {
-    el.addEventListener('click', () => {
-      const uid = el.dataset.uid;
-      if (!uid) return;
-      profileViewUserId = uid;
-      document.getElementById('profile-back-btn').style.display = 'inline';
-      showView('profile');
-    });
-  });
-}
-
-async function renderFeedView() {
-  const list = document.getElementById('feed-list');
-  if (!currentUser) {
-    list.innerHTML = `<div class="empty-state" style="padding:64px 24px"><div style="font-size:48px;margin-bottom:16px">🌊</div><div style="font-size:16px;font-weight:700;color:var(--text);margin-bottom:8px">See what friends are eating</div><div style="margin-bottom:24px;font-size:14px">Sign in to follow friends and share your scoops</div><button class="btn-submit" onclick="showView('auth')" style="width:auto;padding:12px 32px">Sign In</button></div>`;
-    return;
-  }
-  list.innerHTML = '<div class="loading-row">Loading feed…</div>';
-  try {
-    const entries = await fetchFeedEntries();
-    if (!entries.length) {
-      list.innerHTML = `<div class="empty-state" style="padding:48px 24px"><div style="font-size:48px;margin-bottom:12px">🌊</div><div style="font-size:16px;font-weight:700;color:var(--text);margin-bottom:8px">Your feed is empty</div><div>Follow friends to see their scoops.<br>Use 🔍 to find people!</div></div>`;
-      return;
-    }
-    list.innerHTML = entries.map(renderFeedCard).join('');
-    wireFeedInteractions(list);
-  } catch { list.innerHTML = '<div class="empty-state">Could not load feed. Check your connection.</div>'; }
-}
-
-// ════════════════════════════════════════
-// PROFILE RENDER
-// ════════════════════════════════════════
-
-async function renderProfileView(userId) {
-  const content = document.getElementById('profile-content');
-  const isOwn   = !userId || userId === currentUser?.id;
-
-  if (!currentUser) {
-    content.innerHTML = `<div class="profile-login-prompt"><div class="emoji">👤</div><div style="font-size:16px;font-weight:700;color:var(--text);margin-bottom:8px">Create your profile</div><div style="color:var(--muted);margin-bottom:24px;font-size:14px">Sign in to track scoops and follow friends</div><button class="btn-submit" onclick="showView('auth')" style="width:auto;padding:12px 32px">Sign In</button></div>`;
-    return;
-  }
-
-  content.innerHTML = '<div class="loading-row">Loading profile…</div>';
-
-  try {
-    const uid     = isOwn ? currentUser.id : userId;
-    const profile = isOwn ? currentProfile : await fetchProfile(uid);
-    const stats   = await fetchProfileStats(uid);
-
-    let entries;
-    if (isOwn) {
-      if (!_currentEntries.length) _currentEntries = await fetchMyEntries();
-      entries = _currentEntries;
-    } else {
-      const { data } = await SB.from('entries').select('*').eq('user_id', uid).eq('is_public', true).order('created_at', { ascending: false });
-      entries = (data ?? []).map(normalizeEntry);
-    }
-
-    const following = isOwn ? false : await isFollowing(uid);
-    const initial   = avatarInitial(profile);
-    const dname     = escapeHtml(profile?.display_name || profile?.username || 'User');
-    const uname     = escapeHtml(profile?.username || '');
-
-    content.innerHTML = `
-      <div class="profile-header">
-        <div class="profile-avatar-lg">${initial}</div>
-        <div class="profile-name">${dname}</div>
-        ${uname ? `<div class="profile-at">@${uname}</div>` : ''}
-        ${isOwn
-          ? `<button class="signout-btn" id="btn-signout">Sign Out</button>`
-          : `<button class="follow-btn ${following?'following':''}" id="btn-follow" data-uid="${escapeHtml(uid)}" data-following="${following}">${following?'Following':'Follow'}</button>`}
-      </div>
-      <div class="profile-stats-row">
-        <div class="profile-stat"><span class="profile-stat-val">${entries.length}</span><span class="profile-stat-lbl">Scoops</span></div>
-        <div class="profile-stat"><span class="profile-stat-val">${stats.followers}</span><span class="profile-stat-lbl">Followers</span></div>
-        <div class="profile-stat"><span class="profile-stat-val">${stats.following}</span><span class="profile-stat-lbl">Following</span></div>
-      </div>
-      <div class="section-label">${isOwn ? 'Your Scoops' : 'Public Scoops'}</div>
-      <div class="profile-posts-grid" id="profile-grid">
-        ${entries.length
-          ? entries.map(e => `
-              <div class="profile-post-cell" data-id="${escapeHtml(e.id)}">
-                ${e.photo_data
-                  ? `<img src="${escapeHtml(e.photo_data)}" alt="" loading="lazy">`
-                  : `<span>🍦</span>`}
-              </div>`).join('')
-          : `<div style="grid-column:1/-1" class="empty-state">No ${isOwn?'':'public '}scoops yet 🍦</div>`}
-      </div>`;
-
-    if (isOwn) {
-      document.getElementById('btn-signout').addEventListener('click', async () => {
-        if (!confirm('Sign out?')) return;
-        await sbSignOut();
-      });
-    } else {
-      document.getElementById('btn-follow').addEventListener('click', function() { toggleFollow(uid, this); });
-    }
-
-    // Tap entry cell → open edit (own) or do nothing (others for now)
-    if (isOwn) {
-      content.querySelectorAll('.profile-post-cell[data-id]').forEach(cell => {
-        cell.addEventListener('click', () => openEditView(cell.dataset.id));
-      });
-    }
-  } catch (err) {
-    content.innerHTML = '<div class="empty-state">Could not load profile.</div>';
-  }
-}
+document.getElementById('entry-search').addEventListener('input', event => {
+  entryFilters.query = event.target.value;
+  renderHomeEntries(getActiveEntries());
+});
+document.getElementById('entry-rating-filter').addEventListener('change', event => {
+  entryFilters.rating = event.target.value;
+  renderHomeEntries(getActiveEntries());
+});
+document.getElementById('entry-year-filter').addEventListener('change', event => {
+  entryFilters.year = event.target.value;
+  renderHomeEntries(getActiveEntries());
+});
+document.getElementById('entry-filter-clear').addEventListener('click', () => clearEntryFilters());
+document.addEventListener('click', event => {
+  if (event.target.closest('[data-clear-entry-filters]')) clearEntryFilters();
+});
 
 // ════════════════════════════════════════
 // SHOPS VIEW RENDER
@@ -1733,66 +1322,6 @@ function renderShopsView() {
 }
 
 // ════════════════════════════════════════
-// AUTH VIEW INTERACTIONS
-// ════════════════════════════════════════
-
-function showAuthError(msg) {
-  const el = document.getElementById('auth-error');
-  el.textContent = msg; el.style.display = 'block';
-}
-function clearAuthError() { document.getElementById('auth-error').style.display = 'none'; }
-
-// Sign in / Sign up tab switch
-document.getElementById('auth-signin-tab').addEventListener('click', () => {
-  document.getElementById('auth-signin-tab').classList.add('active');
-  document.getElementById('auth-signup-tab').classList.remove('active');
-  document.getElementById('auth-signin-pane').style.display = '';
-  document.getElementById('auth-signup-pane').style.display = 'none';
-  clearAuthError();
-});
-document.getElementById('auth-signup-tab').addEventListener('click', () => {
-  document.getElementById('auth-signup-tab').classList.add('active');
-  document.getElementById('auth-signin-tab').classList.remove('active');
-  document.getElementById('auth-signup-pane').style.display = '';
-  document.getElementById('auth-signin-pane').style.display = 'none';
-  clearAuthError();
-});
-
-document.getElementById('btn-signin').addEventListener('click', async () => {
-  clearAuthError();
-  const email    = document.getElementById('auth-email').value.trim();
-  const password = document.getElementById('auth-password').value;
-  if (!email || !password) { showAuthError('Please fill in all fields.'); return; }
-  const btn = document.getElementById('btn-signin');
-  btn.disabled = true; btn.textContent = 'Signing in…';
-  try { await sbSignIn(email, password); }
-  catch (err) { showAuthError(err.message || 'Sign in failed.'); btn.disabled=false; btn.textContent='Sign In 🍦'; }
-});
-
-document.getElementById('btn-signup').addEventListener('click', async () => {
-  clearAuthError();
-  const username  = document.getElementById('auth-username').value.trim();
-  const dname     = document.getElementById('auth-displayname').value.trim();
-  const email     = document.getElementById('auth-signup-email').value.trim();
-  const password  = document.getElementById('auth-signup-password').value;
-  if (!username || !email || !password) { showAuthError('Please fill in all fields.'); return; }
-  if (password.length < 6) { showAuthError('Password must be 6+ characters.'); return; }
-  const btn = document.getElementById('btn-signup');
-  btn.disabled = true; btn.textContent = 'Creating account…';
-  try {
-    await sbSignUp(email, password, username, dname);
-    showToast('Account created! Check your email if needed 📧');
-  } catch (err) { showAuthError(err.message || 'Sign up failed.'); }
-  btn.disabled = false; btn.textContent = 'Create Account 🍦';
-});
-
-document.getElementById('btn-guest').addEventListener('click', () => {
-  guestMode = true;
-  localStorage.setItem(GUEST_KEY, '1');
-  showView('home');
-});
-
-// ════════════════════════════════════════
 // RATING PICKER
 // ════════════════════════════════════════
 
@@ -1813,25 +1342,6 @@ function setEditRating(value) {
 document.querySelectorAll('.edit-rating-btn').forEach(btn => {
   btn.addEventListener('click', () => { const v=Number(btn.dataset.value); setEditRating(v===selectedEditRating?0:v); });
 });
-
-// ════════════════════════════════════════
-// SHARE TOGGLE
-// ════════════════════════════════════════
-
-function wireToggle(checkboxId, trackId) {
-  const checkbox = document.getElementById(checkboxId);
-  const track    = document.getElementById(trackId);
-  if (!checkbox || !track) return;
-  checkbox.addEventListener('change', () => track.classList.toggle('on', checkbox.checked));
-}
-wireToggle('share-toggle', 'share-track');
-wireToggle('edit-share-toggle', 'edit-share-track');
-
-function updateShareToggles() {
-  const show = !!currentUser;
-  document.getElementById('share-toggle-group').style.display = show ? 'block' : 'none';
-  document.getElementById('edit-share-group').style.display   = show ? 'block' : 'none';
-}
 
 // ════════════════════════════════════════
 // FLAVOR AUTOCOMPLETE
@@ -1926,28 +1436,18 @@ document.getElementById('log-form').addEventListener('submit', async e => {
     const notes    = document.getElementById('input-notes').value;
     const date     = document.getElementById('input-date').value;
     const priceVal = document.getElementById('input-price').value;
-    const price    = priceVal==='' ? null : parseFloat(priceVal);
-    const isPublic = document.getElementById('share-toggle').checked;
-
-    if (currentUser) {
-      let photo_url = null;
-      if (currentLogPhoto) photo_url = await uploadPhotoToSupabase(currentLogPhoto).catch(() => null);
-      const newEntry = await saveEntryToSupabase({ flavor, shop, rating: selectedRating, notes, date, price, photo_url, is_public: isPublic });
-      _currentEntries.unshift(newEntry);
-    } else {
-      addLocalEntry({ flavor, shop, rating: selectedRating, notes, date, price, photo_data: currentLogPhoto });
-    }
+    const price    = parseOptionalPrice(priceVal);
+    addLocalEntry({ flavor, shop, rating: selectedRating, notes, date, price, photo_data: currentLogPhoto });
 
     document.getElementById('log-form').reset();
     setRating(0);
     initDateField();
     clearLogPhoto();
-    document.getElementById('share-toggle').checked = false;
-    document.getElementById('share-track').classList.remove('on');
-    showToast(isPublic && currentUser ? 'Scoop posted to your feed! 🍦' : 'Scoop logged! 🍦');
+    clearEntryFilters({ render: false });
+    showToast('Scoop logged! 🍦');
     showView('home');
   } catch (err) {
-    showToast('Error saving. Try again.');
+    showToast(err?.message || 'Error saving. Try again.');
     console.error(err);
   } finally {
     btn.disabled = false; btn.textContent = 'Log It 🍦';
@@ -1985,12 +1485,6 @@ function openEditView(id) {
   document.getElementById('input-edit-date').value   = new Date(entry.date).toLocaleDateString('en-CA');
   document.getElementById('input-edit-price').value  = entry.price != null ? entry.price : '';
   setEditRating(entry.rating ?? 0);
-  // Share toggle
-  if (currentUser) {
-    const checked = entry.is_public ?? false;
-    document.getElementById('edit-share-toggle').checked = checked;
-    document.getElementById('edit-share-track').classList.toggle('on', checked);
-  }
   showView('edit');
 }
 
@@ -2002,21 +1496,18 @@ document.getElementById('edit-save-btn').addEventListener('click', async () => {
   const flavor = BUILTIN_FLAVOR_MAP[flavorRaw.toLowerCase()] || flavorRaw;
   const btn = document.getElementById('edit-save-btn');
   btn.disabled = true; btn.textContent = 'Saving…';
-  const editPriceVal = document.getElementById('input-edit-price').value;
-  const fields = {
-    flavor,
-    shop:   document.getElementById('input-edit-shop').value,
-    rating: selectedEditRating,
-    notes:  document.getElementById('input-edit-notes').value,
-    date:   document.getElementById('input-edit-date').value,
-    price:  editPriceVal==='' ? null : parseFloat(editPriceVal),
-    is_public: document.getElementById('edit-share-toggle').checked,
-  };
   try {
-    if (currentUser) { await updateEntryInSupabase(editingId, fields); }
-    else { updateLocalEntry(editingId, fields); }
+    const fields = {
+      flavor,
+      shop:   document.getElementById('input-edit-shop').value,
+      rating: selectedEditRating,
+      notes:  document.getElementById('input-edit-notes').value,
+      date:   document.getElementById('input-edit-date').value,
+      price:  parseOptionalPrice(document.getElementById('input-edit-price').value),
+    };
+    updateLocalEntry(editingId, fields);
     editingId = null; showView('home');
-  } catch { showToast('Error saving. Try again.'); }
+  } catch (error) { showToast(error?.message || 'Error saving. Try again.'); }
   btn.disabled=false; btn.textContent='Save Changes';
 });
 
@@ -2025,50 +1516,47 @@ document.getElementById('edit-delete-btn').addEventListener('click', async () =>
   const btn = document.getElementById('edit-delete-btn');
   btn.disabled = true; btn.textContent = 'Deleting…';
   try {
-    if (currentUser) { await deleteEntryFromSupabase(editingId); }
-    else { deleteLocalEntry(editingId); }
+    deleteLocalEntry(editingId);
     editingId = null; showView('home');
   } catch { showToast('Error deleting. Try again.'); }
   btn.disabled=false; btn.textContent='Delete Entry';
 });
 
 // ════════════════════════════════════════
-// USER SEARCH (Feed)
+// MOTION
 // ════════════════════════════════════════
 
-document.getElementById('btn-search-users').addEventListener('click', () => {
-  const wrap = document.getElementById('user-search-wrap');
-  const isOpen = wrap.style.display !== 'none';
-  wrap.style.display = isOpen ? 'none' : 'block';
-  if (!isOpen) document.getElementById('input-user-search').focus();
-});
+function motionIsAvailable() {
+  return Boolean(window.Motion?.animate && window.Motion?.stagger)
+    && !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+}
 
-let searchTimer = null;
-document.getElementById('input-user-search').addEventListener('input', e => {
-  clearTimeout(searchTimer);
-  const q = e.target.value.trim();
-  const results = document.getElementById('user-search-results');
-  if (!q) { results.innerHTML=''; return; }
-  searchTimer = setTimeout(async () => {
-    const users = await searchUsers(q);
-    if (!users.length) { results.innerHTML='<div style="padding:14px;color:var(--muted);font-size:13px">No users found</div>'; return; }
-    results.innerHTML = users.map(u => `
-      <div class="user-result" data-uid="${escapeHtml(u.id)}">
-        <div class="user-result-avatar">${avatarInitial(u)}</div>
-        <div><div class="user-result-name">${escapeHtml(u.display_name||u.username)}</div><div class="user-result-username">@${escapeHtml(u.username)}</div></div>
-      </div>`).join('');
-    results.querySelectorAll('.user-result').forEach(row => {
-      row.addEventListener('click', () => {
-        profileViewUserId = row.dataset.uid;
-        document.getElementById('profile-back-btn').style.display = 'inline';
-        document.getElementById('user-search-wrap').style.display = 'none';
-        document.getElementById('input-user-search').value = '';
-        document.getElementById('user-search-results').innerHTML = '';
-        showView('profile');
-      });
+function runViewMotion(name) {
+  if (!motionIsAvailable()) return;
+  const view = document.getElementById('view-' + name);
+  if (!view) return;
+  const { animate, stagger } = window.Motion;
+  const lead = view.querySelectorAll('.header h1, .brand-mark, .hero-kicker, .hero-title, .hero-copy, .hero-action');
+  if (lead.length) {
+    animate(lead, { opacity: [0, 1], y: [6, 0] }, {
+      duration: .28,
+      delay: stagger(.025),
+      ease: [.2, .8, .2, 1]
     });
-  }, 300);
-});
+  }
+}
+
+function runHomeMotion() {
+  if (!motionIsAvailable()) return;
+  const { animate, stagger } = window.Motion;
+  const items = document.querySelectorAll('#view-home.active .stat-card, #view-home.active .streak-card, #view-home.active .flavor-bar-row, #view-home.active .entry-card, #view-home.active .empty-state-card');
+  if (!items.length) return;
+  animate(items, { opacity: [0, 1], y: [5, 0] }, {
+    duration: .24,
+    delay: stagger(.02),
+    ease: [.2, .8, .2, 1]
+  });
+}
 
 // ════════════════════════════════════════
 // VIEW SWITCHING
@@ -2076,42 +1564,31 @@ document.getElementById('input-user-search').addEventListener('input', e => {
 
 function showView(name) {
   document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
-  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => { b.classList.remove('active'); b.removeAttribute('aria-current'); });
   document.getElementById('view-' + name).classList.add('active');
   const tabBar = document.getElementById('tab-bar');
-  tabBar.style.display = (name === 'auth') ? 'none' : '';
-  if (name !== 'edit' && name !== 'auth') {
+  tabBar.style.display = '';
+  if (name !== 'edit') {
     const tab = document.querySelector(`.tab-btn[data-view="${name}"]`);
-    if (tab) tab.classList.add('active');
+    if (tab) { tab.classList.add('active'); tab.setAttribute('aria-current', 'page'); }
   }
   document.getElementById('app').classList.toggle('editing', name === 'edit');
   if (name === 'home')    renderHome();
-  if (name === 'feed')    renderFeedView();
   if (name === 'shops')   renderShopsView();
   if (name === 'wrapped') renderWrappedView();
-  if (name === 'profile') {
-    const uid = profileViewUserId;
-    const backBtn = document.getElementById('profile-back-btn');
-    backBtn.style.display = (uid && uid !== currentUser?.id) ? 'inline' : 'none';
-    renderProfileView(uid);
-  }
   document.getElementById('view-' + name).scrollTop = 0;
+  requestAnimationFrame(() => runViewMotion(name));
 }
 
 // Tab bar clicks
 document.querySelectorAll('.tab-btn').forEach(btn => {
-  btn.addEventListener('click', () => {
-    if (btn.dataset.view === 'profile') profileViewUserId = null;
-    showView(btn.dataset.view);
-  });
+  btn.addEventListener('click', () => showView(btn.dataset.view));
 });
 
-// Profile back button
-document.getElementById('profile-back-btn').addEventListener('click', () => {
-  profileViewUserId = null;
-  document.getElementById('profile-back-btn').style.display = 'none';
-  showView('feed');
+document.addEventListener('click', event => {
+  if (event.target.closest('[data-open-log]')) showView('log');
 });
+
 
 // ════════════════════════════════════════
 // PHOTO CAPTURE
@@ -2203,11 +1680,12 @@ function renderShopsMap(visitedShops) {
   if (!document.getElementById('shops-map')) wrap.innerHTML = '<div id="shops-map"></div>';
   const localUserLocation = isInSouthernCalifornia(userLocation) ? userLocation : null;
   const defaultCenter = localUserLocation ? [localUserLocation.lat, localUserLocation.lng] : [SAN_DIEGO_CENTER.lat, SAN_DIEGO_CENTER.lng];
+  const mapAccent = getComputedStyle(document.documentElement).getPropertyValue('--cherry').trim() || '#4F685B';
   if (!shopsMap) {
     shopsMap = L.map('shops-map', { zoomControl: true, attributionControl: true });
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 19, attribution:'&copy; OpenStreetMap contributors' }).addTo(shopsMap);
     shopsMap.setView(defaultCenter, localUserLocation ? 13 : 11);
-    if (localUserLocation) L.circleMarker(defaultCenter, { radius:8, fillColor:'#7A1E2B', color:'white', weight:2.5, fillOpacity:0.9 }).addTo(shopsMap).bindPopup('<b style="color:#7A1E2B">You are here</b>');
+    if (localUserLocation) L.circleMarker(defaultCenter, { radius:8, fillColor:mapAccent, color:'white', weight:2.5, fillOpacity:0.9 }).addTo(shopsMap).bindPopup(`<b style="color:${mapAccent}">You are here</b>`);
   } else {
     shopsMap.eachLayer(layer => { if (layer instanceof L.Marker) shopsMap.removeLayer(layer); });
   }
@@ -2222,10 +1700,10 @@ function renderShopsMap(visitedShops) {
         L.marker([coords.lat, coords.lng], {
           icon: L.divIcon({
             className: '',
-            html: `<div style="background:white;border-radius:50%;border:2.5px solid #7A1E2B;width:36px;height:36px;display:flex;align-items:center;justify-content:center;font-size:18px;box-shadow:0 2px 8px rgba(122,30,43,0.22);position:relative;">🍦${shop.count>1?`<span style="position:absolute;top:-5px;right:-5px;background:#7A1E2B;color:white;border-radius:9px;font-size:9px;font-weight:800;min-width:16px;height:16px;display:flex;align-items:center;justify-content:center;padding:0 3px">${shop.count}</span>`:''}</div>`,
+            html: `<div style="background:white;border-radius:50%;border:2.5px solid ${mapAccent};width:36px;height:36px;display:flex;align-items:center;justify-content:center;font-size:18px;box-shadow:0 2px 8px rgba(79,104,91,.22);position:relative;">🍦${shop.count>1?`<span style="position:absolute;top:-5px;right:-5px;background:${mapAccent};color:white;border-radius:9px;font-size:9px;font-weight:800;min-width:16px;height:16px;display:flex;align-items:center;justify-content:center;padding:0 3px">${shop.count}</span>`:''}</div>`,
             iconSize:[36,36], iconAnchor:[18,18],
           })
-        }).bindPopup(`<b style="color:#7A1E2B">${escapeHtml(shop.name)}</b><br>${shop.count} visit${shop.count!==1?'s':''}${coords.address?`<br><small>${escapeHtml(coords.address)}</small>`:''}`).addTo(shopsMap);
+        }).bindPopup(`<b style="color:${mapAccent}">${escapeHtml(shop.name)}</b><br>${shop.count} visit${shop.count!==1?'s':''}${coords.address?`<br><small>${escapeHtml(coords.address)}</small>`:''}`).addTo(shopsMap);
       }
       if (pending===0) {
         if (bounds.length===1) shopsMap.setView(bounds[0], 14);
@@ -2267,9 +1745,6 @@ if (new Date().getMonth() === 11) {
 async function initApp() {
   initDateField();
   wirePhotoInputs();
-  guestMode = true;
-  localStorage.setItem(GUEST_KEY, '1');
-  updateShareToggles();
   showView('home');
 }
 

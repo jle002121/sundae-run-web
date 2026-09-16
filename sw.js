@@ -1,4 +1,4 @@
-const CACHE = 'sundae-v9';
+const CACHE = 'sundae-v16';
 const ASSETS = [
   '/sundae-run-web/',
   '/sundae-run-web/index.html',
@@ -25,8 +25,8 @@ self.addEventListener('activate', e => {
 self.addEventListener('fetch', e => {
   if (e.request.method !== 'GET') return;
   const url = new URL(e.request.url);
-  // Never cache Supabase, map, or other third-party responses. In particular,
-  // authenticated account data must not enter the shared PWA app-shell cache.
+  // Keep map tiles, fonts, and other third-party responses out of the private
+  // journal's app-shell cache.
   if (url.origin !== self.location.origin) return;
   e.respondWith(
     fetch(e.request)
